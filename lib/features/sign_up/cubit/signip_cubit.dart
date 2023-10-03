@@ -1,0 +1,53 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medlife_v2/cubit/base_cubit.dart';
+import 'package:medlife_v2/features/sign_up/cubit/signup_states.dart';
+import 'package:medlife_v2/models/user_model/user_model.dart';
+import 'package:medlife_v2/routes/routes.dart';
+
+class SignUpCubit extends Cubit<SignUpStates> {
+  var firstNameController = TextEditingController();
+  var secondCameController = TextEditingController();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
+  var confirmPasswordController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseFirestore fireStore = FirebaseFirestore.instance;
+
+  static SignUpCubit get(context) => BlocProvider.of(context);
+
+  SignUpCubit() : super(SignUpInitial());
+
+
+
+  static Future<void> addUserToFirestore(UserModel user) {
+    var collection = BaseCubit.getUsersCollection();
+    var docRef = collection.doc(user.id);
+    return docRef.set(user);
+  }
+
+  Future<void> signUp(
+      {required String email,
+      required String password,
+      required String firstName,required String secondName ,required BuildContext context}) async {
+    try {
+      emit(SignUpLoading());
+      final UserCredential userCredential =
+          await auth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      UserModel userModel =
+          UserModel(id: userCredential.user!.uid, firstName: firstName, secondName: secondName, email: email);
+      addUserToFirestore(userModel).then((value) {
+        Navigator.pushReplacementNamed(context, Routes.pageIndicator);
+      });
+      emit(SignUpSuccess(userCredential.user!.uid));
+    } catch (e) {
+      emit(SignUpFailure(e.toString()));
+    }
+  }
+}
