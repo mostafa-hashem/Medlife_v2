@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../config/utils/app_colors.dart';
 import '../../../config/utils/components.dart';
 import '../../../config/utils/text_styles.dart';
+import '../../../cubit/base_cubit.dart';
 import '../../../routes/routes.dart';
 import '../cubit/login_cubit.dart';
 import '../cubit/login_state.dart';
@@ -41,7 +42,7 @@ class LoginScreen extends StatelessWidget {
                   DefaultFormField(
                       controller: LoginCubit.get(context).emailController,
                       type: TextInputType.emailAddress,
-                      validate: (p0) => null,
+                      validate: (value) => BaseCubit.validateForEmail(value),
                       label: "E-mail"),
                   SizedBox(
                     height: 32.h,
@@ -50,7 +51,8 @@ class LoginScreen extends StatelessWidget {
                       suffix: Icons.visibility,
                       controller: LoginCubit.get(context).passwordController,
                       type: TextInputType.text,
-                      validate: (p0) => null,
+                      validate: (value) =>
+                          BaseCubit.validate(value, "Please enter password"),
                       label: "Password"),
                   SizedBox(
                     height: 8.h,
@@ -79,7 +81,16 @@ class LoginScreen extends StatelessWidget {
                   ),
                   DefaultTextButton(
                     function: () {
-                      LoginCubit.get(context).login(email: LoginCubit.get(context).emailController.text, password: LoginCubit.get(context).passwordController.text, context: context);
+                      if (LoginCubit.get(context)
+                          .formKey
+                          .currentState!
+                          .validate()) {
+                        LoginCubit.get(context).login(
+                            email: LoginCubit.get(context).emailController.text,
+                            password:
+                                LoginCubit.get(context).passwordController.text,
+                            context: context);
+                      }
                     },
                     text: "Login",
                     textStyle: openSans14W500(color: Colors.white),

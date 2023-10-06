@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:medlife_v2/cubit/base_cubit.dart';
 import '../../../config/utils/app_colors.dart';
 import '../../../config/utils/components.dart';
 import '../../../config/utils/text_styles.dart';
@@ -43,7 +43,7 @@ class SignUpScreen extends StatelessWidget {
                     DefaultFormField(
                         controller: SignUpCubit.get(context).emailController,
                         type: TextInputType.emailAddress,
-                        validate: (p0) => null,
+                        validate: (value) => BaseCubit.validateForEmail(value),
                         label: "E-mail"),
                     SizedBox(
                       height: 32.h,
@@ -56,7 +56,8 @@ class SignUpScreen extends StatelessWidget {
                               controller:
                                   SignUpCubit.get(context).firstNameController,
                               type: TextInputType.name,
-                              validate: (p0) => null,
+                              validate: (value) => BaseCubit.validate(
+                                  value, "Please enter first name"),
                               label: "First Name"),
                         ),
                         SizedBox(
@@ -68,7 +69,8 @@ class SignUpScreen extends StatelessWidget {
                               controller:
                                   SignUpCubit.get(context).secondCameController,
                               type: TextInputType.name,
-                              validate: (p0) => null,
+                              validate: (value) => BaseCubit.validate(
+                                  value, "Please enter second name"),
                               label: "Second Name"),
                         ),
                       ],
@@ -80,12 +82,8 @@ class SignUpScreen extends StatelessWidget {
                         suffix: Icons.visibility,
                         controller: SignUpCubit.get(context).passwordController,
                         type: TextInputType.text,
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return "Please enter password";
-                          }
-                          return null;
-                        },
+                        validate: (value) =>
+                            BaseCubit.validate(value, "Please enter password"),
                         label: "Password"),
                     SizedBox(
                       height: 32.h,
@@ -94,31 +92,32 @@ class SignUpScreen extends StatelessWidget {
                         controller:
                             SignUpCubit.get(context).confirmPasswordController,
                         type: TextInputType.text,
-                        validate: (value) {
-                          if (value!.isEmpty) {
-                            return "Please confirm password";
-                          }
-                          return null;
-                        },
+                        validate: (value) => BaseCubit.validate(
+                            value, "Please confirm Password"),
                         label: "Confirm Password"),
                     SizedBox(
                       height: 18.h,
                     ),
                     DefaultTextButton(
                       function: () {
-                        SignUpCubit.get(context).signUp(
-                            context: context,
-                            email:
+                          if (SignUpCubit.get(context)
+                              .formKey
+                              .currentState!
+                              .validate()) {
+                            SignUpCubit.get(context).signUp(
+                                context: context,
+                                email:
                                 SignUpCubit.get(context).emailController.text,
-                            password: SignUpCubit.get(context)
-                                .passwordController
-                                .text,
-                            firstName: SignUpCubit.get(context)
-                                .firstNameController
-                                .text,
-                            secondName: SignUpCubit.get(context)
-                                .secondCameController
-                                .text);
+                                password: SignUpCubit.get(context)
+                                    .passwordController
+                                    .text,
+                                firstName: SignUpCubit.get(context)
+                                    .firstNameController
+                                    .text,
+                                secondName: SignUpCubit.get(context)
+                                    .secondCameController
+                                    .text);
+                          }
                       },
                       text: "Create account",
                       textStyle: openSans14W500(color: Colors.white),

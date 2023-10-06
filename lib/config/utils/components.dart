@@ -125,7 +125,7 @@ class DefaultFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      keyboardType: TextInputType.phone,
+      keyboardType: type,
       textInputAction: TextInputAction.next,
       obscureText: isPassword,
       enabled: isClickable,

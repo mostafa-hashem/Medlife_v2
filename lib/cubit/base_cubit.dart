@@ -15,5 +15,25 @@ class BaseCubit extends Cubit<BaseStates>{
       toFirestore: (user, options) => user.toJson(),
     );
   }
+  static String? validateForEmail(value) {
+    RegExp regex = RegExp(
+        r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    if (value.isEmpty) {
+      return "Please Enter Email";
+    } else {
+      if (!regex.hasMatch(value)) {
+        return 'Enter valid Email';
+      } else {
+        return null;
+      }
+    }
+  }
+
+  static String? validate(value, message) {
+    if (value.isEmpty) {
+      return message;
+    }
+    return null;
+  }
 
 }

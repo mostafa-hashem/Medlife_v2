@@ -25,13 +25,21 @@ class LoginCubit extends Cubit<LoginStates> {
             email: email,
             password: password,
           )
-          .then((value) =>
-              () => Navigator.pushReplacementNamed(context, Routes.pageIndicator));
+          .then((value) => () =>
+              Navigator.pushReplacementNamed(context, Routes.pageIndicator));
       emit(LoginSuccess());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("User not found.")));
+        }
         emit(LoginFailure(e.toString()));
       } else if (e.code == 'wrong-password') {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(const SnackBar(content: Text("Wrong password")));
+        }
         emit(LoginFailure(e.toString()));
       }
     }

@@ -5,7 +5,7 @@ import '../../../../config/utils/text_styles.dart';
 
 class CustomProfileContainer extends StatelessWidget {
   TextEditingController controller = TextEditingController();
-   TextInputType textInputType;
+   final TextInputType textInputType;
    final String text;
    CustomProfileContainer({super.key, required this.controller, required this.text,required this.textInputType});
   @override

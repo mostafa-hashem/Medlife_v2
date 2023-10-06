@@ -21,9 +21,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
 
   SignUpCubit() : super(SignUpInitial());
 
-
-
-  static Future<void> addUserToFirestore(UserModel user) {
+  static Future<void> addUserToFireStore(UserModel user) {
     var collection = BaseCubit.getUsersCollection();
     var docRef = collection.doc(user.id);
     return docRef.set(user);
@@ -32,7 +30,9 @@ class SignUpCubit extends Cubit<SignUpStates> {
   Future<void> signUp(
       {required String email,
       required String password,
-      required String firstName,required String secondName ,required BuildContext context}) async {
+      required String firstName,
+      required String secondName,
+      required BuildContext context}) async {
     try {
       emit(SignUpLoading());
       final UserCredential userCredential =
@@ -40,12 +40,29 @@ class SignUpCubit extends Cubit<SignUpStates> {
         email: email,
         password: password,
       );
-      UserModel userModel =
-          UserModel(id: userCredential.user!.uid, firstName: firstName, secondName: secondName, email: email);
-      addUserToFirestore(userModel).then((value) {
+      UserModel userModel = UserModel(
+          id: userCredential.user!.uid,
+          firstName: firstName,
+          secondName: secondName,
+          email: email);
+      addUserToFireStore(userModel).then((value) {
         Navigator.pushReplacementNamed(context, Routes.pageIndicator);
       });
       emit(SignUpSuccess(userCredential.user!.uid));
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text("The password provided is too weak.")));
+        }
+        emit(SignUpFailure(e.toString()));
+      } else if (e.code == 'email-already-in-use') {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text("Email already in use")));
+        }
+        emit(SignUpFailure(e.toString()));
+      }
     } catch (e) {
       emit(SignUpFailure(e.toString()));
     }
