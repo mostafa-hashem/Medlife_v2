@@ -26,6 +26,9 @@ TextStyle openSans14W400({required Color color}) => GoogleFonts.poppins(
 TextStyle openSans14W500({required Color color}) => GoogleFonts.poppins(
     fontSize: 14.sp, fontWeight: FontWeight.w500, color: color);
 
+TextStyle openSans14W600({required Color color}) => GoogleFonts.poppins(
+    fontSize: 14.sp, fontWeight: FontWeight.w600, color: color);
+
 TextStyle openSans12W400({required Color color}) => GoogleFonts.poppins(
     fontSize: 12.sp, fontWeight: FontWeight.w400, color: color);
 

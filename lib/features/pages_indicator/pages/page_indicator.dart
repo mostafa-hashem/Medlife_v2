@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/config/utils/app_colors.dart';
-import '../../home/cubit/home_cubit.dart';
 import '../cubit/page_indicator_cubit.dart';
 import '../cubit/page_indicator_states.dart';
 
@@ -11,6 +10,8 @@ class PageIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pageCubit = PageIndicatorCubit.get(context);
+    PageIndicatorCubit.get(context).initUser();
+
     return BlocConsumer<PageIndicatorCubit, PageIndicatorState>(
         listener: (context, state) {
           if (state is PageIndicatorConnectedState) {
@@ -54,15 +55,16 @@ class PageIndicator extends StatelessWidget {
                     ),
                     BottomNavigationBarItem(
                       icon: pageCubit.currentIndex == 1
-                          ? Image.asset("assets/images/selected_cart.png")
-                          : Image.asset("assets/images/unSelected_cart.png"),
-                      label: 'Cart',
+                          ? Image.asset("assets/images/unSelected_favorite.png")
+                          : Image.asset(
+                          "assets/images/unSelected_favorite.png"),
+                      label: 'Favorite',
                     ),
                     BottomNavigationBarItem(
                       icon: pageCubit.currentIndex == 2
-                          ? Image.asset("assets/images/unSelected_favorite.png")
-                          : Image.asset("assets/images/unSelected_favorite.png"),
-                      label: 'Favorite',
+                          ? Image.asset("assets/images/selected_cart.png")
+                          : Image.asset("assets/images/unSelected_cart.png"),
+                      label: 'Cart',
                     ),
                     BottomNavigationBarItem(
                       icon: pageCubit.currentIndex == 3

@@ -8,20 +8,11 @@ class CustomViewItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(7.r),
-        border: Border.all(
-            color: const Color(0xff2E3A58).withOpacity(0.2), width: 3.w),
-        boxShadow: [
-          BoxShadow(
-            color: const Color(0xff000000).withOpacity(0.015),
-            blurRadius: 3.05,
-            offset: const Offset(0, 3.05),
-            spreadRadius: 0,
-          )
-        ],
+    return Card(
+      elevation: 20,
+      shape: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(16.r),
+        borderSide: const BorderSide(color: Colors.transparent),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 5.w),

@@ -13,6 +13,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    PageIndicatorCubit.get(context).initUser();
     return BlocBuilder<PageIndicatorCubit, PageIndicatorState>(
       builder: (context, state) => Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -50,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               CustomProfileContainer(
                 text: "ID Number",
-                controller: PageIndicatorCubit.get(context).idController,
+                controller: PageIndicatorCubit.get(context).idNumberController,
                 textInputType: TextInputType.number,
               ),
               SizedBox(
@@ -83,7 +84,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               CustomProfileContainer(
                   text: "Email",
-                  controller: PageIndicatorCubit.get(context).idController,
+                  controller: PageIndicatorCubit.get(context).emailController,
                   textInputType: TextInputType.emailAddress),
               SizedBox(
                 height: 21.h,

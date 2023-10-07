@@ -6,7 +6,6 @@ import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_states.
 import '../../../config/utils/text_styles.dart';
 import '../../../routes/routes.dart';
 import '../../pages_indicator/cubit/page_indicator_cubit.dart';
-import '../cubit/home_cubit.dart';
 import 'home_widgets/custom_cat_item.dart';
 import 'home_widgets/custom_top_rated_item.dart';
 
@@ -15,7 +14,6 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PageIndicatorCubit.get(context).initUser();
     return BlocBuilder<PageIndicatorCubit, PageIndicatorState>(
       builder: (context, state) {
         return Padding(
@@ -169,6 +167,9 @@ class HomeScreen extends StatelessWidget {
                               itemCount: 10)),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 70.h,
                 ),
               ],
             ),

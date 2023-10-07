@@ -12,12 +12,18 @@ import '../../home/pages/home.dart';
 import '../../profile/pages/profile.dart';
 
 class PageIndicatorCubit extends Cubit<PageIndicatorState> {
-  PageIndicatorCubit({required this.networkInfo}) : super(PageIndicatorStateHome());
+  PageIndicatorCubit({required this.networkInfo})
+      : super(PageIndicatorStateHome());
 
   static PageIndicatorCubit get(context) => BlocProvider.of(context);
   final NetworkInfo networkInfo;
   int currentIndex = 0;
   TextEditingController idController = TextEditingController();
+  TextEditingController idNumberController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController dateOfBirthController = TextEditingController();
+  TextEditingController companyInsuranceNameController =
+      TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController secondNameController = TextEditingController();
   User? firebaseUser;
@@ -25,8 +31,8 @@ class PageIndicatorCubit extends Cubit<PageIndicatorState> {
 
   final List<Widget> pages = [
     const HomeScreen(),
-    const Cart(),
     const Favorite(),
+    const Cart(),
     const ProfileScreen(),
   ];
 
@@ -35,23 +41,25 @@ class PageIndicatorCubit extends Cubit<PageIndicatorState> {
     emit(index == 0
         ? PageIndicatorStateHome()
         : index == 1
-            ? PageIndicatorStateCart()
+            ? PageIndicatorStateFavorite()
             : index == 2
-                ? PageIndicatorStateFavorite()
+                ? PageIndicatorStateCart()
                 : PageIndicatorStateProfile());
   }
 
   void listenToNetworkConnection() {
     networkInfo.isConnected.listen((isConnected) {
-      emit(isConnected ? PageIndicatorConnectedState() : PageIndicatorNotConnectedState());
+      emit(isConnected
+          ? PageIndicatorConnectedState()
+          : PageIndicatorNotConnectedState());
     });
   }
+
   static Future<UserModel?> readUser(String id) async {
     DocumentSnapshot<UserModel> userSnap =
-    await BaseCubit.getUsersCollection().doc(id).get();
+        await BaseCubit.getUsersCollection().doc(id).get();
     return userSnap.data();
   }
-
 
   void initUser() async {
     try {
@@ -59,13 +67,15 @@ class PageIndicatorCubit extends Cubit<PageIndicatorState> {
       myUser = await readUser(firebaseUser!.uid);
       firstNameController.text = myUser!.firstName!;
       secondNameController.text = myUser!.secondName!;
+      emailController.text = myUser!.email!;
+      idNumberController.text = myUser!.idNumber!;
       emit(PageIndicatorUserLoadedState(myUser!));
     } catch (e) {
       emit(PageIndicatorErrorState(e.toString()));
     }
   }
 
-  void logout(){
+  void logout() {
     FirebaseAuth.instance.signOut();
   }
 }

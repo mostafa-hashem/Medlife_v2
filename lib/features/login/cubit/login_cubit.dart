@@ -9,10 +9,16 @@ class LoginCubit extends Cubit<LoginStates> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var formKey = GlobalKey<FormState>();
+  bool isVisible = false;
 
   LoginCubit() : super(LoginInitial());
 
   static LoginCubit get(context) => BlocProvider.of(context);
+
+  void emitPasswordVisibility(bool value) {
+    isVisible = value;
+    emit(LoginPasswordVisibilityChanged(isVisible));
+  }
 
   Future<void> login(
       {required String email,
@@ -20,7 +26,7 @@ class LoginCubit extends Cubit<LoginStates> {
       required BuildContext context}) async {
     try {
       emit(LoginLoading());
-      final credential =  await _auth.signInWithEmailAndPassword(
+        await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -36,7 +42,6 @@ class LoginCubit extends Cubit<LoginStates> {
         }
         emit(LoginFailure(e.toString()));
       } else if (e.code == 'wrong-password') {
-        print(e.toString());
         if (context.mounted) {
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Wrong password")));

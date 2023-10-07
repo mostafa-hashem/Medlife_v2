@@ -14,7 +14,7 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.symmetric(vertical: 61.h, horizontal: 16.w),
+        padding: EdgeInsets.only(top: 61.h, left: 16.w, right: 16.w),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -49,6 +49,8 @@ class LoginScreen extends StatelessWidget {
                   ),
                   DefaultFormField(
                       suffix: Icons.visibility,
+                      suffixPressed: ()=> LoginCubit.get(context).emitPasswordVisibility(LoginCubit.get(context).isVisible),
+                      isPassword: LoginCubit.get(context).isVisible,
                       controller: LoginCubit.get(context).passwordController,
                       type: TextInputType.text,
                       validate: (value) =>

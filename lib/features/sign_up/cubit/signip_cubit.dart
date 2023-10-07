@@ -44,7 +44,7 @@ class SignUpCubit extends Cubit<SignUpStates> {
           id: userCredential.user!.uid,
           firstName: firstName,
           secondName: secondName,
-          email: email);
+          email: email, idNumber: '');
       addUserToFireStore(userModel).then((value) {
         Navigator.pushReplacementNamed(context, Routes.pageIndicator);
       });

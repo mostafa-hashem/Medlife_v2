@@ -13,6 +13,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     PageIndicatorCubit.get(context).initUser();
+    super.initState();
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(
         context,
@@ -21,7 +22,6 @@ class _SplashScreenState extends State<SplashScreen> {
             : Routes.login,
       );
     });
-    super.initState();
   }
 
   @override

@@ -13,7 +13,7 @@ class MedicalEquipments extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String text = ModalRoute.of(context)!.settings.arguments.toString();
+    // String text = ModalRoute.of(context)!.settings.arguments.toString();
     return BlocBuilder<MedicalEquipmentsCubit, MedicalEquipmentsStates>(
       builder: (context, state) => Scaffold(
         resizeToAvoidBottomInset: false,
@@ -52,7 +52,7 @@ class MedicalEquipments extends StatelessWidget {
                   ),
                   SizedBox(width: 75.w),
                   Text(
-                    text,
+                    "Medical equipments",
                     style: openSans16W500(color: const Color(0xff576A69)),
                   )
                 ],

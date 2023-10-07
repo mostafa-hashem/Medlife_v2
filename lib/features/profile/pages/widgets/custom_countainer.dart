@@ -22,6 +22,7 @@ class CustomProfileContainer extends StatelessWidget {
           height: 8.h,
         ),
         DefaultFormField(
+          isClickable: false,
           controller: controller,
           type: textInputType,
           validate: (p0) => null,

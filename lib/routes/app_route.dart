@@ -6,8 +6,11 @@ import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_c
 import 'package:medlife_v2/features/medical_equipment/pages/medical_equipments.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.dart';
 import 'package:medlife_v2/features/pages_indicator/pages/page_indicator.dart';
+import 'package:medlife_v2/features/payment_method/cubit/payment_method_cubit.dart';
+import 'package:medlife_v2/features/payment_method/pages/payment_method.dart';
 import 'package:medlife_v2/features/product_details/cubit/product_details_cubit.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
+import 'package:medlife_v2/features/profile/pages/profile.dart';
 import 'package:medlife_v2/features/reset_password/cubit/reset_password_cubit.dart';
 import 'package:medlife_v2/routes/routes.dart';
 import '../config/services/metwork.dart';
@@ -29,7 +32,8 @@ class AppRoutes {
         final networkInfo = NetworkInfoImpl(Connectivity());
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => PageIndicatorCubit(networkInfo: networkInfo)..listenToNetworkConnection(),
+            create: (context) => PageIndicatorCubit(networkInfo: networkInfo)
+              ..listenToNetworkConnection(),
             child: const PageIndicator(),
           ),
         );
@@ -90,7 +94,14 @@ class AppRoutes {
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
             create: (context) => ProfileCubit(),
-            child: ProductDetails(),
+            child: const ProfileScreen(),
+          ),
+        );
+      case Routes.paymentMethod:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => PaymentMethodCubit(),
+            child: const PaymentMethod(),
           ),
         );
       default:

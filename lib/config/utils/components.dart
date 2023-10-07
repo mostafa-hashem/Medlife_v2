@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/config/utils/text_styles.dart';
 
 import 'app_colors.dart';
 
 class DefaultButton extends StatelessWidget {
   final double? width;
   final double height;
-  final Color background;
+  final Color? background;
   final TextStyle textStyle;
   final bool isUpperCase;
   final double radius;
   final Function function;
   final String? text;
   final IconData icon;
+  final Color? iconColor;
+  final Color? borderColor;
+  final double? iconSize;
 
   const DefaultButton(
       {super.key,
       this.width,
       this.height = 40,
-      this.background = AppColors.primary,
+      this.background,
       this.textStyle = const TextStyle(
         color: Colors.white,
       ),
@@ -27,6 +29,9 @@ class DefaultButton extends StatelessWidget {
       this.radius = 8,
       required this.function,
       this.text,
+      this.iconColor,
+      this.borderColor,
+      this.iconSize,
       required this.icon});
 
   @override
@@ -38,7 +43,8 @@ class DefaultButton extends StatelessWidget {
           height: height,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius),
-            color: background,
+            border: Border.all(color: borderColor ?? Colors.transparent),
+            color: background ?? AppColors.primary,
           ),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           child: GestureDetector(
@@ -46,7 +52,8 @@ class DefaultButton extends StatelessWidget {
             child: Center(
                 child: Icon(
               icon,
-              color: Colors.white,
+              color: iconColor ?? Colors.white,
+              size: iconSize,
             )),
           ),
         );
@@ -59,10 +66,18 @@ class DefaultTextButton extends StatelessWidget {
   final Function function;
   final String text;
   final TextStyle textStyle;
+  final double? height;
+  final double? width;
+  final Color? backgroundColor;
+  final Color? borderColor;
 
   const DefaultTextButton({
     super.key,
     required this.function,
+    this.height,
+    this.width,
+    this.backgroundColor,
+    this.borderColor,
     this.textStyle = const TextStyle(
         color: Colors.white,
         fontSize: 15,
@@ -77,11 +92,13 @@ class DefaultTextButton extends StatelessWidget {
     return Align(
       alignment: Alignment.center,
       child: Container(
-        width: 345.w,
-        height: 56.h,
+        width: width ?? 345.w,
+        height: height ?? 56.h,
         decoration: BoxDecoration(
-            color: const Color(0xff22C7B6),
-            borderRadius: BorderRadius.circular(7.r)),
+            color: backgroundColor ?? AppColors.primary,
+            borderRadius: BorderRadius.circular(7.r),
+        border: Border.all(color: borderColor ?? Colors.transparent)
+        ),
         child: TextButton(
           onPressed: function as void Function()?,
           style: TextButton.styleFrom(
@@ -104,7 +121,7 @@ class DefaultFormField extends StatelessWidget {
   final void Function(String)? onSubmit;
   final void Function(String)? onChange;
   final void Function()? onTap;
-  final bool isPassword;
+  final bool? isPassword;
   final String? Function(String?)? validate;
   final String label;
   final IconData? suffix;
@@ -118,7 +135,7 @@ class DefaultFormField extends StatelessWidget {
     this.onSubmit,
     this.onChange,
     this.onTap,
-    this.isPassword = false,
+    this.isPassword,
     required this.validate,
     required this.label,
     this.suffix,
@@ -132,7 +149,7 @@ class DefaultFormField extends StatelessWidget {
       controller: controller,
       keyboardType: type,
       textInputAction: TextInputAction.next,
-      obscureText: isPassword,
+      obscureText: isPassword ?? true,
       enabled: isClickable,
       onFieldSubmitted: onSubmit,
       onChanged: onChange,
@@ -213,4 +230,3 @@ class SearchWidget extends StatelessWidget {
     );
   }
 }
-

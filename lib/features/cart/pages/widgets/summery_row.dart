@@ -1,0 +1,31 @@
+import 'package:flutter/material.dart';
+
+import '../../../../config/utils/text_styles.dart';
+
+class SummeryRow extends StatelessWidget {
+  final String text;
+  final String price;
+
+  const SummeryRow({super.key, required this.text, required this.price});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          text,
+          style: text == "Total"
+              ? openSans14W600(color: const Color(0xff1A1A1A))
+              : openSans14W400(color: const Color(0xff1A1A1A).withOpacity(0.6)),
+        ),
+        const Spacer(),
+        Text(
+          price,
+          style: text == "Total"
+              ? openSans14W600(color: const Color(0xff1A1A1A))
+              : openSans14W400(color: const Color(0xff1A1A1A)),
+        )
+      ],
+    );
+  }
+}
