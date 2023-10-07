@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/config/utils/app_colors.dart';
-import 'package:medlife_v2/config/utils/components.dart';
-import 'package:medlife_v2/config/utils/text_styles.dart';
 import 'package:medlife_v2/features/cart/pages/widgets/cart_item.dart';
-import 'package:medlife_v2/routes/routes.dart';
-
-import 'widgets/summery_row.dart';
+import 'package:medlife_v2/features/cart/pages/widgets/summery_row.dart';
+import 'package:medlife_v2/route_manager.dart';
+import 'package:medlife_v2/ui/resources/app_colors.dart';
+import 'package:medlife_v2/ui/resources/components.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class Cart extends StatelessWidget {
-  const Cart({super.key});
+  const Cart();
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,6 @@ class Cart extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Align(
-            alignment: Alignment.center,
             child: Text(
               "Cart",
               style: openSans16W500(color: const Color(0xff1E1E1E)),
@@ -33,13 +31,15 @@ class Cart extends StatelessWidget {
             child: Column(
               children: [
                 Expanded(
-                    child: ListView.separated(
-                        padding: EdgeInsets.zero,
-                        itemBuilder: (context, index) => const CartItem(),
-                        separatorBuilder: (context, index) => SizedBox(
-                              height: 23.h,
-                            ),
-                        itemCount: 8)),
+                  child: ListView.separated(
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) => const CartItem(),
+                    separatorBuilder: (context, index) => SizedBox(
+                      height: 23.h,
+                    ),
+                    itemCount: 8,
+                  ),
+                ),
               ],
             ),
           ),

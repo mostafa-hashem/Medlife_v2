@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/utils/text_styles.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class CustomViewItem extends StatelessWidget {
-  const CustomViewItem({super.key});
+  const CustomViewItem();
 
   @override
   Widget build(BuildContext context) {
@@ -102,12 +102,12 @@ class CustomViewItem extends StatelessWidget {
                       Icons.add_shopping_cart_outlined,
                       size: 18,
                       color: Colors.white,
-                    )),
+                    ),),
                 SizedBox(
                   width: 5.w,
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),

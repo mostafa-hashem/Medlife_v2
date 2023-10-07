@@ -1,4 +1,4 @@
-import '../../../models/user_model/user_model.dart';
+import 'package:medlife_v2/features/auth/data/models/user.dart';
 
 abstract class PageIndicatorState {}
 
@@ -15,7 +15,7 @@ class PageIndicatorConnectedState extends PageIndicatorState {}
 class PageIndicatorNotConnectedState extends PageIndicatorState {}
 
 class PageIndicatorUserLoadedState extends PageIndicatorState {
-  final UserModel user;
+  final User user;
 
   PageIndicatorUserLoadedState(this.user);
 }

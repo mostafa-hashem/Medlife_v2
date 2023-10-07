@@ -15,7 +15,8 @@ class SignUpFailure extends SignUpStates {
 
   SignUpFailure(this.error);
 }
-class SignUpPasswordVisibilityChanged extends SignUpStates{
+
+class SignUpPasswordVisibilityChanged extends SignUpStates {
   bool isVisible;
   SignUpPasswordVisibilityChanged(this.isVisible);
 }

@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/config/utils/text_styles.dart';
-
-import 'filter_row.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/widgets/filter_row.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class FilterBottomSheet extends StatelessWidget {
-  const FilterBottomSheet({super.key});
+  const FilterBottomSheet();
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +83,9 @@ class FilterBottomSheet extends StatelessWidget {
                     ),
                     child: Padding(
                       padding: EdgeInsets.symmetric(
-                          vertical: 15.0.h, horizontal: 32.w),
+                        vertical: 15.0.h,
+                        horizontal: 32.w,
+                      ),
                       child: Center(
                         child: Text(
                           "Cancel",
@@ -106,7 +107,9 @@ class FilterBottomSheet extends StatelessWidget {
                   ),
                   child: Padding(
                     padding: EdgeInsets.symmetric(
-                        vertical: 15.0.h, horizontal: 32.w),
+                      vertical: 15.0.h,
+                      horizontal: 32.w,
+                    ),
                     child: Center(
                       child: Text(
                         "Apply",

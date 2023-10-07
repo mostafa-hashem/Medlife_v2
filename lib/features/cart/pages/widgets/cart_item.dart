@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/utils/app_colors.dart';
-import '../../../../config/utils/components.dart';
-import '../../../../config/utils/text_styles.dart';
+import 'package:medlife_v2/ui/resources/app_colors.dart';
+import 'package:medlife_v2/ui/resources/components.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class CartItem extends StatelessWidget {
-  const CartItem({super.key});
+  const CartItem();
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: [
         Row(
           children: [
@@ -29,15 +29,14 @@ class CartItem extends StatelessWidget {
                 ),
                 RichText(
                     text: TextSpan(children: [
-                      TextSpan(
-                          text: "23",
-                          style: openSans18W500(
-                              color: const Color(0xff1E1E1E)
-                                  .withOpacity(0.8))),
-                      TextSpan(
-                          text: "\$",
-                          style: openSans14W400(color: AppColors.primary)),
-                    ]))
+                  TextSpan(
+                      text: "23",
+                      style: openSans18W500(
+                          color: const Color(0xff1E1E1E).withOpacity(0.8),),),
+                  TextSpan(
+                      text: "\$",
+                      style: openSans14W400(color: AppColors.primary),),
+                ],),),
               ],
             ),
             SizedBox(
@@ -80,8 +79,8 @@ class CartItem extends StatelessWidget {
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
                   border: Border.all(
-                      color: const Color(0xff000000).withOpacity(0.5)),
-                  borderRadius: BorderRadius.circular(7.r)),
+                      color: const Color(0xff000000).withOpacity(0.5),),
+                  borderRadius: BorderRadius.circular(7.r),),
               child: Row(
                 children: [
                   const Icon(
@@ -90,9 +89,8 @@ class CartItem extends StatelessWidget {
                   ),
                   Text(
                     "Remove to favorite",
-                    style:
-                    openSans10W400(color: const Color(0xff979797)),
-                  )
+                    style: openSans10W400(color: const Color(0xff979797)),
+                  ),
                 ],
               ),
             ),
@@ -103,8 +101,8 @@ class CartItem extends StatelessWidget {
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
                   border: Border.all(
-                      color: const Color(0xff000000).withOpacity(0.5)),
-                  borderRadius: BorderRadius.circular(7.r)),
+                      color: const Color(0xff000000).withOpacity(0.5),),
+                  borderRadius: BorderRadius.circular(7.r),),
               child: Row(
                 children: [
                   const Icon(
@@ -113,14 +111,13 @@ class CartItem extends StatelessWidget {
                   ),
                   Text(
                     "Delete from cart",
-                    style:
-                    openSans10W400(color: const Color(0xff979797)),
-                  )
+                    style: openSans10W400(color: const Color(0xff979797)),
+                  ),
                 ],
               ),
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }

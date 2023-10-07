@@ -7,4 +7,3 @@ class HomeInitial extends HomeState {}
 class HomeConnectedState extends HomeState {}
 
 class HomeNotConnectedState extends HomeState {}
-

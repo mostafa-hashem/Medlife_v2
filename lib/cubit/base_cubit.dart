@@ -1,24 +1,27 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/cubit/base_states.dart';
-import 'package:medlife_v2/models/user_model/user_model.dart';
+import 'package:medlife_v2/features/auth/data/models/user.dart';
 
-class BaseCubit extends Cubit<BaseStates>{
-  BaseCubit() :super(BaseInitial());
-  static BaseCubit get(context) => BlocProvider.of(context);
+class BaseCubit extends Cubit<BaseStates> {
+  BaseCubit() : super(BaseInitial());
+  static BaseCubit get(BuildContext context) => BlocProvider.of(context);
 
-  static CollectionReference<UserModel> getUsersCollection() {
+  static CollectionReference<User> getUsersCollection() {
     return FirebaseFirestore.instance
-        .collection(UserModel.COLLECTIN_NAME)
-        .withConverter<UserModel>(
-      fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()!),
-      toFirestore: (user, options) => user.toJson(),
-    );
+        .collection(User.collectionName)
+        .withConverter<User>(
+          fromFirestore: (snapshot, _) => User.fromJson(snapshot.data()!),
+          toFirestore: (user, options) => user.toJson(),
+        );
   }
-  static String? validateForEmail(value) {
-    RegExp regex = RegExp(
-        r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
-    if (value.isEmpty) {
+
+  static String? validateForEmail(String? value) {
+    final RegExp regex = RegExp(
+      r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
+    );
+    if (value == null || value.isEmpty) {
       return "Please Enter Email";
     } else {
       if (!regex.hasMatch(value)) {
@@ -29,11 +32,10 @@ class BaseCubit extends Cubit<BaseStates>{
     }
   }
 
-  static String? validate(value, message) {
-    if (value.isEmpty) {
+  static String? validate(String? value, String message) {
+    if (value == null || value.isEmpty) {
       return message;
     }
     return null;
   }
-
 }

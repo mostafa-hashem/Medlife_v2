@@ -1,22 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medlife_v2/cubit/base_cubit.dart';
+import 'package:medlife_v2/features/auth/data/models/user.dart';
 import 'package:medlife_v2/features/cart/pages/cart.dart';
 import 'package:medlife_v2/features/favorite/pages/favorite.dart';
+import 'package:medlife_v2/features/home/pages/home.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_states.dart';
-import '../../../config/services/metwork.dart';
-import '../../../cubit/base_cubit.dart';
-import '../../../models/user_model/user_model.dart';
-import '../../home/pages/home.dart';
-import '../../profile/pages/profile.dart';
+import 'package:medlife_v2/features/profile/pages/profile.dart';
+import 'package:medlife_v2/utils/network_service.dart';
 
 class PageIndicatorCubit extends Cubit<PageIndicatorState> {
   PageIndicatorCubit({required this.networkInfo})
       : super(PageIndicatorStateHome());
 
-  static PageIndicatorCubit get(context) => BlocProvider.of(context);
-  final NetworkInfo networkInfo;
+  static PageIndicatorCubit get(BuildContext context) =>
+      BlocProvider.of(context);
+  final NetworkService networkInfo;
   int currentIndex = 0;
   TextEditingController idController = TextEditingController();
   TextEditingController idNumberController = TextEditingController();
@@ -26,8 +27,8 @@ class PageIndicatorCubit extends Cubit<PageIndicatorState> {
       TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController secondNameController = TextEditingController();
-  User? firebaseUser;
-  UserModel? myUser;
+  auth.User? firebaseUser;
+  User? myUser;
 
   final List<Widget> pages = [
     const HomeScreen(),
@@ -38,35 +39,39 @@ class PageIndicatorCubit extends Cubit<PageIndicatorState> {
 
   void changePage(int index) {
     currentIndex = index;
-    emit(index == 0
-        ? PageIndicatorStateHome()
-        : index == 1
-            ? PageIndicatorStateFavorite()
-            : index == 2
-                ? PageIndicatorStateCart()
-                : PageIndicatorStateProfile());
+    emit(
+      index == 0
+          ? PageIndicatorStateHome()
+          : index == 1
+              ? PageIndicatorStateFavorite()
+              : index == 2
+                  ? PageIndicatorStateCart()
+                  : PageIndicatorStateProfile(),
+    );
   }
 
   void listenToNetworkConnection() {
     networkInfo.isConnected.listen((isConnected) {
-      emit(isConnected
-          ? PageIndicatorConnectedState()
-          : PageIndicatorNotConnectedState());
+      emit(
+        isConnected
+            ? PageIndicatorConnectedState()
+            : PageIndicatorNotConnectedState(),
+      );
     });
   }
 
-  static Future<UserModel?> readUser(String id) async {
-    DocumentSnapshot<UserModel> userSnap =
+  static Future<User?> readUser(String id) async {
+    final DocumentSnapshot<User> userSnap =
         await BaseCubit.getUsersCollection().doc(id).get();
     return userSnap.data();
   }
 
-  void initUser() async {
+  Future<void> initUser() async {
     try {
-      firebaseUser = FirebaseAuth.instance.currentUser;
+      firebaseUser = auth.FirebaseAuth.instance.currentUser;
       myUser = await readUser(firebaseUser!.uid);
       firstNameController.text = myUser!.firstName!;
-      secondNameController.text = myUser!.secondName!;
+      secondNameController.text = myUser!.lastName!;
       emailController.text = myUser!.email!;
       idNumberController.text = myUser!.idNumber!;
       emit(PageIndicatorUserLoadedState(myUser!));
@@ -76,6 +81,6 @@ class PageIndicatorCubit extends Cubit<PageIndicatorState> {
   }
 
   void logout() {
-    FirebaseAuth.instance.signOut();
+    auth.FirebaseAuth.instance.signOut();
   }
 }

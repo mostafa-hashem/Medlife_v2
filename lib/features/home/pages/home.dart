@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/config/utils/components.dart';
+import 'package:medlife_v2/features/home/pages/home_widgets/custom_cat_item.dart';
+import 'package:medlife_v2/features/home/pages/home_widgets/custom_top_rated_item.dart';
+import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_states.dart';
-import '../../../config/utils/text_styles.dart';
-import '../../../routes/routes.dart';
-import '../../pages_indicator/cubit/page_indicator_cubit.dart';
-import 'home_widgets/custom_cat_item.dart';
-import 'home_widgets/custom_top_rated_item.dart';
+import 'package:medlife_v2/route_manager.dart';
+import 'package:medlife_v2/ui/resources/components.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -52,9 +52,12 @@ class HomeScreen extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          String text = "Medical Equipment";
-                          Navigator.pushNamed(context, Routes.medicalEquipments,
-                              arguments: text);
+                          const String text = "Medical Equipment";
+                          Navigator.pushNamed(
+                            context,
+                            Routes.medicalEquipments,
+                            arguments: text,
+                          );
                         },
                         child: const CustomCategoryItem(
                           image: "assets/images/Medical Equipment.png",
@@ -99,17 +102,22 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          child: ListView.separated(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => GestureDetector(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, Routes.productDetails),
-                                  child: const CustomTopRatedItem()),
-                              separatorBuilder: (context, index) => SizedBox(
-                                    width: 8.w,
-                                  ),
-                              itemCount: 10)),
+                        child: ListView.separated(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              Routes.productDetails,
+                            ),
+                            child: const CustomTopRatedItem(),
+                          ),
+                          separatorBuilder: (context, index) => SizedBox(
+                            width: 8.w,
+                          ),
+                          itemCount: 10,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -128,17 +136,22 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          child: ListView.separated(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => GestureDetector(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, Routes.productDetails),
-                                  child: const CustomTopRatedItem()),
-                              separatorBuilder: (context, index) => SizedBox(
-                                    width: 8.w,
-                                  ),
-                              itemCount: 10)),
+                        child: ListView.separated(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              Routes.productDetails,
+                            ),
+                            child: const CustomTopRatedItem(),
+                          ),
+                          separatorBuilder: (context, index) => SizedBox(
+                            width: 8.w,
+                          ),
+                          itemCount: 10,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -154,17 +167,22 @@ class HomeScreen extends StatelessWidget {
                   child: Row(
                     children: [
                       Expanded(
-                          child: ListView.separated(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) => GestureDetector(
-                                  onTap: () => Navigator.pushNamed(
-                                      context, Routes.productDetails),
-                                  child: const CustomTopRatedItem()),
-                              separatorBuilder: (context, index) => SizedBox(
-                                    width: 8.w,
-                                  ),
-                              itemCount: 10)),
+                        child: ListView.separated(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => GestureDetector(
+                            onTap: () => Navigator.pushNamed(
+                              context,
+                              Routes.productDetails,
+                            ),
+                            child: const CustomTopRatedItem(),
+                          ),
+                          separatorBuilder: (context, index) => SizedBox(
+                            width: 8.w,
+                          ),
+                          itemCount: 10,
+                        ),
+                      ),
                     ],
                   ),
                 ),

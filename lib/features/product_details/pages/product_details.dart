@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medlife_v2/features/product_details/pages/widgets/custom_patment_container.dart';
 import 'package:medlife_v2/features/product_details/pages/widgets/custom_sealer_container.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-import '../../../config/utils/text_styles.dart';
-import 'widgets/custom_patment_container.dart';
 
 class ProductDetails extends StatelessWidget {
-  ProductDetails({super.key});
+  ProductDetails();
 
-  final controller = PageController(viewportFraction: 0.8, keepPage: true);
+  final controller = PageController(viewportFraction: 0.8);
 
   @override
   Widget build(BuildContext context) {
@@ -27,26 +27,26 @@ class ProductDetails extends StatelessWidget {
                   InkWell(
                     onTap: () => Navigator.pop(context),
                     child: Container(
-                        width: 44.w,
-                        height: 42.h,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(11.76.r),
-                          ),
-                          shadows: const [
-                            BoxShadow(
-                              color: Color(0x23EA6A58),
-                              blurRadius: 20,
-                              offset: Offset(0, 4.41),
-                              spreadRadius: 0,
-                            )
-                          ],
+                      width: 44.w,
+                      height: 42.h,
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(11.76.r),
                         ),
-                        child: const Icon(
-                          Icons.arrow_back_ios_new_outlined,
-                          color: Colors.black,
-                        )),
+                        shadows: const [
+                          BoxShadow(
+                            color: Color(0x23EA6A58),
+                            blurRadius: 20,
+                            offset: Offset(0, 4.41),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                   const Spacer(),
                   Column(
@@ -60,7 +60,7 @@ class ProductDetails extends StatelessWidget {
                       ),
                       const Icon(Icons.share_outlined),
                     ],
-                  )
+                  ),
                 ],
               ),
               SizedBox(
@@ -70,10 +70,10 @@ class ProductDetails extends StatelessWidget {
                   children: [
                     Expanded(
                       child: PageView.builder(
-                          scrollDirection: Axis.horizontal,
-                          controller: controller,
-                          itemBuilder: (context, index) =>
-                              Image.asset("assets/images/Medical bed.png")),
+                        controller: controller,
+                        itemBuilder: (context, index) =>
+                            Image.asset("assets/images/Medical bed.png"),
+                      ),
                     ),
                   ],
                 ),
@@ -82,11 +82,11 @@ class ProductDetails extends StatelessWidget {
                 height: 32.h,
               ),
               Align(
-                alignment: Alignment.center,
                 child: SmoothPageIndicator(
-                    controller: controller,
-                    count: 10,
-                    effect: ExpandingDotsEffect(dotHeight: 8.h, dotWidth: 8.w)),
+                  controller: controller,
+                  count: 10,
+                  effect: ExpandingDotsEffect(dotHeight: 8.h, dotWidth: 8.w),
+                ),
               ),
               SizedBox(
                 height: 18.h,
@@ -177,8 +177,9 @@ class ProductDetails extends StatelessWidget {
                   Container(
                     width: 150.w,
                     decoration: BoxDecoration(
-                        color: const Color(0xFFF3F3F3),
-                        borderRadius: BorderRadius.circular(15.r)),
+                      color: const Color(0xFFF3F3F3),
+                      borderRadius: BorderRadius.circular(15.r),
+                    ),
                     child: Padding(
                       padding:
                           EdgeInsets.symmetric(vertical: 10.h, horizontal: 9.w),
@@ -186,15 +187,18 @@ class ProductDetails extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                              onTap: () {}, child: const Icon(Icons.remove)),
+                            onTap: () {},
+                            child: const Icon(Icons.remove),
+                          ),
                           Text(
                             "1",
                             style: openSans20W600(color: Colors.black)
                                 .copyWith(letterSpacing: -0.41),
                           ),
                           InkWell(
-                              onTap: () {},
-                              child: const Icon(Icons.add_outlined)),
+                            onTap: () {},
+                            child: const Icon(Icons.add_outlined),
+                          ),
                         ],
                       ),
                     ),
@@ -244,11 +248,14 @@ class ProductDetails extends StatelessWidget {
                         width: 230.w,
                         height: 50.h,
                         decoration: BoxDecoration(
-                            color: const Color(0xFF22C7B6),
-                            borderRadius: BorderRadius.circular(5.r)),
+                          color: const Color(0xFF22C7B6),
+                          borderRadius: BorderRadius.circular(5.r),
+                        ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 9.h, horizontal: 38.w),
+                            vertical: 9.h,
+                            horizontal: 38.w,
+                          ),
                           child: Row(
                             children: [
                               Image.asset("assets/images/Shop bag image.png"),
@@ -258,15 +265,15 @@ class ProductDetails extends StatelessWidget {
                               Text(
                                 "Add to cart",
                                 style: openSans18W500(color: Colors.white),
-                              )
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),

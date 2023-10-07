@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/config/utils/text_styles.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_states.dart';
-import '../../../config/utils/components.dart';
-import 'widgets/show_products.dart';
-import 'widgets/sorting_and_filter_widget.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/widgets/show_products.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/widgets/sorting_and_filter_widget.dart';
+import 'package:medlife_v2/ui/resources/components.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class MedicalEquipments extends StatelessWidget {
-  const MedicalEquipments({super.key});
+  const MedicalEquipments();
 
   @override
   Widget build(BuildContext context) {
@@ -29,32 +29,32 @@ class MedicalEquipments extends StatelessWidget {
                   InkWell(
                     onTap: () => Navigator.pop(context),
                     child: Container(
-                        width: 44.w,
-                        height: 42.h,
-                        decoration: ShapeDecoration(
-                          color: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(11.76.r),
-                          ),
-                          shadows: const [
-                            BoxShadow(
-                              color: Color(0x23EA6A58),
-                              blurRadius: 20,
-                              offset: Offset(0, 4.41),
-                              spreadRadius: 0,
-                            )
-                          ],
+                      width: 44.w,
+                      height: 42.h,
+                      decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(11.76.r),
                         ),
-                        child: const Icon(
-                          Icons.arrow_back_ios_new_outlined,
-                          color: Colors.black,
-                        )),
+                        shadows: const [
+                          BoxShadow(
+                            color: Color(0x23EA6A58),
+                            blurRadius: 20,
+                            offset: Offset(0, 4.41),
+                          ),
+                        ],
+                      ),
+                      child: const Icon(
+                        Icons.arrow_back_ios_new_outlined,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 75.w),
                   Text(
                     "Medical equipments",
                     style: openSans16W500(color: const Color(0xff576A69)),
-                  )
+                  ),
                 ],
               ),
               SizedBox(height: 13.h),
@@ -67,8 +67,9 @@ class MedicalEquipments extends StatelessWidget {
               Container(
                 height: 54.h,
                 decoration: BoxDecoration(
-                    color: const Color(0xffF1F4F6),
-                    borderRadius: BorderRadius.circular(5.r)),
+                  color: const Color(0xffF1F4F6),
+                  borderRadius: BorderRadius.circular(5.r),
+                ),
                 child: Padding(
                   padding:
                       EdgeInsets.symmetric(vertical: 7.h, horizontal: 12.w),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'sorting_row.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/widgets/sorting_row.dart';
 
 class SortingBottomSheet extends StatelessWidget {
-  const SortingBottomSheet({super.key});
+  const SortingBottomSheet();
 
   @override
   Widget build(BuildContext context) {

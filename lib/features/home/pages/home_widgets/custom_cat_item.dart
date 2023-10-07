@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/utils/text_styles.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class CustomCategoryItem extends StatelessWidget {
   final String image;
@@ -12,7 +12,7 @@ class CustomCategoryItem extends StatelessWidget {
       {super.key,
       required this.image,
       required this.text,
-      required this.color});
+      required this.color,});
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +21,14 @@ class CustomCategoryItem extends StatelessWidget {
       height: 110.h,
       padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 7.h),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7.r),
-          color:  Color(color)),
+          borderRadius: BorderRadius.circular(7.r), color: Color(color),),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image.asset(image),
           Text(text,
               textAlign: TextAlign.center,
-              style: openSans10W500(color: Colors.black)),
+              style: openSans10W500(color: Colors.black),),
         ],
       ),
     );

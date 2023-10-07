@@ -11,11 +11,11 @@ class PaymentCard extends StatelessWidget {
       elevation: 20,
       shape: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16.r),
-          borderSide: const BorderSide(color: Colors.transparent)),
+          borderSide: const BorderSide(color: Colors.transparent),),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(image)
+          Image.asset(image),
         ],
       ),
     );

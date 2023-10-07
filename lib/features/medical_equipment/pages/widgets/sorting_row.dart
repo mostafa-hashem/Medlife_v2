@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/config/utils/text_styles.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class SortingRow extends StatelessWidget {
   final String text;
@@ -23,7 +23,7 @@ class SortingRow extends StatelessWidget {
         Text(
           text,
           style: openSans16W400(color: Colors.white),
-        )
+        ),
       ],
     );
   }

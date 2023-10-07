@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../../config/utils/text_styles.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class SummeryRow extends StatelessWidget {
   final String text;
@@ -24,7 +24,7 @@ class SummeryRow extends StatelessWidget {
           style: text == "Total"
               ? openSans14W600(color: const Color(0xff1A1A1A))
               : openSans14W400(color: const Color(0xff1A1A1A)),
-        )
+        ),
       ],
     );
   }

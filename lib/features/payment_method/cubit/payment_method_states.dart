@@ -1,3 +1,3 @@
-abstract class PaymentMethodStates{}
+abstract class PaymentMethodStates {}
 
-class PaymentMethodInit extends PaymentMethodStates{}
+class PaymentMethodInit extends PaymentMethodStates {}

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/config/utils/text_styles.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_states.dart';
-import 'package:medlife_v2/routes/routes.dart';
-import '../../../config/utils/components.dart';
-import 'widgets/custom_countainer.dart';
+import 'package:medlife_v2/features/profile/pages/widgets/custom_countainer.dart';
+import 'package:medlife_v2/route_manager.dart';
+import 'package:medlife_v2/ui/resources/components.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
                       Navigator.pushReplacementNamed(context, Routes.login);
                     },
                     icon: Icons.logout_outlined,
-                  )
+                  ),
                 ],
               ),
               SizedBox(
@@ -60,12 +60,14 @@ class ProfileScreen extends StatelessWidget {
               Row(
                 children: [
                   SizedBox(
-                      width: 186.w,
-                      child: CustomProfileContainer(
-                        text: "First Name",
-                        controller: PageIndicatorCubit.get(context).firstNameController,
-                        textInputType: TextInputType.name,
-                      )),
+                    width: 186.w,
+                    child: CustomProfileContainer(
+                      text: "First Name",
+                      controller:
+                          PageIndicatorCubit.get(context).firstNameController,
+                      textInputType: TextInputType.name,
+                    ),
+                  ),
                   SizedBox(
                     width: 26.h,
                   ),
@@ -73,7 +75,8 @@ class ProfileScreen extends StatelessWidget {
                     width: 186.w,
                     child: CustomProfileContainer(
                       text: "Second Name",
-                      controller: PageIndicatorCubit.get(context).secondNameController,
+                      controller:
+                          PageIndicatorCubit.get(context).secondNameController,
                       textInputType: TextInputType.name,
                     ),
                   ),
@@ -83,9 +86,10 @@ class ProfileScreen extends StatelessWidget {
                 height: 21.h,
               ),
               CustomProfileContainer(
-                  text: "Email",
-                  controller: PageIndicatorCubit.get(context).emailController,
-                  textInputType: TextInputType.emailAddress),
+                text: "Email",
+                controller: PageIndicatorCubit.get(context).emailController,
+                textInputType: TextInputType.emailAddress,
+              ),
               SizedBox(
                 height: 21.h,
               ),
@@ -113,7 +117,7 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(
                 height: 39.h,
               ),
-              DefaultTextButton(function: () {}, text: "Save changes")
+              DefaultTextButton(function: () {}, text: "Save changes"),
             ],
           ),
         ),

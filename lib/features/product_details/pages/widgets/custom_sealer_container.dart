@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/utils/text_styles.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class CustomSealerContainer extends StatelessWidget {
   final String text;
@@ -14,7 +14,7 @@ class CustomSealerContainer extends StatelessWidget {
       required this.text,
       required this.sealerName,
       required this.starImage,
-      required this.rate});
+      required this.rate,});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class CustomSealerContainer extends StatelessWidget {
       height: 40.h,
       decoration: BoxDecoration(
           border: Border.all(width: 0.50.w, color: const Color(0x4C2E3A58)),
-          borderRadius: BorderRadius.circular(5.r)),
+          borderRadius: BorderRadius.circular(5.r),),
       child: Row(
         children: [
           SizedBox(
@@ -52,7 +52,7 @@ class CustomSealerContainer extends StatelessWidget {
             rate,
             style: openSans10W400(color: Colors.black)
                 .copyWith(letterSpacing: -0.41),
-          )
+          ),
         ],
       ),
     );

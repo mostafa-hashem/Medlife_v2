@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../config/utils/text_styles.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class CustomPaymentContainer extends StatelessWidget {
   final String image;
   final String text;
 
   const CustomPaymentContainer(
-      {super.key, required this.image, required this.text});
+      {super.key, required this.image, required this.text,});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class CustomPaymentContainer extends StatelessWidget {
       height: 40.h,
       decoration: BoxDecoration(
           border: Border.all(width: 0.50.w, color: const Color(0x4C2E3A58)),
-          borderRadius: BorderRadius.circular(5.r)),
+          borderRadius: BorderRadius.circular(5.r),),
       child: Row(
         children: [
           SizedBox(

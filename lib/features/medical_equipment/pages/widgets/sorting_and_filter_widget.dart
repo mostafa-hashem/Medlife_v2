@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/config/utils/text_styles.dart';
+import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class SortingAndFilterWidget extends StatelessWidget {
   final String text;
   final IconData iconData;
 
   const SortingAndFilterWidget(
-      {super.key, required this.text, required this.iconData});
+      {super.key, required this.text, required this.iconData,});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 40.h,
       width: 150.w,
       child: Row(
@@ -24,7 +24,10 @@ class SortingAndFilterWidget extends StatelessWidget {
           SizedBox(
             width: 5.w,
           ),
-          Icon(iconData,size: 19,)
+          Icon(
+            iconData,
+            size: 19,
+          ),
         ],
       ),
     );
