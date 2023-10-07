@@ -37,6 +37,15 @@ class SignUpCubit extends Cubit<SignUpStates> {
       required BuildContext context}) async {
     try {
       emit(SignUpLoading());
+      if (passwordController.text != confirmPasswordController.text) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text("Passwords do not match."),
+          ));
+        }
+        emit(SignUpFailure("Passwords do not match."));
+        return;
+      }
       final UserCredential userCredential =
           await auth.createUserWithEmailAndPassword(
         email: email,
