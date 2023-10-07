@@ -40,6 +40,7 @@ class LoginScreen extends StatelessWidget {
                     height: 13.h,
                   ),
                   DefaultFormField(
+                      isPassword: false,
                       controller: LoginCubit.get(context).emailController,
                       type: TextInputType.emailAddress,
                       validate: (value) => BaseCubit.validateForEmail(value),
@@ -48,8 +49,8 @@ class LoginScreen extends StatelessWidget {
                     height: 32.h,
                   ),
                   DefaultFormField(
-                      suffix: Icons.visibility,
-                      suffixPressed: ()=> LoginCubit.get(context).emitPasswordVisibility(LoginCubit.get(context).isVisible),
+                      suffix: LoginCubit.get(context).isVisible ? Icons.visibility : Icons.visibility_off,
+                      suffixPressed: ()=> LoginCubit.get(context).emitPasswordVisibility(!LoginCubit.get(context).isVisible),
                       isPassword: LoginCubit.get(context).isVisible,
                       controller: LoginCubit.get(context).passwordController,
                       type: TextInputType.text,

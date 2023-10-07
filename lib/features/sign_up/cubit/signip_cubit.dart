@@ -16,6 +16,8 @@ class SignUpCubit extends Cubit<SignUpStates> {
   var formKey = GlobalKey<FormState>();
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
 
   static SignUpCubit get(context) => BlocProvider.of(context);
 
@@ -66,5 +68,13 @@ class SignUpCubit extends Cubit<SignUpStates> {
     } catch (e) {
       emit(SignUpFailure(e.toString()));
     }
+  }
+  void emitPasswordVisibility(bool value) {
+    isPasswordVisible = value;
+    emit(SignUpPasswordVisibilityChanged(isPasswordVisible));
+  }
+  void emitPasswordConfirmVisibility(bool value) {
+    isConfirmPasswordVisible = value;
+    emit(SignUpPasswordVisibilityChanged(isConfirmPasswordVisible));
   }
 }

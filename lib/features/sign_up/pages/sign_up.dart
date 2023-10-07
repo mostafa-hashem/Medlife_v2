@@ -14,6 +14,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final signUp = SignUpCubit.get(context);
     return BlocBuilder<SignUpCubit, SignUpStates>(
       builder: (context, state) {
         return Scaffold(
@@ -40,7 +41,7 @@ class SignUpScreen extends StatelessWidget {
                       height: 13.h,
                     ),
                     DefaultFormField(
-                        controller: SignUpCubit.get(context).emailController,
+                        controller: signUp.emailController,
                         type: TextInputType.emailAddress,
                         validate: (value) => BaseCubit.validateForEmail(value),
                         label: "E-mail"),
@@ -50,10 +51,9 @@ class SignUpScreen extends StatelessWidget {
                     Row(
                       children: [
                         SizedBox(
-                          width: 180,
+                          width: 175,
                           child: DefaultFormField(
-                              controller:
-                                  SignUpCubit.get(context).firstNameController,
+                              controller: signUp.firstNameController,
                               type: TextInputType.name,
                               validate: (value) => BaseCubit.validate(
                                   value, "Please enter first name"),
@@ -63,10 +63,9 @@ class SignUpScreen extends StatelessWidget {
                           width: 20.w,
                         ),
                         SizedBox(
-                          width: 180,
+                          width: 175,
                           child: DefaultFormField(
-                              controller:
-                                  SignUpCubit.get(context).secondCameController,
+                              controller: signUp.secondCameController,
                               type: TextInputType.name,
                               validate: (value) => BaseCubit.validate(
                                   value, "Please enter second name"),
@@ -78,8 +77,13 @@ class SignUpScreen extends StatelessWidget {
                       height: 32.h,
                     ),
                     DefaultFormField(
-                        suffix: Icons.visibility,
-                        controller: SignUpCubit.get(context).passwordController,
+                        suffix: signUp.isPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        isPassword: signUp.isPasswordVisible,
+                        suffixPressed: () => signUp
+                            .emitPasswordVisibility(!signUp.isPasswordVisible),
+                        controller: signUp.passwordController,
                         type: TextInputType.text,
                         validate: (value) =>
                             BaseCubit.validate(value, "Please enter password"),
@@ -88,8 +92,14 @@ class SignUpScreen extends StatelessWidget {
                       height: 32.h,
                     ),
                     DefaultFormField(
-                        controller:
-                            SignUpCubit.get(context).confirmPasswordController,
+                        suffix: signUp.isConfirmPasswordVisible
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        isPassword: signUp.isConfirmPasswordVisible,
+                        suffixPressed: () =>
+                            signUp.emitPasswordConfirmVisibility(
+                                !signUp.isConfirmPasswordVisible),
+                        controller: signUp.confirmPasswordController,
                         type: TextInputType.text,
                         validate: (value) => BaseCubit.validate(
                             value, "Please confirm Password"),

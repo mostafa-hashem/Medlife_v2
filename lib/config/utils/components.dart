@@ -149,7 +149,7 @@ class DefaultFormField extends StatelessWidget {
       controller: controller,
       keyboardType: type,
       textInputAction: TextInputAction.next,
-      obscureText: isPassword ?? true,
+      obscureText: isPassword ?? false,
       enabled: isClickable,
       onFieldSubmitted: onSubmit,
       onChanged: onChange,
