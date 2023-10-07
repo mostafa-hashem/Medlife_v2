@@ -49,9 +49,10 @@ class SignUpScreen extends StatelessWidget {
                       height: 32.h,
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(
-                          width: 175,
+                          width: 170,
                           child: DefaultFormField(
                               controller: signUp.firstNameController,
                               type: TextInputType.name,
@@ -60,10 +61,10 @@ class SignUpScreen extends StatelessWidget {
                               label: "First Name"),
                         ),
                         SizedBox(
-                          width: 20.w,
+                          width: 15.w,
                         ),
                         SizedBox(
-                          width: 175,
+                          width: 170,
                           child: DefaultFormField(
                               controller: signUp.secondCameController,
                               type: TextInputType.name,
