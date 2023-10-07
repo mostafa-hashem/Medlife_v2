@@ -58,11 +58,8 @@ class LoginScreen extends StatelessWidget {
                     height: 8.h,
                   ),
                   GestureDetector(
-                    onTap: () => LoginCubit.get(context).login(
-                        context: context,
-                        email: LoginCubit.get(context).emailController.text,
-                        password:
-                            LoginCubit.get(context).passwordController.text),
+                    onTap: () =>
+                        Navigator.pushNamed(context, Routes.resetPassword),
                     child: Row(
                       children: [
                         const Icon(Icons.check_box_outline_blank),

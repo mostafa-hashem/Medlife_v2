@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medlife_v2/config/utils/components.dart';
+import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_states.dart';
 import '../../../config/utils/text_styles.dart';
 import '../../../routes/routes.dart';
+import '../../pages_indicator/cubit/page_indicator_cubit.dart';
 import '../cubit/home_cubit.dart';
 import 'home_widgets/custom_cat_item.dart';
 import 'home_widgets/custom_top_rated_item.dart';
@@ -12,17 +15,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeCubit.get(context).initUser();
-    return BlocConsumer<HomeCubit, HomeState>(
-      listener: (context, state) {
-        if (state is HomeConnectedState) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text("Connected")));
-        } else if (state is HomeNotConnectedState) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('Disconnected')));
-        }
-      },
+    PageIndicatorCubit.get(context).initUser();
+    return BlocBuilder<PageIndicatorCubit, PageIndicatorState>(
       builder: (context, state) {
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -33,53 +27,12 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(
                   height: 79.h,
                 ),
-                Container(
-                  height: 48.h,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5.r),
-                      border: Border.all(color: Colors.transparent)),
-                  child: TextField(
-                    onChanged: (value) {},
-                    style: const TextStyle(color: Colors.white),
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.r),
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                          width: 2.0,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.r),
-                        borderSide: BorderSide(
-                          color: const Color(0xff000000).withOpacity(0.5),
-                          width: 2.0,
-                        ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.r),
-                        borderSide: const BorderSide(
-                          color: Colors.blue,
-                          width: 2.0,
-                        ),
-                      ),
-                      hintText: 'What are looking for',
-                      hintStyle: TextStyle(
-                          color: const Color(0xff000000).withOpacity(0.5),
-                          letterSpacing: -1,
-                          fontSize: 12.sp),
-                      suffixIcon: Icon(
-                        Icons.search,
-                        color: const Color(0xff000000).withOpacity(0.5),
-                      ),
-                    ),
-                  ),
-                ),
+                const SearchWidget(),
                 SizedBox(
                   height: 10.h,
                 ),
                 Text(
-                  "Hello ${HomeCubit.get(context).myUser?.firstName} ,",
+                  "Hello ${PageIndicatorCubit.get(context).myUser?.firstName} ,",
                   style: openSans18W500(color: Colors.black),
                 ),
                 SizedBox(
@@ -99,10 +52,17 @@ class HomeScreen extends StatelessWidget {
                       SizedBox(
                         width: 5.w,
                       ),
-                      const CustomCategoryItem(
-                        image: "assets/images/Medical Equipment.png",
-                        text: "Medical Equipment",
-                        color: 0xffDFEECF,
+                      InkWell(
+                        onTap: () {
+                          String text = "Medical Equipment";
+                          Navigator.pushNamed(context, Routes.medicalEquipments,
+                              arguments: text);
+                        },
+                        child: const CustomCategoryItem(
+                          image: "assets/images/Medical Equipment.png",
+                          text: "Medical Equipment",
+                          color: 0xffDFEECF,
+                        ),
                       ),
                       SizedBox(
                         width: 11.w,

@@ -1,12 +1,16 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/features/enter_code/cubit/enter_code_cubit.dart';
+import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/medical_equipments.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.dart';
-import 'package:medlife_v2/features/pages_indicator/page_indicator.dart';
+import 'package:medlife_v2/features/pages_indicator/pages/page_indicator.dart';
 import 'package:medlife_v2/features/product_details/cubit/product_details_cubit.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
 import 'package:medlife_v2/features/reset_password/cubit/reset_password_cubit.dart';
 import 'package:medlife_v2/routes/routes.dart';
+import '../config/services/metwork.dart';
 import '../features/enter_code/pages/enter_code.dart';
 import '../features/home/cubit/home_cubit.dart';
 import '../features/home/pages/home.dart';
@@ -22,9 +26,10 @@ class AppRoutes {
   static Route? onGenerate(RouteSettings routeSettings) {
     switch (routeSettings.name) {
       case Routes.pageIndicator:
+        final networkInfo = NetworkInfoImpl(Connectivity());
         return MaterialPageRoute(
           builder: (context) => BlocProvider(
-            create: (context) => PageIndicatorCubit(),
+            create: (context) => PageIndicatorCubit(networkInfo: networkInfo)..listenToNetworkConnection(),
             child: const PageIndicator(),
           ),
         );
@@ -51,6 +56,13 @@ class AppRoutes {
           builder: (context) => BlocProvider(
             create: (context) => EnterCodeCubit(),
             child: const EnterCode(),
+          ),
+        );
+      case Routes.medicalEquipments:
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider(
+            create: (context) => MedicalEquipmentsCubit(),
+            child: const MedicalEquipments(),
           ),
         );
       case Routes.signUp:

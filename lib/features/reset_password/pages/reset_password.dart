@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import 'package:medlife_v2/cubit/base_cubit.dart';
+import 'package:medlife_v2/features/reset_password/cubit/reset_password_cubit.dart';
 import '../../../config/utils/app_colors.dart';
 import '../../../config/utils/components.dart';
 import '../../../config/utils/text_styles.dart';
 import '../../../routes/routes.dart';
-
 
 class ResetPassword extends StatelessWidget {
   const ResetPassword({super.key});
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController textEditingController = TextEditingController();
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 73.h),
         child: Form(
@@ -36,7 +36,7 @@ class ResetPassword extends StatelessWidget {
               Text(
                 "please enter your mail address to resets your password",
                 style: openSans16W400(
-                        color: const Color(0xff1A1A1A).withOpacity(0.6))
+                    color: const Color(0xff1A1A1A).withOpacity(0.6))
                     .copyWith(
                   letterSpacing: -0.41,
                 ),
@@ -45,16 +45,23 @@ class ResetPassword extends StatelessWidget {
                 height: 37.h,
               ),
               DefaultFormField(
-                  controller: textEditingController,
+                  controller: ResetPasswordCubit
+                      .get(context)
+                      .emailController,
                   type: TextInputType.emailAddress,
-                  validate: (p0) => null,
-                  label: "User Email"),
+                  validate: (value) => BaseCubit.validateForEmail(value),
+                  label: "Email"),
               SizedBox(
                 height: 31.h,
               ),
               DefaultTextButton(
                 function: () {
-                  Navigator.pushNamed(context, Routes.enterCode);
+                  ResetPasswordCubit.get(context).resetPassword(
+                      ResetPasswordCubit
+                          .get(context)
+                          .emailController
+                          .text, context);
+                  // Navigator.pushNamed(context, Routes.enterCode);
                 },
                 text: "Send",
                 textStyle: openSans14W500(color: Colors.white),

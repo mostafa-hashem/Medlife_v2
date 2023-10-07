@@ -14,8 +14,7 @@ class SignUpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SignUpCubit, SignUpStates>(
-      listener: (context, state) {},
+    return BlocBuilder<SignUpCubit, SignUpStates>(
       builder: (context, state) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
@@ -100,24 +99,24 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     DefaultTextButton(
                       function: () {
-                          if (SignUpCubit.get(context)
-                              .formKey
-                              .currentState!
-                              .validate()) {
-                            SignUpCubit.get(context).signUp(
-                                context: context,
-                                email:
-                                SignUpCubit.get(context).emailController.text,
-                                password: SignUpCubit.get(context)
-                                    .passwordController
-                                    .text,
-                                firstName: SignUpCubit.get(context)
-                                    .firstNameController
-                                    .text,
-                                secondName: SignUpCubit.get(context)
-                                    .secondCameController
-                                    .text);
-                          }
+                        if (SignUpCubit.get(context)
+                            .formKey
+                            .currentState!
+                            .validate()) {
+                          SignUpCubit.get(context).signUp(
+                              context: context,
+                              email:
+                                  SignUpCubit.get(context).emailController.text,
+                              password: SignUpCubit.get(context)
+                                  .passwordController
+                                  .text,
+                              firstName: SignUpCubit.get(context)
+                                  .firstNameController
+                                  .text,
+                              secondName: SignUpCubit.get(context)
+                                  .secondCameController
+                                  .text);
+                        }
                       },
                       text: "Create account",
                       textStyle: openSans14W500(color: Colors.white),

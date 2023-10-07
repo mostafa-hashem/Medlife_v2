@@ -20,13 +20,13 @@ class LoginCubit extends Cubit<LoginStates> {
       required BuildContext context}) async {
     try {
       emit(LoginLoading());
-      await _auth
-          .signInWithEmailAndPassword(
-            email: email,
-            password: password,
-          )
-          .then((value) => () =>
-              Navigator.pushReplacementNamed(context, Routes.pageIndicator));
+      final credential =  await _auth.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      if (context.mounted) {
+        Navigator.pushReplacementNamed(context, Routes.pageIndicator);
+      }
       emit(LoginSuccess());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -36,6 +36,7 @@ class LoginCubit extends Cubit<LoginStates> {
         }
         emit(LoginFailure(e.toString()));
       } else if (e.code == 'wrong-password') {
+        print(e.toString());
         if (context.mounted) {
           ScaffoldMessenger.of(context)
               .showSnackBar(const SnackBar(content: Text("Wrong password")));

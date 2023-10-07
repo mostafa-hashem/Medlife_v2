@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:medlife_v2/features/home/cubit/home_cubit.dart';
+import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.dart';
 import 'package:medlife_v2/routes/routes.dart';
-
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -13,11 +12,13 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
-    HomeCubit.get(context).initUser();
+    PageIndicatorCubit.get(context).initUser();
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacementNamed(
         context,
-        HomeCubit.get(context).firebaseUser != null ? Routes.pageIndicator : Routes.login,
+        PageIndicatorCubit.get(context).firebaseUser != null
+            ? Routes.pageIndicator
+            : Routes.login,
       );
     });
     super.initState();

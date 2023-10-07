@@ -8,10 +8,7 @@ import '../../../models/user_model/user_model.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  // final NetworkInfo networkInfo;
   HomeCubit() : super(HomeInitial());
-  User? firebaseUser;
-  UserModel? myUser;
   TextEditingController idController = TextEditingController();
   TextEditingController firstNameController = TextEditingController();
   TextEditingController secondNameController = TextEditingController();
@@ -23,22 +20,4 @@ class HomeCubit extends Cubit<HomeState> {
         await BaseCubit.getUsersCollection().doc(id).get();
     return userSnap.data();
   }
-
-  void initUser() async {
-    try {
-      firebaseUser = FirebaseAuth.instance.currentUser;
-      myUser = await readUser(firebaseUser!.uid);
-      firstNameController.text = myUser!.firstName!;
-      secondNameController.text = myUser!.secondName!;
-      emit(HomeUserLoadedState(myUser!));
-    } catch (e) {
-      emit(HomeErrorState(e.toString()));
-    }
-  }
-
-// void listenToNetworkConnection() {
-//   networkInfo.isConnected.listen((isConnected) {
-//     emit(isConnected ? HomeConnectedState() : HomeNotConnectedState());
-//   });
-// }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/config/utils/text_styles.dart';
-import 'package:medlife_v2/features/home/cubit/home_cubit.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_states.dart';
 import 'package:medlife_v2/routes/routes.dart';
@@ -51,7 +50,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               CustomProfileContainer(
                 text: "ID Number",
-                controller: HomeCubit.get(context).idController,
+                controller: PageIndicatorCubit.get(context).idController,
                 textInputType: TextInputType.number,
               ),
               SizedBox(
@@ -63,7 +62,7 @@ class ProfileScreen extends StatelessWidget {
                       width: 186.w,
                       child: CustomProfileContainer(
                         text: "First Name",
-                        controller: HomeCubit.get(context).firstNameController,
+                        controller: PageIndicatorCubit.get(context).firstNameController,
                         textInputType: TextInputType.name,
                       )),
                   SizedBox(
@@ -73,7 +72,7 @@ class ProfileScreen extends StatelessWidget {
                     width: 186.w,
                     child: CustomProfileContainer(
                       text: "Second Name",
-                      controller: HomeCubit.get(context).secondNameController,
+                      controller: PageIndicatorCubit.get(context).secondNameController,
                       textInputType: TextInputType.name,
                     ),
                   ),
@@ -84,14 +83,14 @@ class ProfileScreen extends StatelessWidget {
               ),
               CustomProfileContainer(
                   text: "Email",
-                  controller: HomeCubit.get(context).idController,
+                  controller: PageIndicatorCubit.get(context).idController,
                   textInputType: TextInputType.emailAddress),
               SizedBox(
                 height: 21.h,
               ),
               CustomProfileContainer(
                 text: "Date of birth",
-                controller: HomeCubit.get(context).idController,
+                controller: PageIndicatorCubit.get(context).idController,
                 textInputType: TextInputType.datetime,
               ),
               SizedBox(
@@ -99,7 +98,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               CustomProfileContainer(
                 text: "Address*",
-                controller: HomeCubit.get(context).idController,
+                controller: PageIndicatorCubit.get(context).idController,
                 textInputType: TextInputType.streetAddress,
               ),
               SizedBox(
@@ -107,7 +106,7 @@ class ProfileScreen extends StatelessWidget {
               ),
               CustomProfileContainer(
                 text: "Company insurance name",
-                controller: HomeCubit.get(context).idController,
+                controller: PageIndicatorCubit.get(context).idController,
                 textInputType: TextInputType.text,
               ),
               SizedBox(

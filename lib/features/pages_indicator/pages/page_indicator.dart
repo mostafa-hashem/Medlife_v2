@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/config/utils/app_colors.dart';
-import 'cubit/page_indicator_cubit.dart';
-import 'cubit/page_indicator_states.dart';
+import '../../home/cubit/home_cubit.dart';
+import '../cubit/page_indicator_cubit.dart';
+import '../cubit/page_indicator_states.dart';
 
 class PageIndicator extends StatelessWidget {
   const PageIndicator({super.key});
@@ -10,7 +11,16 @@ class PageIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final pageCubit = PageIndicatorCubit.get(context);
-    return BlocBuilder<PageIndicatorCubit, PageIndicatorState>(
+    return BlocConsumer<PageIndicatorCubit, PageIndicatorState>(
+        listener: (context, state) {
+          if (state is PageIndicatorConnectedState) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text("Connected")));
+          } else if (state is PageIndicatorNotConnectedState) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(const SnackBar(content: Text('Disconnected')));
+          }
+        },
         builder: (context, state) => Scaffold(
               extendBody: true,
               body: pageCubit.pages[pageCubit.currentIndex],

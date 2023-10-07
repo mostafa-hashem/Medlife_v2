@@ -5,13 +5,13 @@ import 'package:medlife_v2/features/enter_code/pages/widgets/custom_container.da
 import '../../../config/utils/app_colors.dart';
 import '../../../config/utils/text_styles.dart';
 
-
 class EnterCode extends StatelessWidget {
   const EnterCode({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 73.h),
         child: Form(
@@ -71,7 +71,9 @@ class EnterCode extends StatelessWidget {
                       "Send code again",
                       style: openSans16W500(color: const Color(0xff576A69)),
                     ),
-                    SizedBox(width: 8.w,),
+                    SizedBox(
+                      width: 8.w,
+                    ),
                     Text(
                       "00:20",
                       style: openSans16W400(color: const Color(0xff576A69)),
