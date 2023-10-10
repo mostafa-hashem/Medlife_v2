@@ -2,27 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/cubit/base_cubit.dart';
-import 'package:medlife_v2/features/login/cubit/login_cubit.dart';
-import 'package:medlife_v2/features/login/cubit/login_state.dart';
+import 'package:medlife_v2/features/auth/cubit/auth_cubit.dart';
+import 'package:medlife_v2/features/auth/cubit/auth_state.dart';
+import 'package:medlife_v2/features/auth/data/models/login_data.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/components.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/ui/widgets/default_form_filed.dart';
+import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen();
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<LoginCubit, LoginStates>(
-      listener: (context, state) {},
+    final login = AuthCubit.get(context);
+    return BlocConsumer<AuthCubit, AuthState>(
+      listener: (context, state) {
+        if(state is AuthSuccess){
+          Navigator.pushNamed(context, Routes.home);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 73.h),
             child: Form(
-              key: LoginCubit.get(context).formKey,
+              key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -41,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                   DefaultFormField(
                     isPassword: false,
-                    controller: LoginCubit.get(context).emailController,
+                    controller: emailController,
                     type: TextInputType.emailAddress,
                     validate: (value) => BaseCubit.validateForEmail(value),
                     label: "E-mail",
@@ -50,15 +66,14 @@ class LoginScreen extends StatelessWidget {
                     height: 32.h,
                   ),
                   DefaultFormField(
-                    suffix: LoginCubit.get(context).isVisible
+                    suffix: login.isVisible
                         ? Icons.visibility
                         : Icons.visibility_off,
-                    suffixPressed: () =>
-                        LoginCubit.get(context).emitPasswordVisibility(
-                      !LoginCubit.get(context).isVisible,
+                    suffixPressed: () => login.emitPasswordVisibilityLogin(
+                      !login.isVisible,
                     ),
-                    isPassword: LoginCubit.get(context).isVisible,
-                    controller: LoginCubit.get(context).passwordController,
+                    isPassword: login.isVisible,
+                    controller: passwordController,
                     type: TextInputType.text,
                     validate: (value) =>
                         BaseCubit.validate(value, "Please enter password"),
@@ -88,15 +103,12 @@ class LoginScreen extends StatelessWidget {
                   ),
                   DefaultTextButton(
                     function: () {
-                      if (LoginCubit.get(context)
-                          .formKey
-                          .currentState!
-                          .validate()) {
-                        LoginCubit.get(context).login(
-                          email: LoginCubit.get(context).emailController.text,
-                          password:
-                              LoginCubit.get(context).passwordController.text,
-                          context: context,
+                      if (formKey.currentState!.validate()) {
+                        login.login(
+                          LoginData(
+                            email: emailController.text,
+                            password: passwordController.text,
+                          ),
                         );
                       }
                     },

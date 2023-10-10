@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_form_filed.dart';
 
-class CustomProfileContainer extends StatelessWidget {
+class CustomInsuranceContainer extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final String text;
 
-  const CustomProfileContainer({
+  const CustomInsuranceContainer({
     required this.controller,
     required this.text,
     required this.textInputType,

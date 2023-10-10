@@ -5,10 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/cubit/base_cubit.dart';
 import 'package:medlife_v2/features/auth/data/models/user.dart';
 import 'package:medlife_v2/features/cart/pages/cart.dart';
-import 'package:medlife_v2/features/favorite/pages/favorite.dart';
-import 'package:medlife_v2/features/home/pages/home.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_states.dart';
 import 'package:medlife_v2/features/profile/pages/profile.dart';
+import 'package:medlife_v2/ui/screens/favorite.dart';
+import 'package:medlife_v2/ui/screens/home.dart';
 import 'package:medlife_v2/utils/network_service.dart';
 
 class PageIndicatorCubit extends Cubit<PageIndicatorState> {
@@ -73,7 +73,7 @@ class PageIndicatorCubit extends Cubit<PageIndicatorState> {
       firstNameController.text = myUser!.firstName!;
       secondNameController.text = myUser!.lastName!;
       emailController.text = myUser!.email!;
-      idNumberController.text = myUser!.idNumber!;
+      idNumberController.text = myUser!.idNumber ?? "";
       emit(PageIndicatorUserLoadedState(myUser!));
     } catch (e) {
       emit(PageIndicatorErrorState(e.toString()));

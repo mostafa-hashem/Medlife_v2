@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_states.dart';
 import 'package:medlife_v2/features/medical_equipment/pages/widgets/filter_bottom_sheet.dart';
 import 'package:medlife_v2/features/medical_equipment/pages/widgets/sorting_bottom_sheet.dart';
+
+import '../../../cubit/base_cubit.dart';
+import '../../auth/data/models/user.dart';
 
 class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsStates> {
   static MedicalEquipmentsCubit get(BuildContext context) =>
@@ -43,5 +47,11 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsStates> {
         ),
       ),
     );
+  }
+
+  static Future<User?> readUser(String id) async {
+    final DocumentSnapshot<User> userSnap =
+    await BaseCubit.getUsersCollection().doc(id).get();
+    return userSnap.data();
   }
 }

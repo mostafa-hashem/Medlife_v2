@@ -5,8 +5,8 @@ import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_c
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_states.dart';
 import 'package:medlife_v2/features/medical_equipment/pages/widgets/show_products.dart';
 import 'package:medlife_v2/features/medical_equipment/pages/widgets/sorting_and_filter_widget.dart';
-import 'package:medlife_v2/ui/resources/components.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/ui/widgets/search_widget.dart';
 
 class MedicalEquipments extends StatelessWidget {
   const MedicalEquipments();

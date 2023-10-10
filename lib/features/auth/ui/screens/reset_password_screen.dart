@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/cubit/base_cubit.dart';
+import 'package:medlife_v2/features/auth/cubit/auth_cubit.dart';
 import 'package:medlife_v2/features/reset_password/cubit/reset_password_cubit.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/components.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/ui/widgets/default_form_filed.dart';
+import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
+class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen();
 
   @override
+  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
+}
+
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
+  TextEditingController emailController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
+    final resetPassword = AuthCubit.get(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -20,7 +30,8 @@ class ResetPasswordScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Align(
-                  child: Image.asset("assets/images/splsh logo.png"),),
+                child: Image.asset("assets/images/splsh logo.png"),
+              ),
               SizedBox(
                 height: 70.h,
               ),
@@ -34,8 +45,8 @@ class ResetPasswordScreen extends StatelessWidget {
               Text(
                 "please enter your mail address to resets your password",
                 style: openSans16W400(
-                        color: const Color(0xff1A1A1A).withOpacity(0.6),)
-                    .copyWith(
+                  color: const Color(0xff1A1A1A).withOpacity(0.6),
+                ).copyWith(
                   letterSpacing: -0.41,
                 ),
               ),
@@ -43,18 +54,19 @@ class ResetPasswordScreen extends StatelessWidget {
                 height: 37.h,
               ),
               DefaultFormField(
-                  controller: ResetPasswordCubit.get(context).emailController,
-                  type: TextInputType.emailAddress,
-                  validate: (value) => BaseCubit.validateForEmail(value),
-                  label: "Email",),
+                controller: emailController,
+                type: TextInputType.emailAddress,
+                validate: (value) => BaseCubit.validateForEmail(value),
+                label: "Email",
+              ),
               SizedBox(
                 height: 31.h,
               ),
               DefaultTextButton(
                 function: () {
-                  ResetPasswordCubit.get(context).resetPassword(
-                      ResetPasswordCubit.get(context).emailController.text,
-                      context,);
+                  resetPassword.requestPasswordReset(
+                    ResetPasswordCubit.get(context).emailController.text,
+                  );
                   // Navigator.pushNamed(context, Routes.enterCode);
                 },
                 text: "Send",

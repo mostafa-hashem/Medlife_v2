@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/product_details/pages/widgets/custom_patment_container.dart';
-import 'package:medlife_v2/features/product_details/pages/widgets/custom_sealer_container.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/widgets/custom_patment_container.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class ProductDetails extends StatelessWidget {
-  ProductDetails();
+class EquipmentsProductDetails extends StatelessWidget {
+  EquipmentsProductDetails();
 
   final controller = PageController(viewportFraction: 0.8);
 

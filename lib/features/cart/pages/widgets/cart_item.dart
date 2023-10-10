@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/components.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/ui/widgets/default_button.dart';
 
 class CartItem extends StatelessWidget {
   const CartItem();

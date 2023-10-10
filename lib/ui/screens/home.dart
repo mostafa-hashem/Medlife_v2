@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/home/pages/home_widgets/custom_cat_item.dart';
-import 'package:medlife_v2/features/home/pages/home_widgets/custom_top_rated_item.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/widgets/custom_cat_item.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/widgets/custom_top_rated_item.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_states.dart';
 import 'package:medlife_v2/route_manager.dart';
-import 'package:medlife_v2/ui/resources/components.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/ui/widgets/search_widget.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen();
@@ -44,7 +44,7 @@ class HomeScreen extends StatelessWidget {
                   height: 25.h,
                 ),
                 SizedBox(
-                  height: 88.h,
+                  height: 110.h,
                   child: Row(
                     children: [
                       SizedBox(
@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                         ),
                       ),
                       SizedBox(
-                        width: 11.w,
+                        width: 14.w,
                       ),
                       const CustomCategoryItem(
                         image: "assets/images/Medical Service.png",
@@ -74,15 +74,12 @@ class HomeScreen extends StatelessWidget {
                         color: 0xffCFEEEB,
                       ),
                       SizedBox(
-                        width: 11.w,
+                        width: 14.w,
                       ),
                       const CustomCategoryItem(
                         image: "assets/images/Blood Bank.png",
                         text: "Blood Bank",
                         color: 0xffE8B997,
-                      ),
-                      SizedBox(
-                        width: 11.w,
                       ),
                     ],
                   ),

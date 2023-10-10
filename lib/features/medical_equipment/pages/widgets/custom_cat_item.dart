@@ -18,7 +18,6 @@ class CustomCategoryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: 120.w,
-      height: 110.h,
       padding: EdgeInsets.symmetric(horizontal: 11.w, vertical: 7.h),
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(7.r), color: Color(color),),

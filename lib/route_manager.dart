@@ -1,25 +1,22 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:medlife_v2/features/auth/cubit/auth_cubit.dart';
 import 'package:medlife_v2/features/auth/ui/screens/login_screen.dart';
 import 'package:medlife_v2/features/auth/ui/screens/reset_password_screen.dart';
 import 'package:medlife_v2/features/auth/ui/screens/sign_up_screen.dart';
-import 'package:medlife_v2/features/home/cubit/home_cubit.dart';
-import 'package:medlife_v2/features/home/pages/home.dart';
-import 'package:medlife_v2/features/login/cubit/login_cubit.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
-import 'package:medlife_v2/features/medical_equipment/pages/medical_equipments.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/medical_equipments/equipments_product_details.dart';
+import 'package:medlife_v2/features/medical_equipment/pages/medical_equipments/medical_equipments.dart';
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.dart';
-import 'package:medlife_v2/features/pages_indicator/pages/page_indicator.dart';
 import 'package:medlife_v2/features/payment_method/cubit/payment_method_cubit.dart';
+import 'package:medlife_v2/features/payment_method/pages/insurance_payment.dart';
 import 'package:medlife_v2/features/payment_method/pages/payment_method.dart';
-import 'package:medlife_v2/features/product_details/cubit/product_details_cubit.dart';
-import 'package:medlife_v2/features/product_details/pages/product_details.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
 import 'package:medlife_v2/features/profile/pages/profile.dart';
-import 'package:medlife_v2/features/reset_password/cubit/reset_password_cubit.dart';
-import 'package:medlife_v2/features/sign_up/cubit/signip_cubit.dart';
-import 'package:medlife_v2/ui/splash_screen.dart';
+import 'package:medlife_v2/ui/screens/home.dart';
+import 'package:medlife_v2/ui/screens/page_indicator.dart';
+import 'package:medlife_v2/ui/screens/splash_screen.dart';
 import 'package:medlife_v2/utils/network_service.dart';
 
 class Routes {
@@ -33,6 +30,7 @@ class Routes {
   static const String profile = "/profile";
   static const String productDetails = "/productDetails";
   static const String paymentMethod = "/paymentMethod";
+  static const String insurancePayment = "/insurancePayment";
 }
 
 Route? onGenerateRoute(RouteSettings routeSettings) {
@@ -53,14 +51,14 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
     case Routes.login:
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
-          create: (context) => LoginCubit(),
+          create: (context) => AuthCubit(),
           child: const LoginScreen(),
         ),
       );
     case Routes.resetPassword:
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
-          create: (context) => ResetPasswordCubit(),
+          create: (context) => AuthCubit(),
           child: const ResetPasswordScreen(),
         ),
       );
@@ -74,22 +72,22 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
     case Routes.signUp:
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
-          create: (context) => SignUpCubit(),
+          create: (context) => AuthCubit(),
           child: const SignUpScreen(),
         ),
       );
     case Routes.home:
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
-          create: (context) => HomeCubit(),
+          create: (context) => MedicalEquipmentsCubit(),
           child: const HomeScreen(),
         ),
       );
     case Routes.productDetails:
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
-          create: (context) => ProductDetailsCubit(),
-          child: ProductDetails(),
+          create: (context) => MedicalEquipmentsCubit(),
+          child: EquipmentsProductDetails(),
         ),
       );
     case Routes.profile:
@@ -104,6 +102,13 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
         builder: (context) => BlocProvider(
           create: (context) => PaymentMethodCubit(),
           child: const PaymentMethod(),
+        ),
+      );
+    case Routes.insurancePayment:
+      return MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => PaymentMethodCubit(),
+          child: const InsurancePayment(),
         ),
       );
     default:

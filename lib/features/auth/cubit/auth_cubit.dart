@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/features/auth/cubit/auth_state.dart';
 import 'package:medlife_v2/features/auth/data/models/login_data.dart';
@@ -6,15 +7,19 @@ import 'package:medlife_v2/features/auth/data/services/auth_firebase_service.dar
 import 'package:medlife_v2/utils/failure.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  final AuthFirebaseService _authFirebaseService;
+  AuthFirebaseService authFirebaseService = AuthFirebaseService();
   bool isLoggedIn = false;
+  bool isVisible = false;
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
+  static AuthCubit get(BuildContext context) => BlocProvider.of(context);
 
-  AuthCubit(this._authFirebaseService) : super(AuthInitial());
+  AuthCubit() : super(AuthInitial());
 
   Future<void> register(RegisterData registerData) async {
     emit(AuthLoading());
     try {
-      await _authFirebaseService.register(registerData);
+      await authFirebaseService.register(registerData);
       isLoggedIn = true;
       emit(AuthSuccess());
     } catch (e) {
@@ -25,7 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> login(LoginData loginData) async {
     emit(AuthLoading());
     try {
-      await _authFirebaseService.login(loginData);
+      await authFirebaseService.login(loginData);
       isLoggedIn = true;
       emit(AuthSuccess());
     } catch (e) {
@@ -36,7 +41,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> logout() async {
     emit(AuthLoading());
     try {
-      await _authFirebaseService.logout();
+      await authFirebaseService.logout();
       isLoggedIn = false;
       emit(LoggedOut());
     } catch (e) {
@@ -47,7 +52,7 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> requestPasswordReset(String emailAddress) async {
     emit(AuthLoading());
     try {
-      await _authFirebaseService.requestPasswordReset(emailAddress);
+      await authFirebaseService.requestPasswordReset(emailAddress);
       emit(PasswordResetRequestSent());
     } catch (e) {
       emit(AuthError(Failure.fromException(e).message));
@@ -56,9 +61,25 @@ class AuthCubit extends Cubit<AuthState> {
 
   void getAuthStatus() {
     try {
-      isLoggedIn = _authFirebaseService.getAuthStatus();
+      isLoggedIn = authFirebaseService.getAuthStatus();
     } catch (e) {
       emit(AuthError(Failure.fromException(e).message));
     }
   }
+
+  void emitPasswordVisibilityLogin(bool value) {
+    isVisible = value;
+    emit(PasswordVisibilityChanged(isVisible));
+  }
+
+  void emitPasswordVisibilitySignup(bool value) {
+    isPasswordVisible = value;
+    emit(PasswordVisibilityChanged(isPasswordVisible));
+  }
+
+  void emitPasswordConfirmVisibilitySignup(bool value) {
+    isConfirmPasswordVisible = value;
+    emit(PasswordVisibilityChanged(isConfirmPasswordVisible));
+  }
+
 }

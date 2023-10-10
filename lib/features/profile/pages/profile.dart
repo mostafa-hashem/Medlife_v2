@@ -5,8 +5,9 @@ import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.d
 import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_states.dart';
 import 'package:medlife_v2/features/profile/pages/widgets/custom_countainer.dart';
 import 'package:medlife_v2/route_manager.dart';
-import 'package:medlife_v2/ui/resources/components.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/ui/widgets/default_button.dart';
+import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen();

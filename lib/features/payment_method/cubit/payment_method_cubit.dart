@@ -12,4 +12,10 @@ class PaymentMethodCubit extends Cubit<PaymentMethodStates> {
     "assets/images/Cash payment.png",
     "assets/images/Insurance payment.png",
   ];
+
+  void navigator(int index){
+    if(index == 0){
+
+    }
+  }
 }

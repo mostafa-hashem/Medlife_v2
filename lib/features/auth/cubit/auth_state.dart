@@ -19,3 +19,8 @@ class PhoneNumberVerified extends AuthState {}
 class PasswordResetRequestSent extends AuthState {}
 
 class LoggedOut extends AuthState {}
+
+class PasswordVisibilityChanged extends AuthState{
+  bool isVisible;
+  PasswordVisibilityChanged(this.isVisible);
+}

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/payment_method/cubit/payment_method_cubit.dart';
 import 'package:medlife_v2/features/payment_method/pages/widgets/payment_card.dart';
+import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class PaymentMethod extends StatelessWidget {
@@ -54,15 +55,20 @@ class PaymentMethod extends StatelessWidget {
               height: 66.h,
             ),
             Expanded(
-              child: GridView.builder(
-                itemCount: 2,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 14.w,
-                ),
-                itemBuilder: (context, index) => PaymentCard(
-                  image: PaymentMethodCubit.get(context).paymentImages[index],
-                ),
+              child: GestureDetector(
+                onTap: () => Navigator.pushNamed(context, Routes.insurancePayment),
+                child: GridView.builder(
+                    itemCount: 2,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 14.w,
+                    ),
+                    itemBuilder: (context, index) {
+                      return PaymentCard(
+                        image: PaymentMethodCubit.get(context)
+                            .paymentImages[index],
+                      );
+                    }),
               ),
             ),
           ],

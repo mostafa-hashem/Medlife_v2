@@ -2,27 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/cubit/base_cubit.dart';
-import 'package:medlife_v2/features/sign_up/cubit/signip_cubit.dart';
-import 'package:medlife_v2/features/sign_up/cubit/signup_states.dart';
+import 'package:medlife_v2/features/auth/cubit/auth_cubit.dart';
+import 'package:medlife_v2/features/auth/cubit/auth_state.dart';
+import 'package:medlife_v2/features/auth/data/models/register_data.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/components.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/ui/widgets/default_form_filed.dart';
+import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen();
 
   @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController secondCameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
   Widget build(BuildContext context) {
-    final signUp = SignUpCubit.get(context);
-    return BlocBuilder<SignUpCubit, SignUpStates>(
+    final signUp = AuthCubit.get(context);
+    return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         return Scaffold(
           resizeToAvoidBottomInset: false,
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 73.h),
             child: Form(
-              key: SignUpCubit.get(context).formKey,
+              key: formKey,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,7 +55,7 @@ class SignUpScreen extends StatelessWidget {
                       height: 13.h,
                     ),
                     DefaultFormField(
-                      controller: signUp.emailController,
+                      controller: emailController,
                       type: TextInputType.emailAddress,
                       validate: (value) => BaseCubit.validateForEmail(value),
                       label: "E-mail",
@@ -55,7 +69,7 @@ class SignUpScreen extends StatelessWidget {
                         SizedBox(
                           width: 170,
                           child: DefaultFormField(
-                            controller: signUp.firstNameController,
+                            controller: firstNameController,
                             type: TextInputType.name,
                             validate: (value) => BaseCubit.validate(
                               value,
@@ -70,7 +84,7 @@ class SignUpScreen extends StatelessWidget {
                         SizedBox(
                           width: 170,
                           child: DefaultFormField(
-                            controller: signUp.secondCameController,
+                            controller: secondCameController,
                             type: TextInputType.name,
                             validate: (value) => BaseCubit.validate(
                               value,
@@ -89,9 +103,10 @@ class SignUpScreen extends StatelessWidget {
                           ? Icons.visibility
                           : Icons.visibility_off,
                       isPassword: signUp.isPasswordVisible,
-                      suffixPressed: () => signUp
-                          .emitPasswordVisibility(!signUp.isPasswordVisible),
-                      controller: signUp.passwordController,
+                      suffixPressed: () => signUp.emitPasswordVisibilityLogin(
+                        !signUp.isPasswordVisible,
+                      ),
+                      controller: passwordController,
                       type: TextInputType.text,
                       validate: (value) =>
                           BaseCubit.validate(value, "Please enter password"),
@@ -105,10 +120,11 @@ class SignUpScreen extends StatelessWidget {
                           ? Icons.visibility
                           : Icons.visibility_off,
                       isPassword: signUp.isConfirmPasswordVisible,
-                      suffixPressed: () => signUp.emitPasswordConfirmVisibility(
+                      suffixPressed: () =>
+                          signUp.emitPasswordConfirmVisibilitySignup(
                         !signUp.isConfirmPasswordVisible,
                       ),
-                      controller: signUp.confirmPasswordController,
+                      controller: confirmPasswordController,
                       type: TextInputType.text,
                       validate: (value) => BaseCubit.validate(
                         value,
@@ -121,23 +137,14 @@ class SignUpScreen extends StatelessWidget {
                     ),
                     DefaultTextButton(
                       function: () {
-                        if (SignUpCubit.get(context)
-                            .formKey
-                            .currentState!
-                            .validate()) {
-                          SignUpCubit.get(context).signUp(
-                            context: context,
-                            email:
-                                SignUpCubit.get(context).emailController.text,
-                            password: SignUpCubit.get(context)
-                                .passwordController
-                                .text,
-                            firstName: SignUpCubit.get(context)
-                                .firstNameController
-                                .text,
-                            lastName: SignUpCubit.get(context)
-                                .secondCameController
-                                .text,
+                        if (formKey.currentState!.validate()) {
+                          signUp.register(
+                            RegisterData(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              firstName: firstNameController.text,
+                              lastName: secondCameController.text,
+                            ),
                           );
                         }
                       },

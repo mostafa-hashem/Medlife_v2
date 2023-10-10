@@ -15,3 +15,9 @@ class MedicalEquipmentsFailure extends MedicalEquipmentsStates {
 
   MedicalEquipmentsFailure(this.error);
 }
+
+class HomeInitial extends MedicalEquipmentsStates {}
+
+class HomeConnectedState extends MedicalEquipmentsStates {}
+
+class HomeNotConnectedState extends MedicalEquipmentsStates {}
