@@ -16,7 +16,6 @@ class DefaultFormField extends StatelessWidget {
   final bool isClickable;
 
   const DefaultFormField({
-    super.key,
     required this.controller,
     required this.type,
     this.onSubmit,
@@ -47,22 +46,25 @@ class DefaultFormField extends StatelessWidget {
         labelText: label,
         suffixIcon: suffix != null
             ? IconButton(
-          onPressed: suffixPressed,
-          icon: Icon(
-            suffix,
-            color: AppColors.primary,
-          ),
-        )
+                onPressed: suffixPressed,
+                icon: Icon(
+                  suffix,
+                  color: AppColors.primary,
+                ),
+              )
             : null,
         border: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.borderColor, width: 2.w),
-          borderRadius: BorderRadius.circular(7.r),),
+          borderRadius: BorderRadius.circular(7.r),
+        ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.borderColor, width: 2.w),
-          borderRadius: BorderRadius.circular(7.r),),
+          borderRadius: BorderRadius.circular(7.r),
+        ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.borderColor, width: 2.w),
-          borderRadius: BorderRadius.circular(7.r),),
+          borderRadius: BorderRadius.circular(7.r),
+        ),
       ),
     );
   }

@@ -1,30 +1,25 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:medlife_v2/features/auth/cubit/auth_cubit.dart';
 import 'package:medlife_v2/features/auth/ui/screens/login_screen.dart';
+import 'package:medlife_v2/features/auth/ui/screens/register_screen.dart';
 import 'package:medlife_v2/features/auth/ui/screens/reset_password_screen.dart';
-import 'package:medlife_v2/features/auth/ui/screens/sign_up_screen.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
-import 'package:medlife_v2/features/medical_equipment/pages/medical_equipments/equipments_product_details.dart';
-import 'package:medlife_v2/features/medical_equipment/pages/medical_equipments/medical_equipments.dart';
-import 'package:medlife_v2/features/pages_indicator/cubit/page_indicator_cubit.dart';
-import 'package:medlife_v2/features/payment_method/cubit/payment_method_cubit.dart';
-import 'package:medlife_v2/features/payment_method/pages/insurance_payment.dart';
-import 'package:medlife_v2/features/payment_method/pages/payment_method.dart';
-import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
-import 'package:medlife_v2/features/profile/pages/profile.dart';
-import 'package:medlife_v2/ui/screens/home.dart';
-import 'package:medlife_v2/ui/screens/page_indicator.dart';
+import 'package:medlife_v2/features/medical_equipment/ui/screens/equipment_details_screen.dart';
+import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipments_screen.dart';
+import 'package:medlife_v2/features/payment/cubit/payment_cubit.dart';
+import 'package:medlife_v2/features/payment/ui/screens/insurance_payment_screen.dart';
+import 'package:medlife_v2/features/payment/ui/screens/payment_methods_screen.dart';
+import 'package:medlife_v2/features/profile/ui/screens/profile_screen.dart';
+import 'package:medlife_v2/ui/screens/home_layout.dart';
+import 'package:medlife_v2/ui/screens/home_screen.dart';
 import 'package:medlife_v2/ui/screens/splash_screen.dart';
-import 'package:medlife_v2/utils/network_service.dart';
 
 class Routes {
-  static const String pageIndicator = "/pageIndicator";
+  static const String layout = "/layout";
   static const String splash = "/splashScreen";
   static const String login = "/login";
   static const String resetPassword = "/resetPassword";
-  static const String signUp = "/signUp";
+  static const String register = "/register";
   static const String home = "/home";
   static const String medicalEquipments = "/medicalEquipments";
   static const String profile = "/profile";
@@ -35,14 +30,9 @@ class Routes {
 
 Route? onGenerateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
-    case Routes.pageIndicator:
-      final networkInfo = NetworkService(Connectivity());
+    case Routes.layout:
       return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => PageIndicatorCubit(networkInfo: networkInfo)
-            ..listenToNetworkConnection(),
-          child: const PageIndicator(),
-        ),
+        builder: (context) => const HomeLayout(),
       );
     case Routes.splash:
       return MaterialPageRoute(
@@ -50,31 +40,22 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
       );
     case Routes.login:
       return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => AuthCubit(),
-          child: const LoginScreen(),
-        ),
+        builder: (context) => const LoginScreen(),
       );
     case Routes.resetPassword:
       return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => AuthCubit(),
-          child: const ResetPasswordScreen(),
-        ),
+        builder: (context) => const ResetPasswordScreen(),
       );
     case Routes.medicalEquipments:
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
           create: (context) => MedicalEquipmentsCubit(),
-          child: const MedicalEquipments(),
+          child: const MedicalEquipmentsScreen(),
         ),
       );
-    case Routes.signUp:
+    case Routes.register:
       return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => AuthCubit(),
-          child: const SignUpScreen(),
-        ),
+        builder: (context) => const RegisterScreen(),
       );
     case Routes.home:
       return MaterialPageRoute(
@@ -87,28 +68,25 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
           create: (context) => MedicalEquipmentsCubit(),
-          child: EquipmentsProductDetails(),
+          child: EquipmentDetailsScreen(),
         ),
       );
     case Routes.profile:
       return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => ProfileCubit(),
-          child: const ProfileScreen(),
-        ),
+        builder: (context) => const ProfileScreen(),
       );
     case Routes.paymentMethod:
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
-          create: (context) => PaymentMethodCubit(),
-          child: const PaymentMethod(),
+          create: (context) => PaymentCubit(),
+          child: const PaymentMethodsScreen(),
         ),
       );
     case Routes.insurancePayment:
       return MaterialPageRoute(
         builder: (context) => BlocProvider(
-          create: (context) => PaymentMethodCubit(),
-          child: const InsurancePayment(),
+          create: (context) => PaymentCubit(),
+          child: const InsurancePaymentScreen(),
         ),
       );
     default:

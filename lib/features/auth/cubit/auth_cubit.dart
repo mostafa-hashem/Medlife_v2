@@ -4,17 +4,18 @@ import 'package:medlife_v2/features/auth/cubit/auth_state.dart';
 import 'package:medlife_v2/features/auth/data/models/login_data.dart';
 import 'package:medlife_v2/features/auth/data/models/register_data.dart';
 import 'package:medlife_v2/features/auth/data/services/auth_firebase_service.dart';
-import 'package:medlife_v2/utils/failure.dart';
+import 'package:medlife_v2/utils/data/failure/failure.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthFirebaseService authFirebaseService = AuthFirebaseService();
+  AuthCubit() : super(AuthInitial());
+
+  static AuthCubit get(BuildContext context) => BlocProvider.of(context);
+
+  final authFirebaseService = AuthFirebaseService();
   bool isLoggedIn = false;
   bool isVisible = false;
   bool isPasswordVisible = false;
   bool isConfirmPasswordVisible = false;
-  static AuthCubit get(BuildContext context) => BlocProvider.of(context);
-
-  AuthCubit() : super(AuthInitial());
 
   Future<void> register(RegisterData registerData) async {
     emit(AuthLoading());
@@ -81,5 +82,4 @@ class AuthCubit extends Cubit<AuthState> {
     isConfirmPasswordVisible = value;
     emit(PasswordVisibilityChanged(isConfirmPasswordVisible));
   }
-
 }

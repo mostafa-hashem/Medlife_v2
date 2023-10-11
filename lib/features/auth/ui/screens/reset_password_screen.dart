@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/cubit/base_cubit.dart';
 import 'package:medlife_v2/features/auth/cubit/auth_cubit.dart';
-import 'package:medlife_v2/features/reset_password/cubit/reset_password_cubit.dart';
+import 'package:medlife_v2/features/auth/cubit/auth_state.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_form_filed.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
+import 'package:medlife_v2/utils/helper_methods.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen();
@@ -56,21 +57,31 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
               DefaultFormField(
                 controller: emailController,
                 type: TextInputType.emailAddress,
-                validate: (value) => BaseCubit.validateForEmail(value),
+                validate: validateEmail,
                 label: "Email",
               ),
               SizedBox(
                 height: 31.h,
               ),
-              DefaultTextButton(
-                function: () {
-                  resetPassword.requestPasswordReset(
-                    ResetPasswordCubit.get(context).emailController.text,
-                  );
-                  // Navigator.pushNamed(context, Routes.enterCode);
+              BlocListener<AuthCubit, AuthState>(
+                listener: (_, state) {
+                  if (state is PasswordResetRequestSent) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'A password reset code has been sent to your email.',
+                        ),
+                      ),
+                    );
+                  }
                 },
-                text: "Send",
-                textStyle: openSans14W500(color: Colors.white),
+                child: DefaultTextButton(
+                  function: () {
+                    resetPassword.requestPasswordReset(emailController.text);
+                  },
+                  text: "Send",
+                  textStyle: openSans14W500(color: Colors.white),
+                ),
               ),
             ],
           ),

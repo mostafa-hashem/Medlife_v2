@@ -15,22 +15,22 @@ class DefaultButton extends StatelessWidget {
   final Color? borderColor;
   final double? iconSize;
 
-  const DefaultButton(
-      {super.key,
-        this.width,
-        this.height = 40,
-        this.background,
-        this.textStyle = const TextStyle(
-          color: Colors.white,
-        ),
-        this.isUpperCase = true,
-        this.radius = 8,
-        required this.function,
-        this.text,
-        this.iconColor,
-        this.borderColor,
-        this.iconSize,
-        required this.icon,});
+  const DefaultButton({
+    this.width,
+    this.height = 40,
+    this.background,
+    this.textStyle = const TextStyle(
+      color: Colors.white,
+    ),
+    this.isUpperCase = true,
+    this.radius = 8,
+    required this.function,
+    this.text,
+    this.iconColor,
+    this.borderColor,
+    this.iconSize,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +52,8 @@ class DefaultButton extends StatelessWidget {
                 icon,
                 color: iconColor ?? Colors.white,
                 size: iconSize,
-              ),),
+              ),
+            ),
           ),
         );
       },

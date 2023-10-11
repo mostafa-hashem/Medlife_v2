@@ -12,7 +12,6 @@ class DefaultTextButton extends StatelessWidget {
   final Color? borderColor;
 
   const DefaultTextButton({
-    super.key,
     required this.function,
     this.height,
     this.width,

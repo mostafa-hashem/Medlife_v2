@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide User;
 import 'package:medlife_v2/features/auth/data/models/login_data.dart';
 import 'package:medlife_v2/features/auth/data/models/register_data.dart';
-import 'package:medlife_v2/features/auth/data/models/user.dart';
 import 'package:medlife_v2/utils/constants.dart';
+import 'package:medlife_v2/utils/data/models/user.dart';
 
 class AuthFirebaseService {
   final _usersCollection =
