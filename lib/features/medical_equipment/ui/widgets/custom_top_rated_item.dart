@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class CustomTopRatedItem extends StatelessWidget {
@@ -11,9 +10,12 @@ class CustomTopRatedItem extends StatelessWidget {
     return Container(
       width: 133,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(7.r),
-          border: Border.all(
-              color: const Color(0xff2E3A58).withOpacity(0.2), width: 3.w,),),
+        borderRadius: BorderRadius.circular(7.r),
+        border: Border.all(
+          color: const Color(0xff2E3A58).withOpacity(0.2),
+          width: 3.w,
+        ),
+      ),
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 4.h, horizontal: 5.w),
         child: Column(
@@ -69,12 +71,13 @@ class CustomTopRatedItem extends StatelessWidget {
                 ),
                 const Text("9.98 \$"),
                 CircleAvatar(
-                    radius: 8.5.r,
-                    backgroundColor: const Color(0xff22C7B6),
-                    child: const Icon(
-                      Icons.add_shopping_cart_outlined,
-                      size: 8,
-                    ),),
+                  radius: 8.5.r,
+                  backgroundColor: const Color(0xff22C7B6),
+                  child: const Icon(
+                    Icons.add_shopping_cart_outlined,
+                    size: 8,
+                  ),
+                ),
                 SizedBox(
                   width: 5.w,
                 ),

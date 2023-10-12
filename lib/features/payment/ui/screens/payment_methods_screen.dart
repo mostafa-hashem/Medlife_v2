@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/payment_card.dart';
 import 'package:medlife_v2/route_manager.dart';
-import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class PaymentMethodsScreen extends StatefulWidget {
   const PaymentMethodsScreen();
@@ -25,14 +24,13 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
         padding: EdgeInsets.only(top: 68.h, left: 16.w, right: 16.w),
         child: Column(
           children: [
-           const CustomAppBar(text: 'Payment method'),
+            const CustomAppBar(text: 'Payment method'),
             SizedBox(
               height: 66.h,
             ),
             Expanded(
               child: GestureDetector(
-                onTap: () =>
-                    Navigator.pushNamed(context, Routes.checkout),
+                onTap: () => Navigator.pushNamed(context, Routes.checkout),
                 child: GridView.builder(
                   itemCount: 2,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

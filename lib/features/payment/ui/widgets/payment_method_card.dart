@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PaymentMethodCard extends StatelessWidget {
   final String image;
+
   const PaymentMethodCard({super.key, required this.image});
 
   @override

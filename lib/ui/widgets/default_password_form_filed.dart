@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
@@ -23,11 +22,13 @@ class DefaultPasswordFormField extends StatefulWidget {
   });
 
   @override
-  State<DefaultPasswordFormField> createState() => _DefaultPasswordFormFieldState();
+  State<DefaultPasswordFormField> createState() =>
+      _DefaultPasswordFormFieldState();
 }
 
 class _DefaultPasswordFormFieldState extends State<DefaultPasswordFormField> {
-   bool isPassword = true;
+  bool isPassword = true;
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
@@ -52,12 +53,12 @@ class _DefaultPasswordFormFieldState extends State<DefaultPasswordFormField> {
                 ),
               )
             : IconButton(
-          onPressed: suffixPressed,
-          icon: const Icon(
-            Icons.visibility,
-            color: AppColors.primary,
-          ),
-        ),
+                onPressed: suffixPressed,
+                icon: const Icon(
+                  Icons.visibility,
+                  color: AppColors.primary,
+                ),
+              ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.borderColor, width: 2.w),
           borderRadius: BorderRadius.circular(7.r),
@@ -74,10 +75,9 @@ class _DefaultPasswordFormFieldState extends State<DefaultPasswordFormField> {
     );
   }
 
-void suffixPressed(){
+  void suffixPressed() {
     setState(() {
-  isPassword = !isPassword;
+      isPassword = !isPassword;
     });
+  }
 }
-}
-

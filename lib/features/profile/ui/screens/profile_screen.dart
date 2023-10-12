@@ -21,9 +21,9 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit,AuthState>(
+    return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
-        if(state is LoggedOut){
+        if (state is LoggedOut) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text(
@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           showDialog(
             context: context,
             builder: (BuildContext context) {
-              return Center(child: CircularProgressIndicator());
+              return const Center(child: CircularProgressIndicator());
             },
           );
         }

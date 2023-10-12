@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/sorting_row.dart';
 
 class SortingBottomSheet extends StatelessWidget {

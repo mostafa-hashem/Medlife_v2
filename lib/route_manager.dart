@@ -7,9 +7,11 @@ import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_c
 import 'package:medlife_v2/features/medical_equipment/ui/screens/equipment_details_screen.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipments_screen.dart';
 import 'package:medlife_v2/features/payment/cubit/payment_cubit.dart';
-import 'package:medlife_v2/features/payment/ui/screens/checkout.dart';
+import 'package:medlife_v2/features/payment/ui/screens/address_screen.dart';
+import 'package:medlife_v2/features/payment/ui/screens/checkout_screen.dart';
 import 'package:medlife_v2/features/payment/ui/screens/insurance_payment_screen.dart';
 import 'package:medlife_v2/features/payment/ui/screens/payment_methods_screen.dart';
+import 'package:medlife_v2/features/payment/ui/screens/successful_payment.dart';
 import 'package:medlife_v2/features/profile/ui/screens/profile_screen.dart';
 import 'package:medlife_v2/ui/screens/home_layout.dart';
 import 'package:medlife_v2/ui/screens/home_screen.dart';
@@ -28,6 +30,8 @@ class Routes {
   static const String paymentMethod = "/paymentMethod";
   static const String insurancePayment = "/insurancePayment";
   static const String checkout = "/checkout";
+  static const String address = "/address";
+  static const String successfulPayment = "/successfulPayment";
 }
 
 Route? onGenerateRoute(RouteSettings routeSettings) {
@@ -96,6 +100,20 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
         builder: (context) => BlocProvider(
           create: (context) => PaymentCubit(),
           child: const Checkout(),
+        ),
+      );
+    case Routes.address:
+      return MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => PaymentCubit(),
+          child: const Address(),
+        ),
+      );
+    case Routes.successfulPayment:
+      return MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => PaymentCubit(),
+          child: const SuccessfulPayment(),
         ),
       );
     default:

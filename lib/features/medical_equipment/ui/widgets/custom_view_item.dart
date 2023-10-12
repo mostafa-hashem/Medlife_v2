@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class CustomViewItem extends StatelessWidget {
@@ -96,13 +95,14 @@ class CustomViewItem extends StatelessWidget {
                   style: openSans18W500(color: const Color(0xff526262)),
                 ),
                 CircleAvatar(
-                    radius: 15.r,
-                    backgroundColor: const Color(0xff22C7B6),
-                    child: const Icon(
-                      Icons.add_shopping_cart_outlined,
-                      size: 18,
-                      color: Colors.white,
-                    ),),
+                  radius: 15.r,
+                  backgroundColor: const Color(0xff22C7B6),
+                  child: const Icon(
+                    Icons.add_shopping_cart_outlined,
+                    size: 18,
+                    color: Colors.white,
+                  ),
+                ),
                 SizedBox(
                   width: 5.w,
                 ),

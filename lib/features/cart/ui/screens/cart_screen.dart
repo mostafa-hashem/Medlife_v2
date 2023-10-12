@@ -103,23 +103,5 @@ class CartScreen extends StatelessWidget {
         ],
       ),
     );
-    //Padding(
-    //   padding: EdgeInsets.only(top: 64.h, left: 21.w, right: 21.w),
-    //   child: Column(
-    //     children: [
-    //       Align(
-    //         alignment: Alignment.center,
-    //         child: Text(
-    //           "Cart",
-    //           style: openSans16W500(color: const Color(0xff1E1E1E)),
-    //         ),
-    //       ),
-    //       SizedBox(
-    //         height: 78.h,
-    //       ),
-    //       Image.asset("assets/images/emptyCart.png")
-    //     ],
-    //   ),
-    // );
   }
 }

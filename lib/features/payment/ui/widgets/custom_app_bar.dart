@@ -4,6 +4,7 @@ import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class CustomAppBar extends StatelessWidget {
   final String text;
+
   const CustomAppBar({super.key, required this.text});
 
   @override

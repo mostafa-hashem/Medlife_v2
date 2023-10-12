@@ -10,7 +10,8 @@ class SearchWidget extends StatelessWidget {
       height: 48.h,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5.r),
-        border: Border.all(color: Colors.transparent),),
+        border: Border.all(color: Colors.transparent),
+      ),
       child: TextField(
         onChanged: (value) {},
         style: const TextStyle(color: Colors.black),
@@ -40,7 +41,8 @@ class SearchWidget extends StatelessWidget {
           hintStyle: TextStyle(
             color: const Color(0xff000000).withOpacity(0.5),
             letterSpacing: -1,
-            fontSize: 12.sp,),
+            fontSize: 12.sp,
+          ),
           suffixIcon: Icon(
             Icons.search,
             color: const Color(0xff000000).withOpacity(0.5),

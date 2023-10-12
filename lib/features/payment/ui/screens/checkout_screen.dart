@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
-import 'package:medlife_v2/features/payment/ui/widgets/Custom_address_container.dart';
+import 'package:medlife_v2/features/payment/ui/widgets/custom_address_container.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/payment_method_card.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/shipping_method_row.dart';
@@ -123,7 +123,7 @@ class Checkout extends StatelessWidget {
               ),
               DefaultTextButton(
                 function: () =>
-                    Navigator.pushNamed(context, Routes.paymentMethod),
+                    Navigator.pushNamed(context, Routes.successfulPayment),
                 text: "Check out",
                 textStyle: openSans16W500(color: Colors.white),
                 height: 65.h,

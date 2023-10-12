@@ -27,15 +27,21 @@ class CartItem extends StatelessWidget {
                   height: 16.h,
                 ),
                 RichText(
-                    text: TextSpan(children: [
-                  TextSpan(
-                      text: "23",
-                      style: openSans18W500(
-                          color: const Color(0xff1E1E1E).withOpacity(0.8),),),
-                  TextSpan(
-                      text: "\$",
-                      style: openSans14W400(color: AppColors.primary),),
-                ],),),
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "23",
+                        style: openSans18W500(
+                          color: const Color(0xff1E1E1E).withOpacity(0.8),
+                        ),
+                      ),
+                      TextSpan(
+                        text: "\$",
+                        style: openSans14W400(color: AppColors.primary),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
             SizedBox(
@@ -77,9 +83,11 @@ class CartItem extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                  border: Border.all(
-                      color: const Color(0xff000000).withOpacity(0.5),),
-                  borderRadius: BorderRadius.circular(7.r),),
+                border: Border.all(
+                  color: const Color(0xff000000).withOpacity(0.5),
+                ),
+                borderRadius: BorderRadius.circular(7.r),
+              ),
               child: Row(
                 children: [
                   const Icon(
@@ -99,9 +107,11 @@ class CartItem extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(6),
               decoration: BoxDecoration(
-                  border: Border.all(
-                      color: const Color(0xff000000).withOpacity(0.5),),
-                  borderRadius: BorderRadius.circular(7.r),),
+                border: Border.all(
+                  color: const Color(0xff000000).withOpacity(0.5),
+                ),
+                borderRadius: BorderRadius.circular(7.r),
+              ),
               child: Row(
                 children: [
                   const Icon(
