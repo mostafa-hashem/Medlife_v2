@@ -7,6 +7,7 @@ import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_c
 import 'package:medlife_v2/features/medical_equipment/ui/screens/equipment_details_screen.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipments_screen.dart';
 import 'package:medlife_v2/features/payment/cubit/payment_cubit.dart';
+import 'package:medlife_v2/features/payment/ui/screens/checkout.dart';
 import 'package:medlife_v2/features/payment/ui/screens/insurance_payment_screen.dart';
 import 'package:medlife_v2/features/payment/ui/screens/payment_methods_screen.dart';
 import 'package:medlife_v2/features/profile/ui/screens/profile_screen.dart';
@@ -26,6 +27,7 @@ class Routes {
   static const String productDetails = "/productDetails";
   static const String paymentMethod = "/paymentMethod";
   static const String insurancePayment = "/insurancePayment";
+  static const String checkout = "/checkout";
 }
 
 Route? onGenerateRoute(RouteSettings routeSettings) {
@@ -87,6 +89,13 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
         builder: (context) => BlocProvider(
           create: (context) => PaymentCubit(),
           child: const InsurancePaymentScreen(),
+        ),
+      );
+    case Routes.checkout:
+      return MaterialPageRoute(
+        builder: (context) => BlocProvider(
+          create: (context) => PaymentCubit(),
+          child: const Checkout(),
         ),
       );
     default:

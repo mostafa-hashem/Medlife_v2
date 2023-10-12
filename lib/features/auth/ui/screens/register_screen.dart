@@ -9,8 +9,9 @@ import 'package:medlife_v2/features/profile/cubit/profile_state.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
-import 'package:medlife_v2/ui/widgets/default_form_filed.dart';
+import 'package:medlife_v2/ui/widgets/default_password_form_filed.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
+import 'package:medlife_v2/ui/widgets/defult_form_field.dart';
 import 'package:medlife_v2/utils/helper_methods.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -33,14 +34,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final authCubit = AuthCubit.get(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.0.w, vertical: 73.h),
-        child: Form(
-          key: formKey,
-          child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: 16.0.w, right: 16.w, bottom: MediaQuery.of(context).viewInsets.bottom * 0.6),
+          child: Form(
+            key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: 73.h,),
                 Align(
                   child: Image.asset("assets/images/splsh logo.png"),
                 ),
@@ -94,33 +96,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   height: 32.h,
                 ),
-                DefaultFormField(
-                  suffix: authCubit.isPasswordVisible
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                  isPassword: authCubit.isPasswordVisible,
-                  suffixPressed: () => authCubit.emitPasswordVisibilityLogin(
-                    !authCubit.isPasswordVisible,
-                  ),
+                DefaultPasswordFormField(
                   controller: passwordController,
-                  type: TextInputType.text,
                   validate: validatePassword,
                   label: "Password",
                 ),
                 SizedBox(
                   height: 32.h,
                 ),
-                DefaultFormField(
-                  suffix: authCubit.isConfirmPasswordVisible
-                      ? Icons.visibility
-                      : Icons.visibility_off,
-                  isPassword: authCubit.isConfirmPasswordVisible,
-                  suffixPressed: () =>
-                      authCubit.emitPasswordConfirmVisibilitySignup(
-                    !authCubit.isConfirmPasswordVisible,
-                  ),
+                DefaultPasswordFormField(
                   controller: confirmPasswordController,
-                  type: TextInputType.text,
                   validate: validatePassword,
                   label: "Confirm Password",
                 ),

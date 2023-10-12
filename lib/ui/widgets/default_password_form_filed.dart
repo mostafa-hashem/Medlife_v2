@@ -1,58 +1,63 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 
-class DefaultFormField extends StatelessWidget {
+class DefaultPasswordFormField extends StatefulWidget {
   final TextEditingController controller;
-  final TextInputType type;
   final void Function(String)? onSubmit;
   final void Function(String)? onChange;
   final void Function()? onTap;
-  final bool? isPassword;
   final String? Function(String?)? validate;
   final String label;
-  final IconData? suffix;
-  final void Function()? suffixPressed;
   final bool isClickable;
 
-  const DefaultFormField({
+  const DefaultPasswordFormField({
     required this.controller,
-    required this.type,
     this.onSubmit,
     this.onChange,
     this.onTap,
-    this.isPassword,
     required this.validate,
     required this.label,
-    this.suffix,
-    this.suffixPressed,
     this.isClickable = true,
   });
 
   @override
+  State<DefaultPasswordFormField> createState() => _DefaultPasswordFormFieldState();
+}
+
+class _DefaultPasswordFormFieldState extends State<DefaultPasswordFormField> {
+   bool isPassword = true;
+  @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      keyboardType: type,
+      controller: widget.controller,
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      obscureText: isPassword ?? false,
-      enabled: isClickable,
-      onFieldSubmitted: onSubmit,
-      onChanged: onChange,
-      onTap: onTap,
-      validator: validate,
+      obscureText: isPassword,
+      enabled: widget.isClickable,
+      onFieldSubmitted: widget.onSubmit,
+      onChanged: widget.onChange,
+      onTap: widget.onTap,
+      validator: widget.validate,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(12),
-        labelText: label,
-        suffixIcon: suffix != null
+        labelText: widget.label,
+        suffixIcon: isPassword
             ? IconButton(
                 onPressed: suffixPressed,
-                icon: Icon(
-                  suffix,
+                icon: const Icon(
+                  Icons.visibility_off,
                   color: AppColors.primary,
                 ),
               )
-            : null,
+            : IconButton(
+          onPressed: suffixPressed,
+          icon: const Icon(
+            Icons.visibility,
+            color: AppColors.primary,
+          ),
+        ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.borderColor, width: 2.w),
           borderRadius: BorderRadius.circular(7.r),
@@ -68,4 +73,11 @@ class DefaultFormField extends StatelessWidget {
       ),
     );
   }
+
+void suffixPressed(){
+    setState(() {
+  isPassword = !isPassword;
+    });
 }
+}
+

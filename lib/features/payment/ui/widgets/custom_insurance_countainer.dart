@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
-import 'package:medlife_v2/ui/widgets/default_form_filed.dart';
+import 'package:medlife_v2/ui/widgets/defult_form_field.dart';
 
 class CustomInsuranceContainer extends StatelessWidget {
   final TextEditingController controller;

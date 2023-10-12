@@ -67,19 +67,4 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthError(Failure.fromException(e).message));
     }
   }
-
-  void emitPasswordVisibilityLogin(bool value) {
-    isVisible = value;
-    emit(PasswordVisibilityChanged(isVisible));
-  }
-
-  void emitPasswordVisibilitySignup(bool value) {
-    isPasswordVisible = value;
-    emit(PasswordVisibilityChanged(isPasswordVisible));
-  }
-
-  void emitPasswordConfirmVisibilitySignup(bool value) {
-    isConfirmPasswordVisible = value;
-    emit(PasswordVisibilityChanged(isConfirmPasswordVisible));
-  }
 }

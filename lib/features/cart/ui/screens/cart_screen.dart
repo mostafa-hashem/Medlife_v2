@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/cart_item.dart';
-import 'package:medlife_v2/features/cart/ui/widgets/summery_row.dart';
+import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
+import 'package:medlife_v2/ui/widgets/summery_row.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen();
@@ -46,7 +47,7 @@ class CartScreen extends StatelessWidget {
           SizedBox(
             height: 25.h,
           ),
-          const Divider(),
+          const CustomDivider(),
           SizedBox(
             height: 14.h,
           ),
@@ -69,7 +70,10 @@ class CartScreen extends StatelessWidget {
           SizedBox(
             height: 16.h,
           ),
-          const Divider(),
+          const CustomDivider(),
+          SizedBox(
+            height: 12.h,
+          ),
           const SummeryRow(text: 'Total', price: '8.5 SAR'),
           SizedBox(
             height: 24.h,
