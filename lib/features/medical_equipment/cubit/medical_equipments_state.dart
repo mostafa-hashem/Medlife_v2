@@ -2,22 +2,44 @@ abstract class MedicalEquipmentsState {}
 
 class MedicalEquipmentsInitial extends MedicalEquipmentsState {}
 
-class MedicalEquipmentsLoading extends MedicalEquipmentsState {}
+class GetAllMedicalEquipmentsLoading extends MedicalEquipmentsState {}
 
-class MedicalEquipmentsSuccess extends MedicalEquipmentsState {
-  final String userId;
+class GetAllMedicalEquipmentsSuccess extends MedicalEquipmentsState {}
 
-  MedicalEquipmentsSuccess(this.userId);
+class GetAllMedicalEquipmentsError extends MedicalEquipmentsState {
+  final String message;
+
+  GetAllMedicalEquipmentsError(this.message);
 }
 
-class MedicalEquipmentsError extends MedicalEquipmentsState {
-  final String error;
+class GetTopRatedMedicalEquipmentsLoading extends MedicalEquipmentsState {}
 
-  MedicalEquipmentsError(this.error);
+class GetTopRatedMedicalEquipmentsSuccess extends MedicalEquipmentsState {}
+
+class GetTopRatedMedicalEquipmentsError extends MedicalEquipmentsState {
+  final String message;
+
+  GetTopRatedMedicalEquipmentsError(this.message);
 }
 
-class HomeInitial extends MedicalEquipmentsState {}
+class GetMostRecommendedMedicalEquipmentsLoading
+    extends MedicalEquipmentsState {}
 
-class HomeConnectedState extends MedicalEquipmentsState {}
+class GetMostRecommendedMedicalEquipmentsSuccess
+    extends MedicalEquipmentsState {}
 
-class HomeNotConnectedState extends MedicalEquipmentsState {}
+class GetMostRecommendedMedicalEquipmentsError extends MedicalEquipmentsState {
+  final String message;
+
+  GetMostRecommendedMedicalEquipmentsError(this.message);
+}
+
+class GetRecentlyAddedMedicalEquipmentsLoading extends MedicalEquipmentsState {}
+
+class GetRecentlyAddedMedicalEquipmentsSuccess extends MedicalEquipmentsState {}
+
+class GetRecentlyAddedMedicalEquipmentsError extends MedicalEquipmentsState {
+  final String message;
+
+  GetRecentlyAddedMedicalEquipmentsError(this.message);
+}

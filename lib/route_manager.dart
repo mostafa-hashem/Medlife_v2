@@ -38,7 +38,12 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
     case Routes.layout:
       return MaterialPageRoute(
-        builder: (context) => const HomeLayout(),
+        builder: (context) => BlocProvider(
+          create: (context) =>
+              MedicalEquipmentsCubit()..getAllMedicalEquipments(),
+          lazy: false,
+          child: const HomeLayout(),
+        ),
       );
     case Routes.splash:
       return MaterialPageRoute(
@@ -54,10 +59,7 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
       );
     case Routes.medicalEquipments:
       return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => MedicalEquipmentsCubit(),
-          child: const MedicalEquipmentsScreen(),
-        ),
+        builder: (context) => const MedicalEquipmentsScreen(),
       );
     case Routes.register:
       return MaterialPageRoute(
@@ -65,17 +67,11 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
       );
     case Routes.home:
       return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => MedicalEquipmentsCubit(),
-          child: const HomeScreen(),
-        ),
+        builder: (context) => const HomeScreen(),
       );
     case Routes.productDetails:
       return MaterialPageRoute(
-        builder: (context) => BlocProvider(
-          create: (context) => MedicalEquipmentsCubit(),
-          child: EquipmentDetailsScreen(),
-        ),
+        builder: (context) => EquipmentDetailsScreen(),
       );
     case Routes.profile:
       return MaterialPageRoute(
