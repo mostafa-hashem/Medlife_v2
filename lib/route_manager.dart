@@ -72,6 +72,7 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
     case Routes.productDetails:
       return MaterialPageRoute(
         builder: (context) => EquipmentDetailsScreen(),
+        settings: routeSettings,
       );
     case Routes.profile:
       return MaterialPageRoute(
