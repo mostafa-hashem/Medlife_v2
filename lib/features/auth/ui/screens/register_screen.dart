@@ -23,7 +23,7 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   final firstNameController = TextEditingController();
-  final secondNameController = TextEditingController();
+  final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
@@ -36,13 +36,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
       resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(left: 16.0.w, right: 16.w, bottom: MediaQuery.of(context).viewInsets.bottom * 0.6),
+          padding: EdgeInsets.only(
+              left: 16.0.w,
+              right: 16.w,
+              bottom: MediaQuery.of(context).viewInsets.bottom * 0.6,),
           child: Form(
             key: formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: 73.h,),
+                SizedBox(
+                  height: 73.h,
+                ),
                 Align(
                   child: Image.asset("assets/images/splsh logo.png"),
                 ),
@@ -84,11 +89,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       width: 170,
                       child: DefaultFormField(
-                        controller: secondNameController,
+                        controller: lastNameController,
                         type: TextInputType.name,
                         validate: (value) =>
-                            validateGeneral(value, 'Second Name'),
-                        label: "Second Name",
+                            validateGeneral(value, 'Last Name'),
+                        label: "Last Name",
                       ),
                     ),
                   ],
@@ -116,8 +121,41 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   listeners: [
                     BlocListener<AuthCubit, AuthState>(
                       listener: (context, state) {
-                        if (state is AuthSuccess) {
-                          ProfileCubit.get(context).getUser();
+                        if (state is AuthLoading) {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            },
+                          );
+                        } else {
+                          Navigator.pop(context);
+                          if (state is AuthSuccess) {
+                            ProfileCubit.get(context).getUser();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  "Successfully Register",
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                backgroundColor: AppColors.primary,
+                                duration: Duration(seconds: 3),
+                              ),
+                            );
+                          } else if (state is AuthError) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  "There is an error, try again",
+                                  style: TextStyle(fontSize: 15),
+                                ),
+                                backgroundColor: AppColors.error,
+                                duration: Duration(seconds: 3),
+                              ),
+                            );
+                          }
                         }
                       },
                     ),
@@ -134,13 +172,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ],
                   child: DefaultTextButton(
                     function: () {
-                      if (formKey.currentState!.validate()) {
-                        authCubit.register(
-                          RegisterData(
-                            email: emailController.text,
-                            password: passwordController.text,
-                            firstName: firstNameController.text,
-                            lastName: secondNameController.text,
+                      if (passwordController.text ==
+                          confirmPasswordController.text) {
+                        if (formKey.currentState!.validate()) {
+                          authCubit.register(
+                            RegisterData(
+                              email: emailController.text,
+                              password: passwordController.text,
+                              firstName: firstNameController.text,
+                              lastName: lastNameController.text,
+                            ),
+                          );
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "Password dose not match, please try again",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            backgroundColor: AppColors.error,
+                            duration: Duration(seconds: 3),
                           ),
                         );
                       }
@@ -208,30 +260,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Image.asset(
                     "assets/images/flat-color-icons_google.png",
                   ),
-                ),
-                SizedBox(
-                  height: 16.h,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have account",
-                      style: openSans12W400(color: Colors.black),
-                    ),
-                    SizedBox(
-                      width: 2.w,
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "login",
-                        style: openSans12W400(
-                          color: const Color(0xFF22C7B6),
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ],
             ),

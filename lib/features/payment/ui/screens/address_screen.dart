@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_insurance_countainer.dart';
-import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
@@ -30,7 +29,7 @@ class _AddressState extends State<Address> {
           padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).viewInsets.bottom * 0.6,
               left: 16.w,
-              right: 16.w),
+              right: 16.w,),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -141,7 +140,7 @@ class _AddressState extends State<Address> {
               ),
               DefaultTextButton(
                 function: () =>
-                    Navigator.pushReplacementNamed(context, Routes.checkout),
+                    Navigator.pop(context),
                 text: "Save Address",
                 textStyle: openSans16W500(color: Colors.white),
                 height: 65.h,
