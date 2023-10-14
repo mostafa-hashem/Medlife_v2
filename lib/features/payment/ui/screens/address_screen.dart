@@ -6,14 +6,14 @@ import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 
-class Address extends StatefulWidget {
-  const Address({super.key});
+class AddressScreen extends StatefulWidget {
+  const AddressScreen();
 
   @override
-  State<Address> createState() => _AddressState();
+  State<AddressScreen> createState() => _AddressScreenState();
 }
 
-class _AddressState extends State<Address> {
+class _AddressScreenState extends State<AddressScreen> {
   final firstName = TextEditingController();
   final lastName = TextEditingController();
   final city = TextEditingController();
@@ -27,9 +27,10 @@ class _AddressState extends State<Address> {
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom * 0.6,
-              left: 16.w,
-              right: 16.w,),
+            bottom: MediaQuery.of(context).viewInsets.bottom * 0.6,
+            left: 16.w,
+            right: 16.w,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -139,8 +140,7 @@ class _AddressState extends State<Address> {
                 height: 50.h,
               ),
               DefaultTextButton(
-                function: () =>
-                    Navigator.pop(context),
+                function: () => Navigator.pop(context),
                 text: "Save Address",
                 textStyle: openSans16W500(color: Colors.white),
                 height: 65.h,

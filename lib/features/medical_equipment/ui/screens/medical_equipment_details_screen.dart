@@ -1,17 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_patment_container.dart';
+import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
+import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_payment_container.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class EquipmentDetailsScreen extends StatelessWidget {
-  EquipmentDetailsScreen();
+class MedicalEquipmentDetailsScreen extends StatefulWidget {
+  const MedicalEquipmentDetailsScreen();
 
+  @override
+  State<MedicalEquipmentDetailsScreen> createState() =>
+      _MedicalEquipmentDetailsScreenState();
+}
+
+class _MedicalEquipmentDetailsScreenState
+    extends State<MedicalEquipmentDetailsScreen> {
   final controller = PageController(viewportFraction: 0.8);
 
   @override
   Widget build(BuildContext context) {
+    final medicalEquipment =
+        ModalRoute.of(context)!.settings.arguments! as MedicalEquipment;
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: 61.h, left: 16.w, right: 16.w),
@@ -72,7 +82,7 @@ class EquipmentDetailsScreen extends StatelessWidget {
                       child: PageView.builder(
                         controller: controller,
                         itemBuilder: (context, index) =>
-                            Image.asset("assets/images/Medical bed.png"),
+                            Image.asset(medicalEquipment.imagesUrls.first),
                       ),
                     ),
                   ],
@@ -92,7 +102,7 @@ class EquipmentDetailsScreen extends StatelessWidget {
                 height: 18.h,
               ),
               Text(
-                "Chair wheel",
+                medicalEquipment.title,
                 style: openSans20W600(color: Colors.black),
               ),
               SizedBox(
@@ -102,7 +112,7 @@ class EquipmentDetailsScreen extends StatelessWidget {
                 children: [
                   Image.asset("assets/images/star.png"),
                   Text(
-                    "4.5 (5 review)",
+                    "${medicalEquipment.rating} (${medicalEquipment.numOfReviews} reviews)",
                     style: openSans10W400(color: Colors.black),
                   ),
                 ],
@@ -119,9 +129,9 @@ class EquipmentDetailsScreen extends StatelessWidget {
               SizedBox(
                 height: 16.h,
               ),
-              const CustomSealerContainer(
+              CustomSealerContainer(
                 text: "Sold by",
-                sealerName: "Ahmed mohamed",
+                sealerName: medicalEquipment.sellerName,
                 starImage: "assets/images/star.png",
                 rate: "4.5",
               ),
@@ -159,7 +169,7 @@ class EquipmentDetailsScreen extends StatelessWidget {
                 height: 8.h,
               ),
               Text(
-                "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad",
+                medicalEquipment.description,
                 style: openSans14W400(color: Colors.black),
               ),
               SizedBox(

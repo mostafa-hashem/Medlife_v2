@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_state.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_cat_item.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_top_rated_item.dart';
+import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipment_item.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
@@ -139,10 +139,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               return GestureDetector(
                                 onTap: () => Navigator.pushNamed(
                                   context,
-                                  Routes.productDetails,
+                                  Routes.medicalEquipmentDetails,
                                   arguments: medicalEquipment,
                                 ),
-                                child: CustomTopRatedItem(medicalEquipment),
+                                child: MedicalEquipmentItem(medicalEquipment),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(
@@ -200,10 +200,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               return GestureDetector(
                                 onTap: () => Navigator.pushNamed(
                                   context,
-                                  Routes.productDetails,
+                                  Routes.medicalEquipmentDetails,
                                   arguments: medicalEquipment,
                                 ),
-                                child: CustomTopRatedItem(medicalEquipment),
+                                child: MedicalEquipmentItem(medicalEquipment),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(
@@ -258,10 +258,10 @@ class _HomeScreenState extends State<HomeScreen> {
                               return GestureDetector(
                                 onTap: () => Navigator.pushNamed(
                                   context,
-                                  Routes.productDetails,
+                                  Routes.medicalEquipmentDetails,
                                   arguments: medicalEquipment,
                                 ),
-                                child: CustomTopRatedItem(medicalEquipment),
+                                child: MedicalEquipmentItem(medicalEquipment),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(

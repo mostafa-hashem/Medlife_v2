@@ -7,8 +7,8 @@ import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/summery_row.dart';
 
-class SuccessfulPayment extends StatelessWidget {
-  const SuccessfulPayment({super.key});
+class SuccessfulPaymentScreen extends StatelessWidget {
+  const SuccessfulPaymentScreen();
 
   @override
   Widget build(BuildContext context) {

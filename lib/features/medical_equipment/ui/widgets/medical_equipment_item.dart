@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
-class CustomTopRatedItem extends StatelessWidget {
-  const CustomTopRatedItem(this.medicalEquipment);
+class MedicalEquipmentItem extends StatelessWidget {
+  const MedicalEquipmentItem(this.medicalEquipment);
 
   final MedicalEquipment medicalEquipment;
 

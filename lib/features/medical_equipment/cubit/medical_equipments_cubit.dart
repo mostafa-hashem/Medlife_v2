@@ -31,10 +31,7 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
   Future<void> getTopRatedMedicalEquipments() async {
     emit(GetTopRatedMedicalEquipmentsLoading());
     try {
-      await Future.delayed(const Duration(seconds: 1));
-      topRatedMedicalEquipments = allMedicalEquipments
-          .where((medicalEquipment) => medicalEquipment.rating > 4)
-          .toList();
+      topRatedMedicalEquipments = allMedicalEquipments;
       emit(GetTopRatedMedicalEquipmentsSuccess());
     } catch (e) {
       emit(GetTopRatedMedicalEquipmentsError(Failure.fromException(e).message));
@@ -45,9 +42,7 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
     emit(GetMostRecommendedMedicalEquipmentsLoading());
     try {
       await Future.delayed(const Duration(seconds: 1));
-      mostRecommendedMedicalEquipments = allMedicalEquipments
-          .where((medicalEquipment) => medicalEquipment.rating < 4)
-          .toList();
+      mostRecommendedMedicalEquipments = allMedicalEquipments;
       emit(GetMostRecommendedMedicalEquipmentsSuccess());
     } catch (e) {
       emit(
@@ -62,9 +57,7 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
     emit(GetRecentlyAddedMedicalEquipmentsLoading());
     try {
       await Future.delayed(const Duration(seconds: 1));
-      recentlyAddedMedicalEquipments = allMedicalEquipments
-          .where((medicalEquipment) => medicalEquipment.rating > 4)
-          .toList();
+      recentlyAddedMedicalEquipments = allMedicalEquipments;
       emit(GetRecentlyAddedMedicalEquipmentsSuccess());
     } catch (e) {
       emit(

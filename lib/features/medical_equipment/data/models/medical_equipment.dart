@@ -1,9 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class MedicalEquipment {
   final String title;
   final String description;
   final double price;
   final double rating;
   final List<String> imagesUrls;
+  final String sellerName;
+  final double sellerRating;
+  final int numOfReviews;
   final DateTime createdAt;
 
   MedicalEquipment({
@@ -12,6 +17,24 @@ class MedicalEquipment {
     required this.price,
     required this.rating,
     required this.imagesUrls,
+    required this.sellerName,
+    required this.sellerRating,
+    required this.numOfReviews,
     required this.createdAt,
   });
+
+  MedicalEquipment.fromJson(Map<String, dynamic> json)
+      : this(
+          title: json['title'] as String,
+          description: json['description'] as String,
+          price: json['price'] as double,
+          rating: (json['rating'] as num).toDouble(),
+          imagesUrls: (json['imagesUrls'] as List)
+              .map((imageUrl) => imageUrl as String)
+              .toList(),
+          sellerName: json['sellerName'] as String,
+          sellerRating: json['sellerRating'] as double,
+          numOfReviews: json['numOfReviews'] as int,
+          createdAt: (json['createdAt'] as Timestamp).toDate(),
+        );
 }

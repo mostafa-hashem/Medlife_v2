@@ -19,7 +19,8 @@ class ShowProducts extends StatelessWidget {
           childAspectRatio: 164.w,
         ),
         itemBuilder: (context, index) => InkWell(
-          onTap: () => Navigator.pushNamed(context, Routes.productDetails),
+          onTap: () =>
+              Navigator.pushNamed(context, Routes.medicalEquipmentDetails),
           child: const CustomViewItem(),
         ),
       ),
