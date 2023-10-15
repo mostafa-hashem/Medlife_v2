@@ -14,7 +14,7 @@ class CartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(top: 64.h, left: 21.w, right: 21.w),
+      padding: EdgeInsets.only(top: 39.h, left: 21.w, right: 21.w),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
-class CustomViewItem extends StatelessWidget {
-  const CustomViewItem();
+class MedicalEquipmentsProductItem extends StatelessWidget {
+  const MedicalEquipmentsProductItem();
 
   @override
   Widget build(BuildContext context) {

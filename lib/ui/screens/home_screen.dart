@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 79.h,
+                height: 39.h,
               ),
               const SearchWidget(),
               SizedBox(
@@ -84,18 +84,38 @@ class _HomeScreenState extends State<HomeScreen> {
                     SizedBox(
                       width: 14.w,
                     ),
-                    const CustomCategoryItem(
-                      image: "assets/images/Medical Service.png",
-                      text: "Medical Service",
-                      color: 0xffCFEEEB,
+                    InkWell(
+                      onTap: () {
+                        const String text = "Medical Service";
+                        Navigator.pushNamed(
+                          context,
+                          Routes.medicalEquipments,
+                          arguments: text,
+                        );
+                      },
+                      child: const CustomCategoryItem(
+                        image: "assets/images/Medical Service.png",
+                        text: "Medical Service",
+                        color: 0xffCFEEEB,
+                      ),
                     ),
                     SizedBox(
                       width: 14.w,
                     ),
-                    const CustomCategoryItem(
-                      image: "assets/images/Blood Bank.png",
-                      text: "Blood Bank",
-                      color: 0xffE8B997,
+                    InkWell(
+                      onTap: () {
+                        const String text = "Blood Bank";
+                        Navigator.pushNamed(
+                          context,
+                          Routes.medicalEquipments,
+                          arguments: text,
+                        );
+                      },
+                      child: const CustomCategoryItem(
+                        image: "assets/images/Blood Bank.png",
+                        text: "Blood Bank",
+                        color: 0xffE8B997,
+                      ),
                     ),
                   ],
                 ),
@@ -278,7 +298,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(
-                height: 70.h,
+                height: 90.h,
               ),
             ],
           ),

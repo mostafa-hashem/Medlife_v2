@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/filter_bottom_sheet.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/show_products.dart';
+import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipments_products_list.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/sorting_and_filter_widget.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/sorting_bottom_sheet.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
@@ -18,6 +18,7 @@ class MedicalEquipmentsScreen extends StatefulWidget {
 class _MedicalEquipmentsScreenState extends State<MedicalEquipmentsScreen> {
   @override
   Widget build(BuildContext context) {
+    final routes = ModalRoute.of(context)?.settings.arguments;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Padding(
@@ -55,7 +56,7 @@ class _MedicalEquipmentsScreenState extends State<MedicalEquipmentsScreen> {
                 ),
                 SizedBox(width: 75.w),
                 Text(
-                  "Medical equipments",
+                  routes.toString(),
                   style: openSans16W500(color: const Color(0xff576A69)),
                 ),
               ],
@@ -100,7 +101,7 @@ class _MedicalEquipmentsScreenState extends State<MedicalEquipmentsScreen> {
             SizedBox(
               height: 7.h,
             ),
-            const ShowProducts(),
+            const MedicalEquipmentsProductsList(),
           ],
         ),
       ),

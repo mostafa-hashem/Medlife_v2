@@ -58,7 +58,11 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
       );
     case Routes.medicalEquipments:
       return MaterialPageRoute(
-        builder: (_) => const MedicalEquipmentsScreen(),
+        settings: routeSettings,
+        builder: (_) => BlocProvider(
+          create: (_) => MedicalEquipmentsCubit(),
+          child: const MedicalEquipmentsScreen(),
+        ),
       );
     case Routes.register:
       return MaterialPageRoute(
