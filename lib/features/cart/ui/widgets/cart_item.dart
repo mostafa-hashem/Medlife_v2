@@ -38,13 +38,13 @@ class _CartItemState extends State<CartItem> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: "${_counter * widget.medicalEquipment.price}",
+                        text: (_counter * widget.medicalEquipment.price).toStringAsFixed(2),
                         style: openSans18W500(
                           color: const Color(0xff1E1E1E).withOpacity(0.8),
                         ),
                       ),
                       TextSpan(
-                        text: "\$",
+                        text: " \$",
                         style: openSans14W400(color: AppColors.primary),
                       ),
                     ],

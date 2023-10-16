@@ -27,7 +27,7 @@ class _SortingBottomSheetState extends State<SortingBottomSheet> {
             InkWell(
               onTap: () {
                 setState(() {
-                  isHighToLow = true;
+                  isHighToLow = !isHighToLow;
                   isLowToHigh = false;
                   isDiscountSale = false;
                   isRecentAdded = false;
@@ -46,7 +46,7 @@ class _SortingBottomSheetState extends State<SortingBottomSheet> {
               onTap: () {
                 setState(() {
                   isHighToLow = false;
-                  isLowToHigh = true;
+                  isLowToHigh = !isLowToHigh;
                   isDiscountSale = false;
                   isRecentAdded = false;
                 });
@@ -65,7 +65,7 @@ class _SortingBottomSheetState extends State<SortingBottomSheet> {
                 setState(() {
                   isHighToLow = false;
                   isLowToHigh = false;
-                  isDiscountSale = true;
+                  isDiscountSale = !isDiscountSale;
                   isRecentAdded = false;
                 });
               },
@@ -84,7 +84,7 @@ class _SortingBottomSheetState extends State<SortingBottomSheet> {
                   isHighToLow = false;
                   isLowToHigh = false;
                   isDiscountSale = false;
-                  isRecentAdded = true;
+                  isRecentAdded = !isRecentAdded;
                 });
               },
               child: SortingRow(

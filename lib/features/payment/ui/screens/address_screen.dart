@@ -20,6 +20,8 @@ class _AddressScreenState extends State<AddressScreen> {
   final region = TextEditingController();
   final addressDetails = TextEditingController();
   final phoneNumber = TextEditingController();
+  bool isHome = false;
+  bool isWork = false;
 
   @override
   Widget build(BuildContext context) {
@@ -103,36 +105,58 @@ class _AddressScreenState extends State<AddressScreen> {
               ),
               Row(
                 children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.circle_outlined),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      Text(
-                        "Work",
-                        style: openSans14W400(
-                          color: const Color(0xff231F20).withOpacity(0.7),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        isHome = false;
+                        isWork = true;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        if (isWork)
+                          const Icon(Icons.circle,color: AppColors.primary,)
+                        else
+                          const Icon(Icons.circle_outlined),
+                        SizedBox(
+                          width: 8.w,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Work",
+                          style: openSans14W400(
+                            color: const Color(0xff231F20).withOpacity(0.7),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                   SizedBox(
                     width: 25.w,
                   ),
-                  Row(
-                    children: [
-                      const Icon(Icons.circle_outlined),
-                      SizedBox(
-                        width: 8.w,
-                      ),
-                      Text(
-                        "Home",
-                        style: openSans14W400(
-                          color: const Color(0xff231F20).withOpacity(0.7),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        isHome = true;
+                        isWork = false;
+                      });
+                    },
+                    child: Row(
+                      children: [
+                        if (isHome)
+                          const Icon(Icons.circle,color: AppColors.primary,)
+                        else
+                          const Icon(Icons.circle_outlined),
+                        SizedBox(
+                          width: 8.w,
                         ),
-                      ),
-                    ],
+                        Text(
+                          "Home",
+                          style: openSans14W400(
+                            color: const Color(0xff231F20).withOpacity(0.7),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

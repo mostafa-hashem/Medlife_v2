@@ -16,7 +16,7 @@ class MedicalEquipmentDetailsScreen extends StatefulWidget {
 
 class _MedicalEquipmentDetailsScreenState
     extends State<MedicalEquipmentDetailsScreen> {
-     int _counter = 1;
+  int _counter = 1;
   final controller = PageController(viewportFraction: 0.8);
 
   @override
@@ -134,7 +134,7 @@ class _MedicalEquipmentDetailsScreenState
                 text: "Sold by",
                 sealerName: medicalEquipment.sellerName,
                 starImage: "assets/images/star.png",
-                rate: "4.5",
+                rate: medicalEquipment.rating.toString(),
               ),
               SizedBox(
                 height: 8.h,
@@ -200,11 +200,10 @@ class _MedicalEquipmentDetailsScreenState
                           InkWell(
                             onTap: () {
                               setState(() {
-                                if(_counter < 2) {
+                                if (_counter < 2) {
                                   return;
                                 }
                                 _counter--;
-                                print("Counter: $_counter");
                               });
                             },
                             child: const Icon(Icons.remove),
@@ -218,7 +217,6 @@ class _MedicalEquipmentDetailsScreenState
                             onTap: () {
                               setState(() {
                                 _counter++;
-                                print("Counter: $_counter");
                               });
                             },
                             child: const Icon(Icons.add_outlined),
@@ -258,7 +256,7 @@ class _MedicalEquipmentDetailsScreenState
                           height: 12.5.h,
                         ),
                         Text(
-                          "\$${_counter * medicalEquipment.price}",
+                          "\$ ${(_counter * medicalEquipment.price).toStringAsFixed(2)}",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                       ],
