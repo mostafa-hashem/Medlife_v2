@@ -14,7 +14,7 @@ class CartItem extends StatefulWidget {
 }
 
 class _CartItemState extends State<CartItem> {
-  int _counter = 2;
+  int _counter = 1;
   @override
   Widget build(BuildContext context) {
     return Column(

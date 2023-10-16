@@ -5,15 +5,9 @@ import 'package:medlife_v2/features/medical_equipment/ui/widgets/sorting_and_fil
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/search_widget.dart';
 
-class MedicalEquipmentsScreen extends StatefulWidget {
+class MedicalEquipmentsScreen extends StatelessWidget {
   const MedicalEquipmentsScreen();
 
-  @override
-  State<MedicalEquipmentsScreen> createState() =>
-      _MedicalEquipmentsScreenState();
-}
-
-class _MedicalEquipmentsScreenState extends State<MedicalEquipmentsScreen> {
   @override
   Widget build(BuildContext context) {
     final routes = ModalRoute.of(context)?.settings.arguments;
@@ -74,14 +68,15 @@ class _MedicalEquipmentsScreenState extends State<MedicalEquipmentsScreen> {
                   borderRadius: BorderRadius.circular(5.r),
                 ),
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: 7.h, horizontal: 12.w),
+                  padding:
+                  EdgeInsets.symmetric(vertical: 7.h, horizontal: 12.w),
                   child: const SortingAndFilterWidget(),
                 ),
               ),
               SizedBox(
                 height: 7.h,
               ),
-              const MedicalEquipmentsProductsList(),
+               const MedicalEquipmentsProductsList(),
             ],
           ),
         ),
