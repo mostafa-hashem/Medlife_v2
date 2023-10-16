@@ -7,11 +7,13 @@ class CustomInsuranceContainer extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType textInputType;
   final String text;
+  final int? maxLines;
 
   const CustomInsuranceContainer({
     required this.controller,
     required this.text,
     required this.textInputType,
+    this.maxLines,
   });
 
   @override
@@ -28,6 +30,7 @@ class CustomInsuranceContainer extends StatelessWidget {
           height: 8.h,
         ),
         DefaultFormField(
+          maxLines: maxLines,
           isClickable: false,
           controller: controller,
           type: textInputType,

@@ -20,13 +20,17 @@ class MedicalEquipmentsProductsList extends StatelessWidget {
           childAspectRatio: 164.w,
         ),
         itemBuilder: (context, index) {
-          final medicalEquipment = MedicalEquipmentsCubit.get(context)
-              .topRatedMedicalEquipments[index];
+              final medicalEquipment = MedicalEquipmentsCubit.get(context)
+                  .topRatedMedicalEquipments[index];
           return InkWell(
-            onTap: () => Navigator.pushNamed(
-                context, Routes.medicalEquipmentDetails,
-                arguments: medicalEquipment,),
-            child: const MedicalEquipmentsProductItem(),
+            onTap: () {
+              Navigator.pushNamed(
+                context,
+                Routes.medicalEquipmentDetails,
+                arguments: medicalEquipment,
+              );
+            },
+            child:  MedicalEquipmentsProductItem(medicalEquipment),
           );
         },
       ),

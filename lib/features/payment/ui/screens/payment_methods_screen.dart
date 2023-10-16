@@ -29,20 +29,25 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
               height: 66.h,
             ),
             Expanded(
-              child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, Routes.checkout),
-                child: GridView.builder(
-                  itemCount: 2,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 14.w,
-                  ),
-                  itemBuilder: (context, index) {
-                    return PaymentCard(
-                      image: paymentImages[index],
-                    );
-                  },
+              child: GridView.builder(
+                itemCount: 2,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 14.w,
                 ),
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      index == 0
+                          ? Navigator.pushNamed(context, Routes.checkout)
+                          : Navigator.pushNamed(
+                              context, Routes.insurancePayment,);
+                    },
+                    child: PaymentCard(
+                      image: paymentImages[index],
+                    ),
+                  );
+                },
               ),
             ),
           ],

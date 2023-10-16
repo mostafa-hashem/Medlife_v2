@@ -22,7 +22,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(left: 16.w,right: 16.w,top: 29),
+      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 29.h),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,28 +99,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(
               height: 21.h,
             ),
-            Row(
-              children: [
-                SizedBox(
-                  width: 186.w,
-                  child: CustomProfileContainer(
-                    containerText: ProfileCubit.get(context).user.firstName!,
-                    labelText: "First Name",
-                    textInputType: TextInputType.name,
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: CustomProfileContainer(
+                      containerText: ProfileCubit.get(context).user.firstName!,
+                      labelText: "First Name",
+                      textInputType: TextInputType.name,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 26.h,
-                ),
-                SizedBox(
-                  width: 186.w,
-                  child: CustomProfileContainer(
-                    labelText: "Last Name",
-                    containerText: ProfileCubit.get(context).user.lastName!,
-                    textInputType: TextInputType.name,
+                  SizedBox(
+                    width: 20.h,
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: CustomProfileContainer(
+                      labelText: "Last Name",
+                      containerText: ProfileCubit.get(context).user.lastName!,
+                      textInputType: TextInputType.name,
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(
               height: 21.h,
@@ -133,10 +134,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(
               height: 21.h,
             ),
-            CustomProfileContainer(
-              labelText: "Date of birth",
-              containerText: ProfileCubit.get(context).user.idNumber!,
-              textInputType: TextInputType.datetime,
+            GestureDetector(
+              onTap: (){
+
+              },
+              child: CustomProfileContainer(
+                labelText: "Date of birth",
+                containerText: ProfileCubit.get(context).user.idNumber!,
+                textInputType: TextInputType.datetime,
+                icon: Icons.calendar_month_outlined,
+              ),
             ),
             SizedBox(
               height: 21.h,

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class MedicalEquipmentsProductItem extends StatelessWidget {
-  const MedicalEquipmentsProductItem();
+  final MedicalEquipment medicalEquipment;
+
+  const MedicalEquipmentsProductItem(this.medicalEquipment);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +28,7 @@ class MedicalEquipmentsProductItem extends StatelessWidget {
               ),
             ),
             Image.asset(
-              "assets/images/Frame 69.png",
+              medicalEquipment.imagesUrls.first,
               width: 140.w,
               height: 108.h,
             ),
@@ -33,7 +36,7 @@ class MedicalEquipmentsProductItem extends StatelessWidget {
               height: 7.h,
             ),
             Text(
-              "Compression device",
+              medicalEquipment.title,
               style: openSans16W400(color: Colors.black),
             ),
             SizedBox(
@@ -91,7 +94,7 @@ class MedicalEquipmentsProductItem extends StatelessWidget {
                   width: 15.w,
                 ),
                 Text(
-                  "9.98 \$",
+                  "${medicalEquipment.price} \$",
                   style: openSans18W500(color: const Color(0xff526262)),
                 ),
                 CircleAvatar(

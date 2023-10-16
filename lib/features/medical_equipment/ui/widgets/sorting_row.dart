@@ -4,16 +4,18 @@ import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class SortingRow extends StatelessWidget {
   final String text;
+  final IconData icon;
+  final Color iconColor;
 
-  const SortingRow({required this.text});
+  const SortingRow({required this.text, required this.icon, required this.iconColor});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        const Icon(
-          Icons.circle_outlined,
-          color: Colors.white,
+         Icon(
+          icon,
+          color: iconColor,
           size: 25,
           weight: 0.5,
         ),

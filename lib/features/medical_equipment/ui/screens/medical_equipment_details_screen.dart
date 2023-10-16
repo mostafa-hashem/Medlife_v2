@@ -16,6 +16,7 @@ class MedicalEquipmentDetailsScreen extends StatefulWidget {
 
 class _MedicalEquipmentDetailsScreenState
     extends State<MedicalEquipmentDetailsScreen> {
+     int _counter = 1;
   final controller = PageController(viewportFraction: 0.8);
 
   @override
@@ -197,16 +198,29 @@ class _MedicalEquipmentDetailsScreenState
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                if(_counter < 2) {
+                                  return;
+                                }
+                                _counter--;
+                                print("Counter: $_counter");
+                              });
+                            },
                             child: const Icon(Icons.remove),
                           ),
                           Text(
-                            "1",
+                            _counter.toString(),
                             style: openSans20W600(color: Colors.black)
                                 .copyWith(letterSpacing: -0.41),
                           ),
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              setState(() {
+                                _counter++;
+                                print("Counter: $_counter");
+                              });
+                            },
                             child: const Icon(Icons.add_outlined),
                           ),
                         ],
@@ -244,7 +258,7 @@ class _MedicalEquipmentDetailsScreenState
                           height: 12.5.h,
                         ),
                         Text(
-                          "\$140",
+                          "\$${_counter * medicalEquipment.price}",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                       ],
@@ -252,7 +266,7 @@ class _MedicalEquipmentDetailsScreenState
                     SizedBox(
                       width: 23.w,
                     ),
-                    GestureDetector(
+                    InkWell(
                       onTap: () {},
                       child: Container(
                         width: 230.w,

@@ -1,24 +1,82 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
-class FilterRow extends StatelessWidget {
+class FilterRow extends StatefulWidget {
   final String text;
 
   const FilterRow({required this.text});
 
   @override
+  State<FilterRow> createState() => _FilterRowState();
+}
+
+class _FilterRowState extends State<FilterRow> {
+  bool isClicked = false;
+
+
+  List<String> items = [
+    'Item 1,Item 1,Item 1,Item 1',
+    'Item 2',
+    'Item 3',
+    'Item 4',
+    'Item 5',
+  ];
+
+  @override
   Widget build(BuildContext context) {
-    return Row(
+    return Column(
       children: [
-        Text(
-          text,
-          style: openSans16W400(color: Colors.white),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              isClicked = !isClicked;
+            });
+          },
+          child: Row(
+            children: [
+              Text(
+                widget.text,
+                style: openSans16W400(color: Colors.white),
+              ),
+              const Spacer(),
+               Icon(
+              isClicked ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_right,
+                color: Colors.white,
+              ),
+            ],
+          ),
         ),
-        const Spacer(),
-        const Icon(
-          Icons.keyboard_arrow_down_outlined,
-          size: 15,
-          color: Colors.white,
+        SizedBox(
+          height: 8.h,
+        ),
+        Visibility(
+          visible: isClicked,
+          child: Container(
+            constraints: BoxConstraints(
+              maxHeight: 160.h,
+            ),
+            width: double.infinity,
+            child: Column(
+              children: [
+                Expanded(
+                  child: ListView.separated(
+                    itemBuilder: (context, index) {
+                      return Text(
+                        items[index],
+                        style: openSans18W500(color: Colors.white),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return SizedBox(height: 20.h);
+                    },
+                    itemCount: items.length,
+                    padding: EdgeInsets.zero,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );
