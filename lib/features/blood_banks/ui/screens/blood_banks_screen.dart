@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipments_products_list.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipments_sorting_and_filter_widget.dart';
+import 'package:medlife_v2/features/blood_banks/ui/widgets/blood_banks_products_list.dart';
+import 'package:medlife_v2/features/blood_banks/ui/widgets/blood_banks_sorting_and_filter_widget.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/search_widget.dart';
 
-class MedicalEquipmentsScreen extends StatelessWidget {
-  const MedicalEquipmentsScreen();
+class BloodBanksScreen extends StatelessWidget {
+  const BloodBanksScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class MedicalEquipmentsScreen extends StatelessWidget {
                   ),
                   SizedBox(width: 75.w),
                   Text(
-                    "Medical Equipments",
+                    "Blood Banks",
                     style: openSans16W500(color: const Color(0xff576A69)),
                   ),
                 ],
@@ -69,13 +69,13 @@ class MedicalEquipmentsScreen extends StatelessWidget {
                 child: Padding(
                   padding:
                   EdgeInsets.symmetric(vertical: 7.h, horizontal: 12.w),
-                  child: const MedicalEquipmentsSortingAndFilterWidget(),
+                  child: const BloodBanksSortingAndFilterWidget(),
                 ),
               ),
               SizedBox(
                 height: 7.h,
               ),
-               const MedicalEquipmentsProductsList(),
+               const BloodBanksProductsList(),
             ],
           ),
         ),

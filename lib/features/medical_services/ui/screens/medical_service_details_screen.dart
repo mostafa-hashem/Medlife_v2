@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
+import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_payment_container.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class MedicalEquipmentDetailsScreen extends StatefulWidget {
-  const MedicalEquipmentDetailsScreen();
+class MedicalServiceDetailsScreen extends StatefulWidget {
+  const MedicalServiceDetailsScreen();
 
   @override
-  State<MedicalEquipmentDetailsScreen> createState() =>
-      _MedicalEquipmentDetailsScreenState();
+  State<MedicalServiceDetailsScreen> createState() =>
+      _MedicalServiceDetailsScreenState();
 }
 
-class _MedicalEquipmentDetailsScreenState
-    extends State<MedicalEquipmentDetailsScreen> {
+class _MedicalServiceDetailsScreenState
+    extends State<MedicalServiceDetailsScreen> {
   int _counter = 1;
   final controller = PageController(viewportFraction: 0.8);
 
   @override
   Widget build(BuildContext context) {
-    final medicalEquipment =
-        ModalRoute.of(context)!.settings.arguments! as MedicalEquipment;
+    final medicalService =
+        ModalRoute.of(context)!.settings.arguments! as MedicalService;
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: 61.h, left: 16.w, right: 16.w),
@@ -71,8 +71,9 @@ class _MedicalEquipmentDetailsScreenState
                         height: 8.h,
                       ),
                       InkWell(
-                          onTap: ()=> shareBottomSheet(context),
-                          child: const Icon(Icons.share_outlined),),
+                        onTap: () => shareBottomSheet(context),
+                        child: const Icon(Icons.share_outlined),
+                      ),
                     ],
                   ),
                 ],
@@ -84,10 +85,9 @@ class _MedicalEquipmentDetailsScreenState
                   children: [
                     Expanded(
                       child: PageView.builder(
-                        itemCount: 3,
                         controller: controller,
                         itemBuilder: (context, index) =>
-                            Image.asset(medicalEquipment.imagesUrls.first),
+                            Image.asset(medicalService.imagesUrls.first),
                       ),
                     ),
                   ],
@@ -107,27 +107,11 @@ class _MedicalEquipmentDetailsScreenState
                 height: 18.h,
               ),
               Text(
-                medicalEquipment.title,
+                medicalService.title,
                 style: openSans20W600(color: Colors.black),
               ),
               SizedBox(
                 height: 6.h,
-              ),
-              Text(
-                medicalEquipment.brandName,
-                style: openSans12W400(color: Colors.blue),
-              ),
-              SizedBox(
-                height: 6.h,
-              ),
-              Row(
-                children: [
-                  Image.asset("assets/images/star.png"),
-                  Text(
-                    "${medicalEquipment.rating} (${medicalEquipment.numOfReviews} reviews)",
-                    style: openSans10W400(color: Colors.black),
-                  ),
-                ],
               ),
               SizedBox(
                 height: 16.h,
@@ -143,9 +127,9 @@ class _MedicalEquipmentDetailsScreenState
               ),
               CustomSealerContainer(
                 text: "Sold by",
-                sealerName: medicalEquipment.sellerName,
+                sealerName: medicalService.providerName,
                 starImage: "assets/images/star.png",
-                rate: medicalEquipment.rating.toString(),
+                rate: medicalService.rating.toString(),
               ),
               SizedBox(
                 height: 8.h,
@@ -181,7 +165,7 @@ class _MedicalEquipmentDetailsScreenState
                 height: 8.h,
               ),
               Text(
-                medicalEquipment.description,
+                medicalService.description,
                 style: openSans14W400(color: Colors.black),
               ),
               SizedBox(
@@ -267,7 +251,7 @@ class _MedicalEquipmentDetailsScreenState
                           height: 12.5.h,
                         ),
                         Text(
-                          "\$ ${(_counter * medicalEquipment.price).toStringAsFixed(2)}",
+                          "\$ ${(_counter * medicalService.price).toStringAsFixed(2)}",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                       ],
@@ -313,20 +297,21 @@ class _MedicalEquipmentDetailsScreenState
       ),
     );
   }
-void shareBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    builder: (context) {
-      return const ShareBottomSheet();
-    },
-    isScrollControlled: true,
-    backgroundColor: const Color(0xff323434),
-    shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.only(
-        topRight: Radius.circular(25.r),
-        topLeft: Radius.circular(25.r),
+
+  void shareBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return const ShareBottomSheet();
+      },
+      isScrollControlled: true,
+      backgroundColor: const Color(0xff323434),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(25.r),
+          topLeft: Radius.circular(25.r),
+        ),
       ),
-    ),
-  );
-}
+    );
+  }
 }

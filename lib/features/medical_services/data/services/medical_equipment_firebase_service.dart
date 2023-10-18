@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
+import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
 import 'package:medlife_v2/utils/constants.dart';
 
-class MedicalEquipmentFirebaseService {
-  Future<List<MedicalEquipment>> getAllMedicalEquipments() async {
+class MedicalServiceFirebaseService {
+  Future<List<MedicalService>> getAllMedicalServices() async {
     await Future.delayed(const Duration(seconds: 1));
     return List.generate(
       10,
-      (index) => MedicalEquipment(
+      (index) => MedicalService(
         title: 'Compression device',
         description:
             'Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad',
@@ -17,9 +18,8 @@ class MedicalEquipmentFirebaseService {
           "assets/images/Frame 69.png",
         ],
         createdAt: DateTime.now(),
-        sellerName: 'Ahmed',
-        brandName: 'AFAMED-SA',
-        sellerRating: 4.5,
+        providerName: 'Ahmed',
+        providerRating: 4.5,
         numOfReviews: 1012,
       ),
     );

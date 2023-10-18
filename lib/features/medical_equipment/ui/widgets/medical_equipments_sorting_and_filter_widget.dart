@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/filter_bottom_sheet.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/sorting_bottom_sheet.dart';
+import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipments_filter_bottom_sheet.dart';
+import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipments_sorting_bottom_sheet.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
-class SortingAndFilterWidget extends StatefulWidget {
-  const SortingAndFilterWidget();
+class MedicalEquipmentsSortingAndFilterWidget extends StatefulWidget {
+  const MedicalEquipmentsSortingAndFilterWidget();
 
   @override
-  State<SortingAndFilterWidget> createState() => _SortingAndFilterWidgetState();
+  State<MedicalEquipmentsSortingAndFilterWidget> createState() => _MedicalEquipmentsSortingAndFilterWidgetState();
 }
 
-class _SortingAndFilterWidgetState extends State<SortingAndFilterWidget> {
+class _MedicalEquipmentsSortingAndFilterWidgetState extends State<MedicalEquipmentsSortingAndFilterWidget> {
   bool isSortingSelected = false;
   bool isFilterSelected = false;
 
@@ -94,7 +94,7 @@ class _SortingAndFilterWidgetState extends State<SortingAndFilterWidget> {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return const SortingBottomSheet();
+        return const MedicalEquipmentsSortingBottomSheet();
       },
       isScrollControlled: true,
       backgroundColor: const Color(0xff323434),
@@ -115,7 +115,7 @@ class _SortingAndFilterWidgetState extends State<SortingAndFilterWidget> {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return const FilterBottomSheet();
+        return const MedicalEquipmentsFilterBottomSheet();
       },
       isScrollControlled: true,
       backgroundColor: const Color(0xff323434),

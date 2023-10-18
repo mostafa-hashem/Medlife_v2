@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/sorting_row.dart';
+import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipments_sorting_row.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 
-class SortingBottomSheet extends StatefulWidget {
-  const SortingBottomSheet();
+class MedicalServiceSortingBottomSheet extends StatefulWidget {
+  const MedicalServiceSortingBottomSheet();
 
   @override
-  State<SortingBottomSheet> createState() => _SortingBottomSheetState();
+  State<MedicalServiceSortingBottomSheet> createState() => _MedicalServiceSortingBottomSheetState();
 }
 
-class _SortingBottomSheetState extends State<SortingBottomSheet> {
+class _MedicalServiceSortingBottomSheetState extends State<MedicalServiceSortingBottomSheet> {
   bool isHighToLow = false;
   bool isLowToHigh = false;
   bool isDiscountSale = false;
@@ -33,7 +33,7 @@ class _SortingBottomSheetState extends State<SortingBottomSheet> {
                   isRecentAdded = false;
                 });
               },
-              child: SortingRow(
+              child: MedicalEquipmentSortingRow(
                 text: "High to low price",
                 icon: isHighToLow ? Icons.circle : Icons.circle_outlined,
                 iconColor: isHighToLow ? AppColors.primary : Colors.white,
@@ -51,7 +51,7 @@ class _SortingBottomSheetState extends State<SortingBottomSheet> {
                   isRecentAdded = false;
                 });
               },
-              child: SortingRow(
+              child: MedicalEquipmentSortingRow(
                 text: "Low to high price",
                 icon: isLowToHigh ? Icons.circle : Icons.circle_outlined,
                 iconColor: isLowToHigh ? AppColors.primary : Colors.white,
@@ -69,7 +69,7 @@ class _SortingBottomSheetState extends State<SortingBottomSheet> {
                   isRecentAdded = false;
                 });
               },
-              child: SortingRow(
+              child: MedicalEquipmentSortingRow(
                 text: "Discount sale",
                 icon: isDiscountSale ? Icons.circle : Icons.circle_outlined,
                 iconColor: isDiscountSale ? AppColors.primary : Colors.white,
@@ -87,7 +87,7 @@ class _SortingBottomSheetState extends State<SortingBottomSheet> {
                   isRecentAdded = !isRecentAdded;
                 });
               },
-              child: SortingRow(
+              child: MedicalEquipmentSortingRow(
                 text: "Recent added",
                 icon: isRecentAdded ? Icons.circle : Icons.circle_outlined,
                 iconColor: isRecentAdded ? AppColors.primary : Colors.white,

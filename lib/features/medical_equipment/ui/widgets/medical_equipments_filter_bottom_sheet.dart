@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/filter_row.dart';
+import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipments_filter_row.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
-class FilterBottomSheet extends StatefulWidget {
-  const FilterBottomSheet();
+class MedicalEquipmentsFilterBottomSheet extends StatefulWidget {
+  const MedicalEquipmentsFilterBottomSheet();
 
   @override
-  State<FilterBottomSheet> createState() => _FilterBottomSheetState();
+  State<MedicalEquipmentsFilterBottomSheet> createState() => _MedicalEquipmentsFilterBottomSheetState();
 }
 
-class _FilterBottomSheetState extends State<FilterBottomSheet> {
+class _MedicalEquipmentsFilterBottomSheetState extends State<MedicalEquipmentsFilterBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               SizedBox(
                 height: 18.h,
               ),
-              const FilterRow(text: 'Product type',),
+              const MedicalEquipmentsFilterRow(text: 'Product type',),
               SizedBox(
                 height: 8.h,
               ),
@@ -45,7 +45,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               SizedBox(
                 height: 18.h,
               ),
-              const FilterRow(text: 'Price'),
+              const MedicalEquipmentsFilterRow(text: 'Price'),
               SizedBox(
                 height: 16.h,
               ),
@@ -55,7 +55,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               SizedBox(
                 height: 18.h,
               ),
-              const FilterRow(text: 'Brand'),
+              const MedicalEquipmentsFilterRow(text: 'Brand'),
               SizedBox(
                 height: 16.h,
               ),
@@ -65,7 +65,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
               SizedBox(
                 height: 18.h,
               ),
-              const FilterRow(text: 'Vendor'),
+              const MedicalEquipmentsFilterRow(text: 'Vendor'),
               SizedBox(
                 height: 16.h,
               ),

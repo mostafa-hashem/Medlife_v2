@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_state.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_cat_item.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipment_item.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/ui/widgets/custom_cat_item.dart';
 import 'package:medlife_v2/ui/widgets/error_indicator.dart';
 import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
+import 'package:medlife_v2/ui/widgets/medical_equipment_item.dart';
 import 'package:medlife_v2/ui/widgets/search_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -68,11 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        const String text = "Medical Equipment";
                         Navigator.pushNamed(
                           context,
                           Routes.medicalEquipments,
-                          arguments: text,
                         );
                       },
                       child: const CustomCategoryItem(
@@ -86,11 +84,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        const String text = "Medical Service";
                         Navigator.pushNamed(
                           context,
-                          Routes.medicalEquipments,
-                          arguments: text,
+                          Routes.medicalServices,
                         );
                       },
                       child: const CustomCategoryItem(
@@ -104,11 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        const String text = "Blood Bank";
                         Navigator.pushNamed(
                           context,
-                          Routes.medicalEquipments,
-                          arguments: text,
+                          Routes.bloodBanks,
                         );
                       },
                       child: const CustomCategoryItem(
@@ -131,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 8.h,
               ),
               SizedBox(
-                height: 180.h,
+                height: 200.h,
                 child: Row(
                   children: [
                     Expanded(
@@ -189,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 8.h,
               ),
               SizedBox(
-                height: 180.h,
+                height: 200.h,
                 child: Row(
                   children: [
                     Expanded(
@@ -247,7 +241,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 8.h,
               ),
               SizedBox(
-                height: 180.h,
+                height: 200.h,
                 child: Row(
                   children: [
                     Expanded(

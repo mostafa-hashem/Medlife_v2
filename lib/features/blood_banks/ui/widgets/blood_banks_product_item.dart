@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
+import 'package:medlife_v2/features/blood_banks/data/models/blood_bank.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
-class MedicalEEquipmentsProductItem extends StatelessWidget {
-  final MedicalEquipment medicalEquipment;
+class BloodBanksProductItem extends StatelessWidget {
+  final BloodBank bloodBank;
 
-  const MedicalEEquipmentsProductItem(this.medicalEquipment);
+  const BloodBanksProductItem(this.bloodBank);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class MedicalEEquipmentsProductItem extends StatelessWidget {
               ),
             ),
             Image.asset(
-              medicalEquipment.imagesUrls.first,
+              bloodBank.imagesUrls.first,
               width: 140.w,
               height: 108.h,
             ),
@@ -36,7 +36,7 @@ class MedicalEEquipmentsProductItem extends StatelessWidget {
               height: 7.h,
             ),
             Text(
-              medicalEquipment.title,
+              bloodBank.title,
               style: openSans16W400(color: Colors.black),
             ),
             SizedBox(
@@ -94,7 +94,7 @@ class MedicalEEquipmentsProductItem extends StatelessWidget {
                   width: 15.w,
                 ),
                 Text(
-                  "${medicalEquipment.price} \$",
+                  "${bloodBank.price} \$",
                   style: openSans18W500(color: const Color(0xff526262)),
                 ),
                 CircleAvatar(

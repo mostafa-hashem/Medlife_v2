@@ -5,8 +5,8 @@ import 'package:medlife_v2/features/blood_banks/ui/widgets/blood_banks_product_i
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
 import 'package:medlife_v2/route_manager.dart';
 
-class MedicalEquipmentsProductsList extends StatelessWidget {
-  const MedicalEquipmentsProductsList();
+class BloodBanksProductsList extends StatelessWidget {
+  const BloodBanksProductsList();
 
   @override
   Widget build(BuildContext context) {
@@ -22,20 +22,21 @@ class MedicalEquipmentsProductsList extends StatelessWidget {
           childAspectRatio: 164.w,
         ),
         itemBuilder: (context, index) {
-          final bloodBank = BloodBanksCubit.get(context).allBloodBanks[index];
+          final bloodBanks = BloodBanksCubit.get(context)
+              .allBloodBanks[index];
           return InkWell(
             onTap: () {
               Navigator.pushNamed(
                 context,
                 Routes.medicalEquipmentDetails,
-                arguments: bloodBank,
+                arguments: bloodBanks,
               );
             },
-            child: BloodBanksProductItem(bloodBank),
+            child: BloodBanksProductItem(bloodBanks),
           );
         },
         itemCount:
-            MedicalEquipmentsCubit.get(context).allMedicalEquipments.length,
+            BloodBanksCubit.get(context).allBloodBanks.length,
       ),
     );
   }

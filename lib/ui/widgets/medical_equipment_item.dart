@@ -39,7 +39,14 @@ class MedicalEquipmentItem extends StatelessWidget {
               style: openSans10W400(color: Colors.black),
             ),
             SizedBox(
-              height: 8.h,
+              height: 4.h,
+            ),
+            Text(
+              medicalEquipment.sellerName,
+              style: openSans10W400(color: Colors.blue),
+            ),
+            SizedBox(
+              height: 6.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
