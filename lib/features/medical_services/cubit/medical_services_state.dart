@@ -11,4 +11,3 @@ class GetAllMedicalServicesError extends MedicalServicesState {
 
   GetAllMedicalServicesError(this.message);
 }
-

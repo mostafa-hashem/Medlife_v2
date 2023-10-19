@@ -1,10 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
-import 'package:medlife_v2/utils/constants.dart';
 
-class MedicalServiceFirebaseService {
-  Future<List<MedicalService>> getAllMedicalServices() async {
+class MedicalServicesFirebaseService {
+  Future<List<MedicalService>> getMedicalServices() async {
     await Future.delayed(const Duration(seconds: 1));
     return List.generate(
       10,
@@ -26,16 +23,16 @@ class MedicalServiceFirebaseService {
   }
 }
 
-// class MedicalEquipmentFirebaseService {
-//   final _medicalEquipmentsCollection =
-//       FirebaseFirestore.instance.collection(FirebasePath.medicalEquipments);
-//
-//   Future<List<MedicalEquipment>> getAllMedicalEquipments() async {
-//     final querySnapshot = await _medicalEquipmentsCollection.get();
+// class MedicalServicesFirebaseService {
+//   final _medicalServicesCollection =
+//       FirebaseFirestore.instance.collection(FirebasePath.medicalServices);
+
+//   Future<List<MedicalService>> getMedicalServices() async {
+//     final querySnapshot = await _medicalServicesCollection.get();
 //     return querySnapshot.docs
 //         .map(
 //           (queryDocSnapshot) =>
-//               MedicalEquipment.fromJson(queryDocSnapshot.data()),
+//               MedicalService.fromJson(queryDocSnapshot.data()),
 //         )
 //         .toList();
 //   }

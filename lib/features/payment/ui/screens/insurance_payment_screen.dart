@@ -85,7 +85,9 @@ class _InsurancePaymentScreenState extends State<InsurancePaymentScreen> {
               DefaultTextButton(
                 function: () {
                   Navigator.pushReplacementNamed(
-                      context, Routes.successfulPayment);
+                    context,
+                    Routes.successfulPayment,
+                  );
                 },
                 text: "Send Request",
               ),

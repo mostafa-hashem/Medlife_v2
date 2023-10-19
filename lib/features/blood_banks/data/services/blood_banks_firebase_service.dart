@@ -1,9 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:medlife_v2/features/blood_banks/data/models/blood_bank.dart';
-import 'package:medlife_v2/utils/constants.dart';
 
 class BloodBanksFirebaseService {
-  Future<List<BloodBank>> getAllBloodBanks() async {
+  Future<List<BloodBank>> getBloodBanks() async {
     await Future.delayed(const Duration(seconds: 1));
     return List.generate(
       10,
@@ -23,11 +21,11 @@ class BloodBanksFirebaseService {
   }
 }
 
-// class BloodBankFirebaseService {
+// class BloodBanksFirebaseService {
 //   final _bloodBanksCollection =
-//       FirebaseFirestore.instance.collection(FirebasePath.medicalEquipments);
+//       FirebaseFirestore.instance.collection(FirebasePath.bloodBanks);
 //
-//   Future<List<BloodBank>> getAllMedicalEquipments() async {
+//   Future<List<BloodBank>> getBloodBanks() async {
 //     final querySnapshot = await _bloodBanksCollection.get();
 //     return querySnapshot.docs
 //         .map(

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_state.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
-import 'package:medlife_v2/features/medical_equipment/data/services/medical_equipment_firebase_service.dart';
+import 'package:medlife_v2/features/medical_equipment/data/services/medical_equipments_firebase_service.dart';
 import 'package:medlife_v2/utils/data/failure/failure.dart';
 
 class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
@@ -11,7 +11,7 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
   static MedicalEquipmentsCubit get(BuildContext context) =>
       BlocProvider.of(context);
 
-  final _medicalEquipmentFirebaseService = MedicalEquipmentFirebaseService();
+  final _medicalEquipmentFirebaseService = MedicalEquipmentsFirebaseService();
   List<MedicalEquipment> allMedicalEquipments = [];
   List<MedicalEquipment> topRatedMedicalEquipments = [];
   List<MedicalEquipment> mostRecommendedMedicalEquipments = [];
@@ -21,7 +21,7 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
     emit(GetAllMedicalEquipmentsLoading());
     try {
       allMedicalEquipments =
-          await _medicalEquipmentFirebaseService.getAllMedicalEquipments();
+          await _medicalEquipmentFirebaseService.getMedicalEquipments();
       emit(GetAllMedicalEquipmentsSuccess());
     } catch (e) {
       emit(GetAllMedicalEquipmentsError(Failure.fromException(e).message));
