@@ -151,7 +151,7 @@ class _CartItemState extends State<CartItem> {
             ),
             BlocListener<CartCubit, CartState>(
               listener: (_, state) {
-                if (state is DeleteCartSuccess) {
+                if (state is DeleteCartLoading) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text(
@@ -163,6 +163,7 @@ class _CartItemState extends State<CartItem> {
                     ),
                   );
                 }
+                print(state);
               },
               child: InkWell(
                 onTap: () => CartCubit.get(context).deleteFromCart(

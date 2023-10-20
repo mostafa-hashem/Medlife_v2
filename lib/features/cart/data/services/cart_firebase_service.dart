@@ -37,7 +37,7 @@ class CartFirebaseService {
         final docSnapshot =
             await _cartCollection.doc(cartOrder.medicalEquipmentId).get();
         final quantity = docSnapshot.data()![FirebasePath.quantity] as num;
-        await _cartCollection.doc(cartOrder.medicalEquipmentId).update({
+        return  _cartCollection.doc(cartOrder.medicalEquipmentId).update({
           FirebasePath.quantity: quantity + cartOrder.quantity,
         });
       }

@@ -213,6 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       dateOfBirth: dateOfBirthController.text,
                       address: addressController.text,
                       companyInsuranceName: companyInsuranceNameController.text,
+                      phoneNumber: ProfileCubit.get(context).user.phoneNumber,
                     ),
                   );
                 },

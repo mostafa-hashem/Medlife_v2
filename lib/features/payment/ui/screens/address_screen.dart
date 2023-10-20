@@ -5,7 +5,6 @@ import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_insurance_countainer.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_state.dart';
-import 'package:medlife_v2/features/profile/ui/screens/profile_screen.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
@@ -189,12 +188,13 @@ class _AddressScreenState extends State<AddressScreen> {
                         id: ProfileCubit.get(context).user.id,
                         firstName: firstNameController.text,
                         lastName: lastNameController.text,
-                        email: emailController.text,
-                        dateOfBirth: dateOfBirthController.text,
-                        address: addressController.text,
+                        email: ProfileCubit.get(context).user.email,
+                        dateOfBirth: ProfileCubit.get(context).user.dateOfBirth,
+                        address: ProfileCubit.get(context).user.address,
                         companyInsuranceName:
-                            companyInsuranceNameController.text,
+                            ProfileCubit.get(context).user.companyInsuranceName,
                         phoneNumber: phoneNumberController.text,
+                        idNumber: ProfileCubit.get(context).user.idNumber,
                       ),
                     );
                     Navigator.pop(context);
