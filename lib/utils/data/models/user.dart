@@ -7,6 +7,7 @@ class User {
   String? firstName;
   String? lastName;
   String? email;
+  String? phoneNumber;
 
   User({
     required this.id,
@@ -14,6 +15,7 @@ class User {
     this.dateOfBirth = '',
     this.address = '',
     this.companyInsuranceName = '',
+    this.phoneNumber = '',
     required this.firstName,
     required this.lastName,
     required this.email,
@@ -28,6 +30,7 @@ class User {
     address = json['address'] as String?;
     companyInsuranceName = json['companyInsuranceName'] as String?;
     lastName = json['secondName'] as String?;
+    phoneNumber = json['phoneNumber'] as String?;
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +43,7 @@ class User {
       'address': address,
       'companyInsuranceName': companyInsuranceName,
       'secondName': lastName,
+      'phoneNumber': phoneNumber,
     };
   }
 }

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_insurance_countainer.dart';
+import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
+import 'package:medlife_v2/features/profile/cubit/profile_state.dart';
+import 'package:medlife_v2/features/profile/ui/screens/profile_screen.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
+import 'package:medlife_v2/utils/data/models/user.dart';
 
 class AddressScreen extends StatefulWidget {
   const AddressScreen();
@@ -14,14 +19,22 @@ class AddressScreen extends StatefulWidget {
 }
 
 class _AddressScreenState extends State<AddressScreen> {
-  final firstName = TextEditingController();
-  final lastName = TextEditingController();
-  final city = TextEditingController();
-  final region = TextEditingController();
-  final addressDetails = TextEditingController();
-  final phoneNumber = TextEditingController();
+  final firstNameController = TextEditingController();
+  final lastNameController = TextEditingController();
+  final addressDetailsController = TextEditingController();
+  final phoneNumberController = TextEditingController();
   bool isHome = false;
   bool isWork = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final address = ProfileCubit.get(context).user;
+    firstNameController.text = address.firstName!;
+    lastNameController.text = address.lastName!;
+    addressDetailsController.text = address.address!;
+    phoneNumberController.text = address.phoneNumber!;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +62,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 height: 21.h,
               ),
               CustomInsuranceContainer(
-                controller: firstName,
+                controller: firstNameController,
                 text: "First name",
                 textInputType: TextInputType.number,
               ),
@@ -57,7 +70,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 height: 27.h,
               ),
               CustomInsuranceContainer(
-                controller: firstName,
+                controller: lastNameController,
                 text: "Last name",
                 textInputType: TextInputType.number,
               ),
@@ -65,23 +78,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 height: 27.h,
               ),
               CustomInsuranceContainer(
-                controller: city,
-                text: "City",
-                textInputType: TextInputType.number,
-              ),
-              SizedBox(
-                height: 27.h,
-              ),
-              CustomInsuranceContainer(
-                controller: region,
-                text: "Region",
-                textInputType: TextInputType.number,
-              ),
-              SizedBox(
-                height: 27.h,
-              ),
-              CustomInsuranceContainer(
-                controller: addressDetails,
+                controller: addressDetailsController,
                 text: "Address Details",
                 textInputType: TextInputType.number,
               ),
@@ -89,7 +86,7 @@ class _AddressScreenState extends State<AddressScreen> {
                 height: 27.h,
               ),
               CustomInsuranceContainer(
-                controller: phoneNumber,
+                controller: phoneNumberController,
                 text: "Phone Number",
                 textInputType: TextInputType.number,
               ),
@@ -115,7 +112,10 @@ class _AddressScreenState extends State<AddressScreen> {
                     child: Row(
                       children: [
                         if (isWork)
-                          const Icon(Icons.circle,color: AppColors.primary,)
+                          const Icon(
+                            Icons.circle,
+                            color: AppColors.primary,
+                          )
                         else
                           const Icon(Icons.circle_outlined),
                         SizedBox(
@@ -143,7 +143,10 @@ class _AddressScreenState extends State<AddressScreen> {
                     child: Row(
                       children: [
                         if (isHome)
-                          const Icon(Icons.circle,color: AppColors.primary,)
+                          const Icon(
+                            Icons.circle,
+                            color: AppColors.primary,
+                          )
                         else
                           const Icon(Icons.circle_outlined),
                         SizedBox(
@@ -163,12 +166,44 @@ class _AddressScreenState extends State<AddressScreen> {
               SizedBox(
                 height: 50.h,
               ),
-              DefaultTextButton(
-                function: () => Navigator.pop(context),
-                text: "Save Address",
-                textStyle: openSans16W500(color: Colors.white),
-                height: 65.h,
-                width: double.infinity,
+              BlocListener<ProfileCubit, ProfileState>(
+                listener: (_, state) {
+                  if (state is UpdateUserSuccess) {
+                    ProfileCubit.get(context).getUser();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          "Successfully Saved",
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        backgroundColor: AppColors.primary,
+                        duration: Duration(seconds: 3),
+                      ),
+                    );
+                  }
+                },
+                child: DefaultTextButton(
+                  function: () {
+                    ProfileCubit.get(context).updateUser(
+                      User(
+                        id: ProfileCubit.get(context).user.id,
+                        firstName: firstNameController.text,
+                        lastName: lastNameController.text,
+                        email: emailController.text,
+                        dateOfBirth: dateOfBirthController.text,
+                        address: addressController.text,
+                        companyInsuranceName:
+                            companyInsuranceNameController.text,
+                        phoneNumber: phoneNumberController.text,
+                      ),
+                    );
+                    Navigator.pop(context);
+                  },
+                  text: "Save Address",
+                  textStyle: openSans16W500(color: Colors.white),
+                  height: 65.h,
+                  width: double.infinity,
+                ),
               ),
               SizedBox(
                 height: 53.h,

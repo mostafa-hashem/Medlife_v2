@@ -30,7 +30,7 @@ class CustomAddressContainer extends StatelessWidget {
             CustomAddressRow(
               icon: Icons.call_outlined,
               text:
-                  "${ProfileCubit.get(context).user.firstName} ${ProfileCubit.get(context).user.lastName}",
+                  "${ProfileCubit.get(context).user.phoneNumber}",
             ),
             SizedBox(
               height: 7.h,
@@ -38,7 +38,7 @@ class CustomAddressContainer extends StatelessWidget {
             CustomAddressRow(
               icon: Icons.location_on_outlined,
               text:
-                  "${ProfileCubit.get(context).user.firstName} ${ProfileCubit.get(context).user.lastName}",
+                  "${ProfileCubit.get(context).user.address}",
             ),
           ],
         ),
