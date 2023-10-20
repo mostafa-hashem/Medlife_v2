@@ -27,6 +27,7 @@ class _InsurancePaymentScreenState extends State<InsurancePaymentScreen> {
     super.initState();
     final insurance = ProfileCubit.get(context).user;
     idNumberController.text = insurance.idNumber!;
+    phoneController.text = insurance.phoneNumber!;
     companyInsuranceNameController.text = insurance.companyInsuranceName!;
   }
   @override
