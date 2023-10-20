@@ -16,6 +16,7 @@ class CustomInsuranceContainer extends StatelessWidget {
     this.maxLines,
   });
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,7 +32,6 @@ class CustomInsuranceContainer extends StatelessWidget {
         ),
         DefaultFormField(
           maxLines: maxLines,
-          isClickable: false,
           controller: controller,
           type: textInputType,
           validate: (_) => null,

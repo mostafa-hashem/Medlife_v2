@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_insurance_countainer.dart';
+import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
@@ -21,6 +22,13 @@ class _InsurancePaymentScreenState extends State<InsurancePaymentScreen> {
   final productListController = TextEditingController();
   final noteController = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    final insurance = ProfileCubit.get(context).user;
+    idNumberController.text = insurance.idNumber!;
+    companyInsuranceNameController.text = insurance.companyInsuranceName!;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

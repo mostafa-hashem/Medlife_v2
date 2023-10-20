@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
+import 'package:medlife_v2/features/cart/cubit/cart_state.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_order.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_payment_container.dart';
+import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -87,10 +90,10 @@ class _MedicalEquipmentDetailsScreenState
                   children: [
                     Expanded(
                       child: PageView.builder(
-                        itemCount: 3,
+                        itemCount: medicalEquipment.imagesUrls.length,
                         controller: controller,
                         itemBuilder: (context, index) =>
-                            Image.asset(medicalEquipment.imagesUrls.first),
+                            Image.asset(medicalEquipment.imagesUrls[index]),
                       ),
                     ),
                   ],
@@ -102,7 +105,7 @@ class _MedicalEquipmentDetailsScreenState
               Align(
                 child: SmoothPageIndicator(
                   controller: controller,
-                  count: 10,
+                  count: medicalEquipment.imagesUrls.length,
                   effect: ExpandingDotsEffect(dotHeight: 8.h, dotWidth: 8.w),
                 ),
               ),
@@ -278,36 +281,52 @@ class _MedicalEquipmentDetailsScreenState
                     SizedBox(
                       width: 23.w,
                     ),
-                    InkWell(
-                      onTap: () => CartCubit.get(context).addToCart(
-                        CartOrder(
-                          medicalEquipmentId: medicalEquipment.id,
-                          quantity: _quantity,
-                        ),
-                      ),
-                      child: Container(
-                        width: 230.w,
-                        height: 50.h,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF22C7B6),
-                          borderRadius: BorderRadius.circular(5.r),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: 9.h,
-                            horizontal: 38.w,
+                    BlocListener<CartCubit, CartState>(
+                      listener: (_, state) {
+                        if (state is AddToCartSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "Successfully Added",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        }
+                      },
+                      child: InkWell(
+                        onTap: () => CartCubit.get(context).addToCart(
+                          CartOrder(
+                            medicalEquipmentId: medicalEquipment.id,
+                            quantity: _quantity,
                           ),
-                          child: Row(
-                            children: [
-                              Image.asset("assets/images/Shop bag image.png"),
-                              SizedBox(
-                                width: 12.w,
-                              ),
-                              Text(
-                                "Add to cart",
-                                style: openSans18W500(color: Colors.white),
-                              ),
-                            ],
+                        ),
+                        child: Container(
+                          width: 230.w,
+                          height: 50.h,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF22C7B6),
+                            borderRadius: BorderRadius.circular(5.r),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 9.h,
+                              horizontal: 38.w,
+                            ),
+                            child: Row(
+                              children: [
+                                Image.asset("assets/images/Shop bag image.png"),
+                                SizedBox(
+                                  width: 12.w,
+                                ),
+                                Text(
+                                  "Add to cart",
+                                  style: openSans18W500(color: Colors.white),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

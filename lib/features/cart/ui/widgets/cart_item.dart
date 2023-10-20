@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
@@ -6,6 +7,8 @@ import 'package:medlife_v2/features/cart/data/models/cart_order.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_button.dart';
+
+import '../../cubit/cart_state.dart';
 
 class CartItem extends StatefulWidget {
   final CartMedicalEquipment cartMedicalEquipment;
@@ -146,29 +149,45 @@ class _CartItemState extends State<CartItem> {
             SizedBox(
               width: 5.w,
             ),
-            InkWell(
-              onTap: () => CartCubit.get(context).deleteFromCart(
-                widget.cartMedicalEquipment.medicalEquipment.id,
-              ),
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: const Color(0xff000000).withOpacity(0.5),
-                  ),
-                  borderRadius: BorderRadius.circular(7.r),
+            BlocListener<CartCubit, CartState>(
+              listener: (_, state) {
+                if (state is DeleteCartSuccess) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        "Successfully Deleted",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      backgroundColor: AppColors.primary,
+                      duration: Duration(seconds: 3),
+                    ),
+                  );
+                }
+              },
+              child: InkWell(
+                onTap: () => CartCubit.get(context).deleteFromCart(
+                  widget.cartMedicalEquipment.medicalEquipment.id,
                 ),
-                child: Row(
-                  children: [
-                    const Icon(
-                      Icons.delete_outline,
-                      size: 14,
+                child: Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: const Color(0xff000000).withOpacity(0.5),
                     ),
-                    Text(
-                      "Delete from cart",
-                      style: openSans10W400(color: const Color(0xff979797)),
-                    ),
-                  ],
+                    borderRadius: BorderRadius.circular(7.r),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(
+                        Icons.delete_outline,
+                        size: 14,
+                      ),
+                      Text(
+                        "Delete from cart",
+                        style: openSans10W400(color: const Color(0xff979797)),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

@@ -22,4 +22,13 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(GetUserError(Failure.fromException(e).message));
     }
   }
+  Future<void> updateUser(User updatedUser) async {
+    emit(UpdateUserLoading());
+    try {
+      await profileFirebaseService.updateUser(updatedUser);
+      emit(UpdateUserSuccess());
+    } catch (e) {
+      emit(UpdateUserError(Failure.fromException(e).message));
+    }
+  }
 }

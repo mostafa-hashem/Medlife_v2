@@ -84,9 +84,10 @@ class _BloodBankDetailsScreenState
                   children: [
                     Expanded(
                       child: PageView.builder(
+                        itemCount: bloodBank.imagesUrls.length,
                         controller: controller,
                         itemBuilder: (context, index) =>
-                            Image.asset(bloodBank.imagesUrls.first),
+                            Image.asset(bloodBank.imagesUrls[index]),
                       ),
                     ),
                   ],
@@ -98,7 +99,7 @@ class _BloodBankDetailsScreenState
               Align(
                 child: SmoothPageIndicator(
                   controller: controller,
-                  count: 10,
+                  count: bloodBank.imagesUrls.length,
                   effect: ExpandingDotsEffect(dotHeight: 8.h, dotWidth: 8.w),
                 ),
               ),

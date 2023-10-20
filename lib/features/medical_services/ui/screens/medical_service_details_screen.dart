@@ -85,9 +85,10 @@ class _MedicalServiceDetailsScreenState
                   children: [
                     Expanded(
                       child: PageView.builder(
+                        itemCount: medicalService.imagesUrls.length,
                         controller: controller,
                         itemBuilder: (context, index) =>
-                            Image.asset(medicalService.imagesUrls.first),
+                            Image.asset(medicalService.imagesUrls[index]),
                       ),
                     ),
                   ],
@@ -99,7 +100,7 @@ class _MedicalServiceDetailsScreenState
               Align(
                 child: SmoothPageIndicator(
                   controller: controller,
-                  count: 10,
+                  count: medicalService.imagesUrls.length,
                   effect: ExpandingDotsEffect(dotHeight: 8.h, dotWidth: 8.w),
                 ),
               ),

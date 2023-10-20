@@ -12,4 +12,10 @@ class ProfileFirebaseService {
     final docSnapshot = await _usersCollection.doc(currentUserId).get();
     return User.fromJson(docSnapshot.data()!);
   }
+  Future<void> updateUser(User updatedUser) async {
+    final currentUserId = FirebaseAuth.instance.currentUser!.uid;
+    final userDoc = _usersCollection.doc(currentUserId);
+      final updatedUserData = updatedUser.toJson();
+      await userDoc.update(updatedUserData);
+  }
 }
