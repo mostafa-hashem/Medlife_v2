@@ -3,12 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/features/auth/ui/screens/login_screen.dart';
 import 'package:medlife_v2/features/auth/ui/screens/register_screen.dart';
 import 'package:medlife_v2/features/auth/ui/screens/reset_password_screen.dart';
-import 'package:medlife_v2/features/blood_banks/cubit/blood_banks_cubit.dart';
 import 'package:medlife_v2/features/blood_banks/ui/screens/blood_banks_screen.dart';
-import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipment_details_screen.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipments_screen.dart';
-import 'package:medlife_v2/features/medical_services/cubit/medical_services_cubit.dart';
 import 'package:medlife_v2/features/medical_services/ui/screens/medical_services_screen.dart';
 import 'package:medlife_v2/features/payment/cubit/payment_cubit.dart';
 import 'package:medlife_v2/features/payment/ui/screens/address_screen.dart';
@@ -44,11 +41,7 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
     case Routes.layout:
       return MaterialPageRoute(
-        builder: (_) => BlocProvider(
-          create: (_) => MedicalEquipmentsCubit()..getAllMedicalEquipments(),
-          lazy: false,
-          child: const HomeLayout(),
-        ),
+        builder: (_) => const HomeLayout(),
       );
     case Routes.splash:
       return MaterialPageRoute(
@@ -65,26 +58,17 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
     case Routes.medicalEquipments:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => BlocProvider(
-          create: (_) => MedicalEquipmentsCubit(),
-          child: const MedicalEquipmentsScreen(),
-        ),
+        builder: (_) => const MedicalEquipmentsScreen(),
       );
     case Routes.medicalServices:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => BlocProvider(
-          create: (_) => MedicalServicesCubit(),
-          child: const MedicalServicesScreen(),
-        ),
+        builder: (_) => const MedicalServicesScreen(),
       );
     case Routes.bloodBanks:
       return MaterialPageRoute(
         settings: routeSettings,
-        builder: (_) => BlocProvider(
-          create: (_) => BloodBanksCubit(),
-          child: const BloodBanksScreen(),
-        ),
+        builder: (_) => const BloodBanksScreen(),
       );
     case Routes.register:
       return MaterialPageRoute(

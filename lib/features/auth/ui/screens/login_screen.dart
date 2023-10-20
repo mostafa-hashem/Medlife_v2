@@ -103,9 +103,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             context: context,
                             builder: (BuildContext context) {
                               return const Center(
-                                  child: CircularProgressIndicator(
-                                color: AppColors.primary,
-                              ),);
+                                child: CircularProgressIndicator(
+                                  color: AppColors.primary,
+                                ),
+                              );
                             },
                           );
                         } else {
