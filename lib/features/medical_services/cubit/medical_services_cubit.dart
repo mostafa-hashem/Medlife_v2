@@ -12,17 +12,17 @@ class MedicalServicesCubit extends Cubit<MedicalServicesState> {
       BlocProvider.of(context);
 
   final _medicalServiceFirebaseService = MedicalServicesFirebaseService();
-  List<MedicalService> allMedicalServices = [];
+  List<MedicalService> medicalServices = [];
 
-  Future<void> getAllMedicalEquipments() async {
-    emit(GetAllMedicalServicesLoading());
+  Future<void> getMedicalServices() async {
+    emit(GetMedicalServicesLoading());
     try {
-      allMedicalServices =
+      medicalServices =
           await _medicalServiceFirebaseService.getMedicalServices();
-      emit(GetAllMedicalServicesSuccess());
+      emit(GetMedicalServicesSuccess());
     } catch (e) {
       emit(
-        GetAllMedicalServicesError(
+        GetMedicalServicesError(
           Failure.fromException(e).message,
         ),
       );

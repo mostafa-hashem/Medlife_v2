@@ -21,19 +21,19 @@ class BloodBanksProductsList extends StatelessWidget {
           childAspectRatio: 164.w,
         ),
         itemBuilder: (context, index) {
-          final bloodBanks = BloodBanksCubit.get(context).allBloodBanks[index];
+          final bloodBanks = BloodBanksCubit.get(context).bloodBanks[index];
           return InkWell(
             onTap: () {
               Navigator.pushNamed(
                 context,
-                Routes.medicalEquipmentDetails,
+                Routes.bloodBankDetails,
                 arguments: bloodBanks,
               );
             },
             child: BloodBanksProductItem(bloodBanks),
           );
         },
-        itemCount: BloodBanksCubit.get(context).allBloodBanks.length,
+        itemCount: BloodBanksCubit.get(context).bloodBanks.length,
       ),
     );
   }

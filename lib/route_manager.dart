@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/features/auth/ui/screens/login_screen.dart';
 import 'package:medlife_v2/features/auth/ui/screens/register_screen.dart';
 import 'package:medlife_v2/features/auth/ui/screens/reset_password_screen.dart';
+import 'package:medlife_v2/features/blood_banks/ui/screens/blood_banks_details_screen.dart';
 import 'package:medlife_v2/features/blood_banks/ui/screens/blood_banks_screen.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipment_details_screen.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipments_screen.dart';
+import 'package:medlife_v2/features/medical_services/ui/screens/medical_service_details_screen.dart';
 import 'package:medlife_v2/features/medical_services/ui/screens/medical_services_screen.dart';
 import 'package:medlife_v2/features/payment/cubit/payment_cubit.dart';
 import 'package:medlife_v2/features/payment/ui/screens/address_screen.dart';
@@ -30,6 +32,8 @@ class Routes {
   static const String bloodBanks = "/bloodBanks";
   static const String profile = "/profile";
   static const String medicalEquipmentDetails = "/medicalEquipmentDetails";
+  static const String medicalServiceDetails = "/medicalServiceDetails";
+  static const String bloodBankDetails = "/bloodBankDetails";
   static const String paymentMethod = "/paymentMethod";
   static const String insurancePayment = "/insurancePayment";
   static const String checkout = "/checkout";
@@ -81,6 +85,16 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
     case Routes.medicalEquipmentDetails:
       return MaterialPageRoute(
         builder: (_) => const MedicalEquipmentDetailsScreen(),
+        settings: routeSettings,
+      );
+    case Routes.medicalServiceDetails:
+      return MaterialPageRoute(
+        builder: (_) => const MedicalServiceDetailsScreen(),
+        settings: routeSettings,
+      );
+    case Routes.bloodBankDetails:
+      return MaterialPageRoute(
+        builder: (_) => const BloodBankDetailsScreen(),
         settings: routeSettings,
       );
     case Routes.profile:

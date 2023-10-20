@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class MedicalService {
+  final String id;
   final String title;
   final String description;
   final double price;
@@ -9,9 +8,9 @@ class MedicalService {
   final String providerName;
   final double providerRating;
   final int numOfReviews;
-  final DateTime createdAt;
 
   MedicalService({
+    required this.id,
     required this.title,
     required this.description,
     required this.price,
@@ -20,11 +19,11 @@ class MedicalService {
     required this.providerName,
     required this.providerRating,
     required this.numOfReviews,
-    required this.createdAt,
   });
 
   MedicalService.fromJson(Map<String, dynamic> json)
       : this(
+          id: json['id'] as String,
           title: json['title'] as String,
           description: json['description'] as String,
           price: json['price'] as double,
@@ -35,6 +34,5 @@ class MedicalService {
           providerName: json['providerName'] as String,
           providerRating: json['providerRating'] as double,
           numOfReviews: json['numOfReviews'] as int,
-          createdAt: (json['createdAt'] as Timestamp).toDate(),
         );
 }

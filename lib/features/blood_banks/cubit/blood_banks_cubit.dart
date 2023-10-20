@@ -11,15 +11,15 @@ class BloodBanksCubit extends Cubit<BloodBanksState> {
   static BloodBanksCubit get(BuildContext context) => BlocProvider.of(context);
 
   final _bloodBanksFirebaseService = BloodBanksFirebaseService();
-  List<BloodBank> allBloodBanks = [];
+  List<BloodBank> bloodBanks = [];
 
-  Future<void> getAllBloodBanks() async {
-    emit(GetAllBloodBanksLoading());
+  Future<void> getBloodBanks() async {
+    emit(GetBloodBanksLoading());
     try {
-      allBloodBanks = await _bloodBanksFirebaseService.getBloodBanks();
-      emit(GetAllBloodBanksSuccess());
+      bloodBanks = await _bloodBanksFirebaseService.getBloodBanks();
+      emit(GetBloodBanksSuccess());
     } catch (e) {
-      emit(GetAllBloodBanksError(Failure.fromException(e).message));
+      emit(GetBloodBanksError(Failure.fromException(e).message));
     }
   }
 }

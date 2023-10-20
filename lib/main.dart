@@ -43,10 +43,12 @@ class MedLife extends StatelessWidget {
                   MedicalEquipmentsCubit()..getAllMedicalEquipments(),
             ),
             BlocProvider(
-              create: (_) => MedicalServicesCubit(),
+              create: (_) => MedicalServicesCubit()..getMedicalServices(),
+              lazy: false,
             ),
             BlocProvider(
-              create: (_) => BloodBanksCubit(),
+              create: (_) => BloodBanksCubit()..getBloodBanks(),
+              lazy: false,
             ),
           ],
           child: const MaterialApp(

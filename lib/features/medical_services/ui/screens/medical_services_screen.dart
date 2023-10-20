@@ -68,14 +68,14 @@ class MedicalServicesScreen extends StatelessWidget {
                 ),
                 child: Padding(
                   padding:
-                  EdgeInsets.symmetric(vertical: 7.h, horizontal: 12.w),
+                      EdgeInsets.symmetric(vertical: 7.h, horizontal: 12.w),
                   child: const MedicalServiceSortingAndFilterWidget(),
                 ),
               ),
               SizedBox(
                 height: 7.h,
               ),
-               const MedicalServicesProductsList(),
+              const MedicalServicesProductsList(),
             ],
           ),
         ),

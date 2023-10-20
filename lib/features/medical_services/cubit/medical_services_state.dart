@@ -2,12 +2,12 @@ abstract class MedicalServicesState {}
 
 class MedicalServicesInitial extends MedicalServicesState {}
 
-class GetAllMedicalServicesLoading extends MedicalServicesState {}
+class GetMedicalServicesLoading extends MedicalServicesState {}
 
-class GetAllMedicalServicesSuccess extends MedicalServicesState {}
+class GetMedicalServicesSuccess extends MedicalServicesState {}
 
-class GetAllMedicalServicesError extends MedicalServicesState {
+class GetMedicalServicesError extends MedicalServicesState {
   final String message;
 
-  GetAllMedicalServicesError(this.message);
+  GetMedicalServicesError(this.message);
 }

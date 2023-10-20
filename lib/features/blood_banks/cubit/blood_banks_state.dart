@@ -2,12 +2,12 @@ abstract class BloodBanksState {}
 
 class BloodBanksInitial extends BloodBanksState {}
 
-class GetAllBloodBanksLoading extends BloodBanksState {}
+class GetBloodBanksLoading extends BloodBanksState {}
 
-class GetAllBloodBanksSuccess extends BloodBanksState {}
+class GetBloodBanksSuccess extends BloodBanksState {}
 
-class GetAllBloodBanksError extends BloodBanksState {
+class GetBloodBanksError extends BloodBanksState {
   final String message;
 
-  GetAllBloodBanksError(this.message);
+  GetBloodBanksError(this.message);
 }

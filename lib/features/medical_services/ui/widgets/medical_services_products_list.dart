@@ -21,21 +21,20 @@ class MedicalServicesProductsList extends StatelessWidget {
           childAspectRatio: 164.w,
         ),
         itemBuilder: (context, index) {
-          final medicalServices = MedicalServicesCubit.get(context)
-              .allMedicalServices[index];
+          final medicalServices =
+              MedicalServicesCubit.get(context).medicalServices[index];
           return InkWell(
             onTap: () {
               Navigator.pushNamed(
                 context,
-                Routes.medicalEquipmentDetails,
+                Routes.medicalServiceDetails,
                 arguments: medicalServices,
               );
             },
             child: MedicalServicesProductItem(medicalServices),
           );
         },
-        itemCount:
-            MedicalServicesCubit.get(context).allMedicalServices.length,
+        itemCount: MedicalServicesCubit.get(context).medicalServices.length,
       ),
     );
   }
