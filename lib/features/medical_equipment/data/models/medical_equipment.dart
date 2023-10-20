@@ -53,6 +53,7 @@ class MedicalEquipment {
         'imagesUrls': imagesUrls,
         'sellerName': sellerName,
         'sellerRating': sellerRating,
+        'brandName': brandName,
         'numOfReviews': numOfReviews,
         'createdAt': createdAt,
       };

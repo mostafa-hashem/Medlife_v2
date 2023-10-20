@@ -1,34 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
+import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_order.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_button.dart';
 
 class CartItem extends StatefulWidget {
-  final MedicalEquipment medicalEquipment;
-  const CartItem(this.medicalEquipment);
+  final CartMedicalEquipment cartMedicalEquipment;
+
+  const CartItem(this.cartMedicalEquipment);
 
   @override
   State<CartItem> createState() => _CartItemState();
 }
 
 class _CartItemState extends State<CartItem> {
-  int _counter = 1;
+  late int _quantity = widget.cartMedicalEquipment.quantity;
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
           children: [
-            Image.asset(widget.medicalEquipment.imagesUrls.first),
+            Image.asset(
+              widget.cartMedicalEquipment.medicalEquipment.imagesUrls.first,
+            ),
             SizedBox(
               width: 9.w,
             ),
             Column(
               children: [
                 Text(
-                  widget.medicalEquipment.title,
+                  widget.cartMedicalEquipment.medicalEquipment.title,
                   style: openSans14W400(color: const Color(0xff576A69)),
                 ),
                 SizedBox(
@@ -38,7 +44,10 @@ class _CartItemState extends State<CartItem> {
                   text: TextSpan(
                     children: [
                       TextSpan(
-                        text: (_counter * widget.medicalEquipment.price).toStringAsFixed(2),
+                        text: (_quantity *
+                                widget.cartMedicalEquipment.medicalEquipment
+                                    .price)
+                            .toStringAsFixed(2),
                         style: openSans18W500(
                           color: const Color(0xff1E1E1E).withOpacity(0.8),
                         ),
@@ -58,10 +67,17 @@ class _CartItemState extends State<CartItem> {
             DefaultButton(
               function: () {
                 setState(() {
-                  if(_counter < 2){
+                  if (_quantity < 2) {
                     return;
                   }
-                  _counter--;
+                  _quantity--;
+                  CartCubit.get(context).editCart(
+                    CartOrder(
+                      medicalEquipmentId:
+                          widget.cartMedicalEquipment.medicalEquipment.id,
+                      quantity: _quantity,
+                    ),
+                  );
                 });
               },
               icon: Icons.remove_outlined,
@@ -76,7 +92,7 @@ class _CartItemState extends State<CartItem> {
               width: 6.w,
             ),
             Text(
-              _counter.toString(),
+              _quantity.toString(),
               style: openSans16W500(color: Colors.black),
             ),
             SizedBox(
@@ -85,7 +101,14 @@ class _CartItemState extends State<CartItem> {
             DefaultButton(
               function: () {
                 setState(() {
-                  _counter++;
+                  _quantity++;
+                  CartCubit.get(context).editCart(
+                    CartOrder(
+                      medicalEquipmentId:
+                          widget.cartMedicalEquipment.medicalEquipment.id,
+                      quantity: _quantity,
+                    ),
+                  );
                 });
               },
               icon: Icons.add_outlined,
@@ -124,9 +147,9 @@ class _CartItemState extends State<CartItem> {
               width: 5.w,
             ),
             InkWell(
-              onTap: (){
-
-              },
+              onTap: () => CartCubit.get(context).deleteFromCart(
+                widget.cartMedicalEquipment.medicalEquipment.id,
+              ),
               child: Container(
                 padding: const EdgeInsets.all(6),
                 decoration: BoxDecoration(

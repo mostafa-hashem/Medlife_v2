@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/auth/cubit/auth_cubit.dart';
 import 'package:medlife_v2/features/blood_banks/cubit/blood_banks_cubit.dart';
+import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
 import 'package:medlife_v2/features/medical_services/cubit/medical_services_cubit.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
@@ -48,6 +49,10 @@ class MedLife extends StatelessWidget {
             ),
             BlocProvider(
               create: (_) => BloodBanksCubit()..getBloodBanks(),
+              lazy: false,
+            ),
+            BlocProvider(
+              create: (_) => CartCubit(),
               lazy: false,
             ),
           ],
