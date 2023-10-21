@@ -93,7 +93,7 @@ class _MedicalEquipmentDetailsScreenState
                         itemCount: medicalEquipment.imagesUrls.length,
                         controller: controller,
                         itemBuilder: (context, index) =>
-                            Image.asset(medicalEquipment.imagesUrls[index]),
+                            Image.network(medicalEquipment.imagesUrls[index]),
                       ),
                     ),
                   ],

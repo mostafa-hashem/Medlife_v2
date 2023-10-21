@@ -3,8 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
-class MedicalEquipmentItem extends StatelessWidget {
-  const MedicalEquipmentItem(this.medicalEquipment);
+class HomeMedicalEquipmentItem extends StatelessWidget {
+  const HomeMedicalEquipmentItem(this.medicalEquipment);
 
   final MedicalEquipment medicalEquipment;
 
@@ -37,7 +37,7 @@ class MedicalEquipmentItem extends StatelessWidget {
                   maxHeight: 85.h,
                   minWidth: 85.w,
                 ),
-                child: Image.asset(medicalEquipment.imagesUrls.first)),
+                child: Image.network(medicalEquipment.imagesUrls.first),),
             SizedBox(
               height: 7.h,
             ),

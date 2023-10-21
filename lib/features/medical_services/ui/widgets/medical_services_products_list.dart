@@ -16,7 +16,7 @@ class MedicalServicesProductsList extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           mainAxisSpacing: 12.h,
-          mainAxisExtent: 250.h,
+          mainAxisExtent: MediaQuery.sizeOf(context).height * 0.3,
           crossAxisSpacing: 12.w,
           childAspectRatio: 164.w,
         ),

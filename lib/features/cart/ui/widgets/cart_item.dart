@@ -32,7 +32,7 @@ class _CartItemState extends State<CartItem> {
                 maxHeight: 100.h,
                 maxWidth: 100.w,
               ),
-              child: Image.asset(
+              child: Image.network(
                 widget.cartMedicalEquipment.medicalEquipment.imagesUrls.first,
               ),
             ),

@@ -9,7 +9,7 @@ import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/custom_cat_item.dart';
 import 'package:medlife_v2/ui/widgets/error_indicator.dart';
 import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
-import 'package:medlife_v2/ui/widgets/medical_equipment_item.dart';
+import 'package:medlife_v2/ui/widgets/home_medical_equipment_item.dart';
 import 'package:medlife_v2/ui/widgets/search_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -156,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Routes.medicalEquipmentDetails,
                                   arguments: medicalEquipment,
                                 ),
-                                child: MedicalEquipmentItem(medicalEquipment),
+                                child: HomeMedicalEquipmentItem(medicalEquipment),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(
@@ -217,7 +217,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Routes.medicalEquipmentDetails,
                                   arguments: medicalEquipment,
                                 ),
-                                child: MedicalEquipmentItem(medicalEquipment),
+                                child: HomeMedicalEquipmentItem(medicalEquipment),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(
@@ -232,6 +232,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
+              ),
+              SizedBox(
+                height: 16.h,
               ),
               Text(
                 "Recent Added",
@@ -275,7 +278,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Routes.medicalEquipmentDetails,
                                   arguments: medicalEquipment,
                                 ),
-                                child: MedicalEquipmentItem(medicalEquipment),
+                                child: HomeMedicalEquipmentItem(medicalEquipment),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(
@@ -292,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               SizedBox(
-                height: 90.h,
+                height: 100.h,
               ),
             ],
           ),
