@@ -225,25 +225,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   height: 16.h,
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Already have account",
-                      style: openSans12W400(color: Colors.black),
-                    ),
-                    SizedBox(
-                      width: 2.w,
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "login",
-                        style: openSans12W400(color: const Color(0xFF22C7B6)),
-                      ),
-                    ),
-                  ],
-                ),
               ],
             ),
           ),

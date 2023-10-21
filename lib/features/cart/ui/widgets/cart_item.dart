@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
@@ -7,8 +6,6 @@ import 'package:medlife_v2/features/cart/data/models/cart_order.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_button.dart';
-
-import '../../cubit/cart_state.dart';
 
 class CartItem extends StatefulWidget {
   final CartMedicalEquipment cartMedicalEquipment;
@@ -28,17 +25,35 @@ class _CartItemState extends State<CartItem> {
       children: [
         Row(
           children: [
-            Image.asset(
-              widget.cartMedicalEquipment.medicalEquipment.imagesUrls.first,
+            Container(
+              constraints: BoxConstraints(
+                minWidth: 100.w,
+                minHeight: 100.h,
+                maxHeight: 100.h,
+                maxWidth: 100.w,
+              ),
+              child: Image.asset(
+                widget.cartMedicalEquipment.medicalEquipment.imagesUrls.first,
+              ),
             ),
             SizedBox(
-              width: 9.w,
+              width: 7.w,
             ),
             Column(
               children: [
-                Text(
-                  widget.cartMedicalEquipment.medicalEquipment.title,
-                  style: openSans14W400(color: const Color(0xff576A69)),
+                Container(
+                  constraints: BoxConstraints(
+                    minWidth: 130.w,
+                    maxWidth: 140.w,
+                  ),
+                  child: Center(
+                    child: Text(
+                      widget.cartMedicalEquipment.medicalEquipment.title,
+                      style: openSans14W400(color: const Color(0xff576A69)),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ),
                 ),
                 SizedBox(
                   height: 16.h,
@@ -51,7 +66,7 @@ class _CartItemState extends State<CartItem> {
                                 widget.cartMedicalEquipment.medicalEquipment
                                     .price)
                             .toStringAsFixed(2),
-                        style: openSans18W500(
+                        style: openSans14W500(
                           color: const Color(0xff1E1E1E).withOpacity(0.8),
                         ),
                       ),
@@ -65,7 +80,7 @@ class _CartItemState extends State<CartItem> {
               ],
             ),
             SizedBox(
-              width: 54.w,
+              width: 40.w,
             ),
             DefaultButton(
               function: () {
@@ -149,46 +164,29 @@ class _CartItemState extends State<CartItem> {
             SizedBox(
               width: 5.w,
             ),
-            BlocListener<CartCubit, CartState>(
-              listener: (_, state) {
-                if (state is DeleteCartLoading) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        "Successfully Deleted",
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      backgroundColor: AppColors.primary,
-                      duration: Duration(seconds: 3),
-                    ),
-                  );
-                }
-                print(state);
-              },
-              child: InkWell(
-                onTap: () => CartCubit.get(context).deleteFromCart(
-                  widget.cartMedicalEquipment.medicalEquipment.id,
+            InkWell(
+              onTap: () => CartCubit.get(context).deleteFromCart(
+                widget.cartMedicalEquipment.medicalEquipment.id,
+              ),
+              child: Container(
+                padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: const Color(0xff000000).withOpacity(0.5),
+                  ),
+                  borderRadius: BorderRadius.circular(7.r),
                 ),
-                child: Container(
-                  padding: const EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: const Color(0xff000000).withOpacity(0.5),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.delete_outline,
+                      size: 14,
                     ),
-                    borderRadius: BorderRadius.circular(7.r),
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(
-                        Icons.delete_outline,
-                        size: 14,
-                      ),
-                      Text(
-                        "Delete from cart",
-                        style: openSans10W400(color: const Color(0xff979797)),
-                      ),
-                    ],
-                  ),
+                    Text(
+                      "Delete from cart",
+                      style: openSans10W400(color: const Color(0xff979797)),
+                    ),
+                  ],
                 ),
               ),
             ),

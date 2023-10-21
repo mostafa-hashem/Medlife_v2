@@ -30,7 +30,14 @@ class MedicalEquipmentItem extends StatelessWidget {
                 size: 11,
               ),
             ),
-            Image.asset(medicalEquipment.imagesUrls.first),
+            Container(
+                constraints: BoxConstraints(
+                  minHeight: 85.h,
+                  maxWidth: 85.w,
+                  maxHeight: 85.h,
+                  minWidth: 85.w,
+                ),
+                child: Image.asset(medicalEquipment.imagesUrls.first)),
             SizedBox(
               height: 7.h,
             ),

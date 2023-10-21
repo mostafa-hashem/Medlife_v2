@@ -29,7 +29,21 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CartCubit, CartState>(
+    return BlocConsumer<CartCubit, CartState>(
+      listener: (_, state) {
+        if (state is DeleteCartLoading) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                "Successfully Deleted",
+                style: TextStyle(fontSize: 15),
+              ),
+              backgroundColor: AppColors.primary,
+              duration: Duration(seconds: 3),
+            ),
+          );
+        }
+      },
       builder: (context, state) {
         if (state is GetCartLoading) {
           return const LoadingIndicator();
