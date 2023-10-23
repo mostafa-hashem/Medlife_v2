@@ -9,8 +9,9 @@ import 'package:medlife_v2/ui/widgets/default_button.dart';
 
 class CartItem extends StatefulWidget {
   final CartMedicalEquipment cartMedicalEquipment;
+  final Function(double) onQuantityChanged;
 
-  const CartItem(this.cartMedicalEquipment);
+  const CartItem(this.cartMedicalEquipment, this.onQuantityChanged);
 
   @override
   State<CartItem> createState() => _CartItemState();
@@ -71,7 +72,7 @@ class _CartItemState extends State<CartItem> {
                         ),
                       ),
                       TextSpan(
-                        text: " \$",
+                        text: " ASR",
                         style: openSans14W400(color: AppColors.primary),
                       ),
                     ],
@@ -96,6 +97,9 @@ class _CartItemState extends State<CartItem> {
                       quantity: _quantity,
                     ),
                   );
+                  final newTotal = _quantity *
+                      widget.cartMedicalEquipment.medicalEquipment.price;
+                  widget.onQuantityChanged(newTotal);
                 });
               },
               icon: Icons.remove_outlined,
@@ -127,6 +131,9 @@ class _CartItemState extends State<CartItem> {
                       quantity: _quantity,
                     ),
                   );
+                  final newTotal = _quantity *
+                      widget.cartMedicalEquipment.medicalEquipment.price;
+                  widget.onQuantityChanged(newTotal);
                 });
               },
               icon: Icons.add_outlined,

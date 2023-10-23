@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
-import 'package:medlife_v2/features/payment/ui/widgets/custom_payment_container.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -131,20 +130,6 @@ class _MedicalServiceDetailsScreenState
                 sealerName: medicalService.providerName,
                 starImage: "assets/images/star.png",
                 rate: medicalService.rating.toString(),
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-              const CustomPaymentContainer(
-                image: "assets/images/tabby_installment_mini 1.png",
-                text: "Payment in 3 installments",
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-              const CustomPaymentContainer(
-                image: "assets/images/tamara.png",
-                text: "Payment in 4 installments",
               ),
               SizedBox(
                 height: 16.h,

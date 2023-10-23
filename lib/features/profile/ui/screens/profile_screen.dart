@@ -38,7 +38,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     lastNameController.text = profile.lastName!;
     emailController.text = profile.email!;
     dateOfBirthController.text = profile.dateOfBirth!;
-    addressController.text = profile.address!;
     companyInsuranceNameController.text = profile.companyInsuranceName!;
   }
 
@@ -169,11 +168,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
             SizedBox(
               height: 21.h,
             ),
-            CustomProfileContainer(
-              labelText: "Address*",
-              textInputType: TextInputType.streetAddress,
-              controller: addressController,
-            ),
             SizedBox(
               height: 21.h,
             ),
@@ -205,13 +199,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 function: () {
                   ProfileCubit.get(context).updateUser(
                     User(
-                      id:  ProfileCubit.get(context).user.id,
+                      id: ProfileCubit.get(context).user.id,
                       idNumber: idNumberController.text,
                       firstName: firstNameController.text,
                       lastName: lastNameController.text,
                       email: emailController.text,
                       dateOfBirth: dateOfBirthController.text,
-                      address: addressController.text,
                       companyInsuranceName: companyInsuranceNameController.text,
                       phoneNumber: ProfileCubit.get(context).user.phoneNumber,
                     ),

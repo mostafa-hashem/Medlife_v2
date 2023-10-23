@@ -1,24 +1,26 @@
+import 'package:medlife_v2/utils/data/models/address.dart';
+
 class User {
   String? id;
   String? idNumber;
   String? dateOfBirth;
-  String? address;
   String? companyInsuranceName;
   String? firstName;
   String? lastName;
   String? email;
   String? phoneNumber;
+  Address? address;
 
   User({
     required this.id,
     this.idNumber = '',
     this.dateOfBirth = '',
-    this.address = '',
     this.companyInsuranceName = '',
     this.phoneNumber = '',
     required this.firstName,
     required this.lastName,
     required this.email,
+    this.address,
   });
 
   User.fromJson(Map<String, dynamic> json) {
@@ -27,10 +29,12 @@ class User {
     email = json['email'] as String?;
     idNumber = json['idNumber'] as String?;
     dateOfBirth = json['dateOfBirth'] as String?;
-    address = json['address'] as String?;
     companyInsuranceName = json['companyInsuranceName'] as String?;
     lastName = json['secondName'] as String?;
     phoneNumber = json['phoneNumber'] as String?;
+    if (json['address'] != null) {
+      address = Address.fromJson(json['address'] as Map<String, dynamic>);
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -40,10 +44,11 @@ class User {
       'email': email,
       'idNumber': idNumber,
       'dateOfBirth': dateOfBirth,
-      'address': address,
       'companyInsuranceName': companyInsuranceName,
       'secondName': lastName,
       'phoneNumber': phoneNumber,
+      if(address != null)
+       'address': address?.toJson(),
     };
   }
 }

@@ -16,123 +16,139 @@ class Checkout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 19.w),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                height: 53.h,
-              ),
-              const CustomAppBar(text: "Checkout"),
-              SizedBox(
-                height: 37.h,
-              ),
-              Text(
-                "Shipping Address",
-                style: openSans14W500(color: AppColors.primary),
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-              const CustomAddressContainer(),
-              SizedBox(
-                height: 15.h,
-              ),
-              Text(
-                "Shipping Method",
-                style: openSans14W500(color: AppColors.primary),
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppColors.borderColor),
-                  borderRadius: BorderRadius.circular(5.r),
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 19.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 43.h,
                 ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
-                  child: const ShippingMethodRow(),
+                const CustomAppBar(text: "Checkout"),
+                SizedBox(
+                  height: 37.h,
                 ),
-              ),
-              SizedBox(
-                height: 15.h,
-              ),
-              Text(
-                "Payment Method",
-                style: openSans14W500(color: AppColors.primary),
-              ),
-              SizedBox(
-                height: 8.h,
-              ),
-              const PaymentMethodCard(image: "assets/images/Mastercard.png"),
-              SizedBox(
-                height: 12.h,
-              ),
-              const PaymentMethodCard(image: "assets/images/Visa Card.png"),
-              SizedBox(
-                height: 12.h,
-              ),
-              const PaymentMethodCard(image: "assets/images/Mada.png"),
-              SizedBox(
-                height: 20.h,
-              ),
-              const CustomDivider(),
-              SizedBox(
-                height: 12.h,
-              ),
-              Text(
-                "Order Summery",
-                style: openSans14W500(color: AppColors.primary),
-              ),
-              SizedBox(
-                height: 9.h,
-              ),
-              const SummeryRow(text: 'Compression device', price: '5 SAR'),
-              SizedBox(
-                height: 11.h,
-              ),
-              const SummeryRow(text: 'Delivery Fee', price: '5 SAR'),
-              SizedBox(
-                height: 11.h,
-              ),
-              const SummeryRow(text: 'Discount', price: '5 SAR'),
-              SizedBox(
-                height: 11.h,
-              ),
-              const SummeryRow(text: 'Shipping', price: '2 SAR'),
-              SizedBox(
-                height: 11.h,
-              ),
-              const SummeryRow(text: 'Taxes', price: '1.5 SAR'),
-              SizedBox(
-                height: 16.h,
-              ),
-              const CustomDivider(),
-              SizedBox(
-                height: 16.h,
-              ),
-              const SummeryRow(text: 'Total', price: '18.5 SAR'),
-              SizedBox(
-                height: 48.h,
-              ),
-              DefaultTextButton(
-                function: () =>
-                    Navigator.pushNamed(context, Routes.successfulPayment),
-                text: "Check out",
-                textStyle: openSans16W500(color: Colors.white),
-                height: 65.h,
-                width: double.infinity,
-              ),
-              SizedBox(
-                height: 48.h,
-              ),
-            ],
+                Text(
+                  "Shipping Address",
+                  style: openSans14W500(color: AppColors.primary),
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                const CustomAddressContainer(),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  "Shipping Method",
+                  style: openSans14W500(color: AppColors.primary),
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.borderColor),
+                    borderRadius: BorderRadius.circular(5.r),
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(vertical: 20.h, horizontal: 15.w),
+                    child: const ShippingMethodRow(),
+                  ),
+                ),
+                SizedBox(
+                  height: 15.h,
+                ),
+                Text(
+                  "Payment Method",
+                  style: openSans14W500(color: AppColors.primary),
+                ),
+                SizedBox(
+                  height: 8.h,
+                ),
+                const PaymentMethodCard(image: "assets/images/Mastercard.png"),
+                SizedBox(
+                  height: 12.h,
+                ),
+                const PaymentMethodCard(image: "assets/images/Visa Card.png"),
+                SizedBox(
+                  height: 12.h,
+                ),
+                const PaymentMethodCard(image: "assets/images/Mada.png"),
+                SizedBox(
+                  height: 12.h,
+                ),
+                const PaymentMethodCard(
+                  image: "assets/images/tabby_installment_mini 1.png",
+                  text: 'Tabby',
+                ),
+                SizedBox(
+                  height: 12.h,
+                ),
+                const PaymentMethodCard(
+                  image: "assets/images/tamara.png",
+                  text: 'Tamara',
+                ),
+                SizedBox(
+                  height: 20.h,
+                ),
+                const CustomDivider(),
+                SizedBox(
+                  height: 12.h,
+                ),
+                Text(
+                  "Order Summery",
+                  style: openSans14W500(color: AppColors.primary),
+                ),
+                SizedBox(
+                  height: 9.h,
+                ),
+                const SummeryRow(text: 'Compression device', price: '5 SAR'),
+                SizedBox(
+                  height: 11.h,
+                ),
+                const SummeryRow(text: 'Delivery Fee', price: '5 SAR'),
+                SizedBox(
+                  height: 11.h,
+                ),
+                const SummeryRow(text: 'Discount', price: '5 SAR'),
+                SizedBox(
+                  height: 11.h,
+                ),
+                const SummeryRow(text: 'Shipping', price: '2 SAR'),
+                SizedBox(
+                  height: 11.h,
+                ),
+                const SummeryRow(text: 'Taxes', price: '1.5 SAR'),
+                SizedBox(
+                  height: 16.h,
+                ),
+                const CustomDivider(),
+                SizedBox(
+                  height: 16.h,
+                ),
+                const SummeryRow(text: 'Total', price: '18.5 SAR'),
+                SizedBox(
+                  height: 48.h,
+                ),
+                DefaultTextButton(
+                  function: () =>
+                      Navigator.pushNamed(context, Routes.successfulPayment),
+                  text: "Check out",
+                  textStyle: openSans16W500(color: Colors.white),
+                  height: 65.h,
+                  width: double.infinity,
+                ),
+                SizedBox(
+                  height: 48.h,
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -21,10 +21,18 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  double total = 0.0;
+
   @override
   void initState() {
     super.initState();
     CartCubit.get(context).getCart();
+  }
+
+  void updateTotal(double newTotal) {
+    setState(() {
+      total = newTotal;
+    });
   }
 
   @override
@@ -91,16 +99,16 @@ class _CartScreenState extends State<CartScreen> {
                                 padding: EdgeInsets.zero,
                                 itemBuilder: (context, index) {
                                   final cartMedicalEquipment =
-                                      CartCubit.get(context)
-                                          .cartMedicalEquipments[index];
-                                  return CartItem(cartMedicalEquipment);
+                                  CartCubit.get(context).cartMedicalEquipments[index];
+                                  return CartItem(
+                                    cartMedicalEquipment,
+                                    updateTotal,
+                                  );
                                 },
                                 separatorBuilder: (context, index) => SizedBox(
                                   height: 23.h,
                                 ),
-                                itemCount: CartCubit.get(context)
-                                    .cartMedicalEquipments
-                                    .length,
+                                itemCount: CartCubit.get(context).cartMedicalEquipments.length,
                               ),
                             ),
                           ],
@@ -136,7 +144,10 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: 12.h,
                       ),
-                      const SummeryRow(text: 'Total', price: '8.5 SAR'),
+                      SummeryRow(
+                        text: 'Total',
+                        price: '${total.toStringAsFixed(2)} SAR',
+                      ),
                       SizedBox(
                         height: 24.h,
                       ),

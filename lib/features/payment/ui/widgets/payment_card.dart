@@ -9,7 +9,7 @@ class PaymentCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 20,
+      elevation: 10,
       shape: OutlineInputBorder(
         borderRadius: BorderRadius.circular(16.r),
         borderSide: const BorderSide(color: Colors.transparent),

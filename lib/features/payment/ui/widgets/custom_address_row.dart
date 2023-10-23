@@ -25,6 +25,7 @@ class CustomAddressRow extends StatelessWidget {
             text,
             style:
                 openSans12W400(color: const Color(0xff1A1A1A).withOpacity(0.9)),
+            overflow: TextOverflow.ellipsis,
           ),
         ],
       ),
