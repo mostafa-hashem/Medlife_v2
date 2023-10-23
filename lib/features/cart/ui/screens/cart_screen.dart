@@ -7,6 +7,7 @@ import 'package:medlife_v2/features/cart/ui/widgets/cart_item.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
+import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 import 'package:medlife_v2/ui/widgets/error_indicator.dart';
@@ -96,6 +97,7 @@ class _CartScreenState extends State<CartScreen> {
                           children: [
                             Expanded(
                               child: ListView.separated(
+                                physics: const BouncingScrollPhysics(),
                                 padding: EdgeInsets.zero,
                                 itemBuilder: (context, index) {
                                   final cartMedicalEquipment =
@@ -128,15 +130,15 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: 9.h,
                       ),
-                      const SummeryRow(text: 'Discount', price: '5 SAR'),
+                      const SummeryRow(text: 'Discount', price: '5 $currency'),
                       SizedBox(
                         height: 11.h,
                       ),
-                      const SummeryRow(text: 'Shipping', price: '2 SAR'),
+                      const SummeryRow(text: 'Shipping', price: '2 $currency'),
                       SizedBox(
                         height: 11.h,
                       ),
-                      const SummeryRow(text: 'Taxes', price: '1.5 SAR'),
+                      const SummeryRow(text: 'Taxes', price: '1.5 $currency'),
                       SizedBox(
                         height: 16.h,
                       ),
@@ -146,7 +148,7 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       SummeryRow(
                         text: 'Total',
-                        price: '${total.toStringAsFixed(2)} SAR',
+                        price: '${total.toStringAsFixed(2)} $currency',
                       ),
                       SizedBox(
                         height: 24.h,

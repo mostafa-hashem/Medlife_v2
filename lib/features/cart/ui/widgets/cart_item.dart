@@ -4,6 +4,7 @@ import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_order.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
+import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_button.dart';
 
@@ -72,7 +73,7 @@ class _CartItemState extends State<CartItem> {
                         ),
                       ),
                       TextSpan(
-                        text: " ASR",
+                        text: " $currency",
                         style: openSans14W400(color: AppColors.primary),
                       ),
                     ],

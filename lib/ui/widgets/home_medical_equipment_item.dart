@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
+import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class HomeMedicalEquipmentItem extends StatelessWidget {
@@ -86,7 +87,7 @@ class HomeMedicalEquipmentItem extends StatelessWidget {
                 SizedBox(
                   width: 15.w,
                 ),
-                Text("${medicalEquipment.price} \$"),
+                Text("${medicalEquipment.price} $currency"),
                 CircleAvatar(
                   radius: 8.5.r,
                   backgroundColor: const Color(0xff22C7B6),

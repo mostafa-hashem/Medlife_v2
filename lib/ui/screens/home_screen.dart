@@ -144,6 +144,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return const ErrorIndicator();
                           }
                           return ListView.separated(
+                            physics: const BouncingScrollPhysics(),
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
@@ -205,6 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return const ErrorIndicator();
                           }
                           return ListView.separated(
+                            physics: const BouncingScrollPhysics(),
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
@@ -266,6 +268,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return const ErrorIndicator();
                           }
                           return ListView.separated(
+                            physics: const BouncingScrollPhysics(),
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (context, index) {
