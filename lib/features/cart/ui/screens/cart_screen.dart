@@ -4,12 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_state.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/cart_item.dart';
+import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
+import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 import 'package:medlife_v2/ui/widgets/error_indicator.dart';
 import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
+import 'package:medlife_v2/ui/widgets/summery_row.dart';
+import 'package:medlife_v2/utils/helper_methods.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen();
@@ -102,6 +106,19 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: 24.h,
                       ),
+                      const CustomDivider(),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      SummeryRow(
+                        text: 'Total',
+                        price: '${calculateProductsPrice(
+                          CartCubit.get(context).cartMedicalEquipments,
+                        ).toStringAsFixed(2)} $currency',
+                      ),
+                      SizedBox(
+                        height: 24.h,
+                      ),
                       DefaultTextButton(
                         function: () =>
                             Navigator.pushNamed(context, Routes.paymentMethod),
@@ -111,11 +128,7 @@ class _CartScreenState extends State<CartScreen> {
                         width: double.infinity,
                       ),
                       SizedBox(
-                        height: 24.h,
-                      ),
-
-                      SizedBox(
-                        height: 100.h,
+                        height: 120.h,
                       ),
                     ],
                   ),
