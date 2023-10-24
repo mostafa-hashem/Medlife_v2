@@ -4,8 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/auth/cubit/auth_cubit.dart';
 import 'package:medlife_v2/features/auth/cubit/auth_state.dart';
 import 'package:medlife_v2/features/auth/data/models/register_data.dart';
-import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
-import 'package:medlife_v2/features/profile/cubit/profile_state.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
@@ -119,59 +117,50 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(
                   height: 18.h,
                 ),
-                MultiBlocListener(
-                  listeners: [
-                    BlocListener<AuthCubit, AuthState>(
-                      listener: (context, state) {
-                        if (state is AuthLoading) {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return const Center(
-                                child: CircularProgressIndicator(),
-                              );
-                            },
+                BlocListener<AuthCubit, AuthState>(
+                  listener: (context, state) {
+                    if (state is EmailVerifyRequestSentLoading) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
                           );
-                        } else {
-                          Navigator.pop(context);
-                          if (state is AuthSuccess) {
-                            ProfileCubit.get(context).getUser();
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  "Successfully Register",
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                backgroundColor: AppColors.primary,
-                                duration: Duration(seconds: 3),
-                              ),
-                            );
-                          } else if (state is AuthError) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  "There is an error, try again",
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                backgroundColor: AppColors.error,
-                                duration: Duration(seconds: 3),
-                              ),
-                            );
-                          }
-                        }
-                      },
-                    ),
-                    BlocListener<ProfileCubit, ProfileState>(
-                      listener: (context, state) {
-                        if (state is GetUserSuccess) {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            Routes.layout,
-                          );
-                        }
-                      },
-                    ),
-                  ],
+                        },
+                      );
+                    } else {
+                      Navigator.pop(context);
+                      if (state is EmailVerifyRequestSentSuccess) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "A verification link has been sent to your email address. Please check your email to complete the registration process.",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            backgroundColor: AppColors.primary,
+                            duration: Duration(
+                              seconds: 6,
+                            ), // You can adjust the duration as per your preference
+                          ),
+                        );
+                        Navigator.pushReplacementNamed(
+                          context,
+                          Routes.login,
+                        );
+                      } else if (state is EmailVerifyRequestSentError) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              "There is an error, try again",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            backgroundColor: AppColors.error,
+                            duration: Duration(seconds: 3),
+                          ),
+                        );
+                      }
+                    }
+                  },
                   child: DefaultTextButton(
                     function: () {
                       if (passwordController.text ==

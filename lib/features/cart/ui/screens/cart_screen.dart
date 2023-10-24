@@ -13,6 +13,7 @@ import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 import 'package:medlife_v2/ui/widgets/error_indicator.dart';
 import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
 import 'package:medlife_v2/ui/widgets/summery_row.dart';
+import 'package:medlife_v2/utils/helper_methods.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen();
@@ -22,19 +23,12 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  double total = 0.0;
-
   @override
   void initState() {
     super.initState();
     CartCubit.get(context).getCart();
   }
 
-  void updateTotal(double newTotal) {
-    setState(() {
-      total = newTotal;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -91,29 +85,24 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: 23.h,
                       ),
-                      Container(
-                        constraints: BoxConstraints(maxHeight: 300.h),
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: ListView.separated(
-                                physics: const BouncingScrollPhysics(),
-                                padding: EdgeInsets.zero,
-                                itemBuilder: (context, index) {
-                                  final cartMedicalEquipment =
-                                  CartCubit.get(context).cartMedicalEquipments[index];
-                                  return CartItem(
-                                    cartMedicalEquipment,
-                                    updateTotal,
-                                  );
-                                },
-                                separatorBuilder: (context, index) => SizedBox(
-                                  height: 23.h,
-                                ),
-                                itemCount: CartCubit.get(context).cartMedicalEquipments.length,
-                              ),
-                            ),
-                          ],
+                      Expanded(
+                        child: ListView.separated(
+                          physics: const BouncingScrollPhysics(),
+                          padding: EdgeInsets.zero,
+                          itemBuilder: (context, index) {
+                            final cartMedicalEquipment =
+                                CartCubit.get(context)
+                                    .cartMedicalEquipments[index];
+                            return CartItem(
+                              cartMedicalEquipment,
+                            );
+                          },
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: 23.h,
+                          ),
+                          itemCount: CartCubit.get(context)
+                              .cartMedicalEquipments
+                              .length,
                         ),
                       ),
                       SizedBox(
@@ -121,34 +110,12 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       const CustomDivider(),
                       SizedBox(
-                        height: 14.h,
-                      ),
-                      Text(
-                        "Order Summery",
-                        style: openSans14W500(color: AppColors.primary),
-                      ),
-                      SizedBox(
-                        height: 9.h,
-                      ),
-                      const SummeryRow(text: 'Discount', price: '5 $currency'),
-                      SizedBox(
-                        height: 11.h,
-                      ),
-                      const SummeryRow(text: 'Shipping', price: '2 $currency'),
-                      SizedBox(
-                        height: 11.h,
-                      ),
-                      const SummeryRow(text: 'Taxes', price: '1.5 $currency'),
-                      SizedBox(
-                        height: 16.h,
-                      ),
-                      const CustomDivider(),
-                      SizedBox(
                         height: 12.h,
                       ),
                       SummeryRow(
                         text: 'Total',
-                        price: '${total.toStringAsFixed(2)} $currency',
+                        price:
+                            '${calculateProductsPrice(CartCubit.get(context).cartMedicalEquipments).toStringAsFixed(2)} $currency',
                       ),
                       SizedBox(
                         height: 24.h,
@@ -174,7 +141,7 @@ class _CartScreenState extends State<CartScreen> {
                         borderColor: AppColors.primary,
                       ),
                       SizedBox(
-                        height: 70.h,
+                        height: 100.h,
                       ),
                     ],
                   ),

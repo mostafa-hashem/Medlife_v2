@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_address_container.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
@@ -7,12 +8,26 @@ import 'package:medlife_v2/features/payment/ui/widgets/payment_method_card.dart'
 import 'package:medlife_v2/features/payment/ui/widgets/shipping_method_row.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
+import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 import 'package:medlife_v2/ui/widgets/summery_row.dart';
+import 'package:medlife_v2/utils/helper_methods.dart';
 
-class Checkout extends StatelessWidget {
+class Checkout extends StatefulWidget {
   const Checkout({super.key});
+
+  @override
+  State<Checkout> createState() => _CheckoutState();
+}
+
+class _CheckoutState extends State<Checkout> {
+  List<double> summery = [
+    2,
+    -90,
+    5,
+    1.5,
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -108,23 +123,52 @@ class Checkout extends StatelessWidget {
                 SizedBox(
                   height: 9.h,
                 ),
-                const SummeryRow(text: 'Compression device', price: '5 SAR'),
+                Container(
+                  constraints: BoxConstraints(
+                    maxHeight:
+                        CartCubit.get(context).cartMedicalEquipments.length *
+                            31.h,
+                  ),
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: ListView.separated(
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) => SummeryRow(
+                            text: CartCubit.get(context)
+                                .cartMedicalEquipments[index]
+                                .medicalEquipment
+                                .title,
+                            price:
+                                '${calculateItemPrice(CartCubit.get(context).cartMedicalEquipments[index].quantity, CartCubit.get(context).cartMedicalEquipments[index].medicalEquipment.price)} SAR',
+                          ),
+                          separatorBuilder: (context, index) => SizedBox(
+                            height: 11.h,
+                          ),
+                          itemCount: CartCubit.get(context)
+                              .cartMedicalEquipments
+                              .length,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Delivery Fee', price: '5 SAR'),
+                const SummeryRow(text: 'Delivery Fee', price: '+2 SAR'),
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Discount', price: '5 SAR'),
+                const SummeryRow(text: 'Discount', price: '-90 SAR'),
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Shipping', price: '2 SAR'),
+                const SummeryRow(text: 'Shipping', price: '+5 SAR'),
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Taxes', price: '1.5 SAR'),
+                const SummeryRow(text: 'Taxes', price: '+1.5 SAR'),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -132,7 +176,15 @@ class Checkout extends StatelessWidget {
                 SizedBox(
                   height: 16.h,
                 ),
-                const SummeryRow(text: 'Total', price: '18.5 SAR'),
+                SummeryRow(
+                  text: 'Total',
+                  price: '${calculateTotalPrice(
+                    price: calculateProductsPrice(
+                      CartCubit.get(context).cartMedicalEquipments,
+                    ),
+                    summery: summery,
+                  ).toStringAsFixed(2)} $currency',
+                ),
                 SizedBox(
                   height: 48.h,
                 ),

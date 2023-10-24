@@ -1,3 +1,5 @@
+import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
+
 String? validateEmail(String? value) {
   final RegExp regex = RegExp(
     r"^[a-zA-Z0-9.a-zA-Z0-9!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+",
@@ -28,4 +30,25 @@ String? validateGeneral(String? value, String label) {
     return 'Please enter $label';
   }
   return null;
+}
+
+double calculateProductsPrice(List<CartMedicalEquipment> cartItems) {
+  double totalPrice = 0.0;
+  cartItems.map((cartItem) {
+    totalPrice += cartItem.medicalEquipment.price * cartItem.quantity;
+  }).toList();
+  return totalPrice;
+}
+
+double calculateItemPrice(int quantity, double price) {
+  final double totalPrice = quantity * price;
+  return totalPrice;
+}
+
+double calculateTotalPrice(
+    {required double price, required List<double> summery}) {
+  for (int i = 0; i < summery.length; i++) {
+    price += summery[i];
+  }
+  return price;
 }
