@@ -4,16 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_state.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/cart_item.dart';
-import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 import 'package:medlife_v2/ui/widgets/error_indicator.dart';
 import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
-import 'package:medlife_v2/ui/widgets/summery_row.dart';
-import 'package:medlife_v2/utils/helper_methods.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen();
@@ -28,7 +24,6 @@ class _CartScreenState extends State<CartScreen> {
     super.initState();
     CartCubit.get(context).getCart();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -90,9 +85,8 @@ class _CartScreenState extends State<CartScreen> {
                           physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.zero,
                           itemBuilder: (context, index) {
-                            final cartMedicalEquipment =
-                                CartCubit.get(context)
-                                    .cartMedicalEquipments[index];
+                            final cartMedicalEquipment = CartCubit.get(context)
+                                .cartMedicalEquipments[index];
                             return CartItem(
                               cartMedicalEquipment,
                             );
@@ -104,18 +98,6 @@ class _CartScreenState extends State<CartScreen> {
                               .cartMedicalEquipments
                               .length,
                         ),
-                      ),
-                      SizedBox(
-                        height: 25.h,
-                      ),
-                      const CustomDivider(),
-                      SizedBox(
-                        height: 12.h,
-                      ),
-                      SummeryRow(
-                        text: 'Total',
-                        price:
-                            '${calculateProductsPrice(CartCubit.get(context).cartMedicalEquipments).toStringAsFixed(2)} $currency',
                       ),
                       SizedBox(
                         height: 24.h,
@@ -131,15 +113,7 @@ class _CartScreenState extends State<CartScreen> {
                       SizedBox(
                         height: 24.h,
                       ),
-                      DefaultTextButton(
-                        function: () {},
-                        text: "Download my cart",
-                        textStyle: openSans16W500(color: Colors.black),
-                        height: 65.h,
-                        width: double.infinity,
-                        backgroundColor: Colors.transparent,
-                        borderColor: AppColors.primary,
-                      ),
+
                       SizedBox(
                         height: 100.h,
                       ),
