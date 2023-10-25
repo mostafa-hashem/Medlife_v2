@@ -5,8 +5,8 @@ import 'package:medlife_v2/features/auth/cubit/auth_cubit.dart';
 import 'package:medlife_v2/features/auth/cubit/auth_state.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/ui/widgets/default_form_field.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
-import 'package:medlife_v2/ui/widgets/defult_form_field.dart';
 import 'package:medlife_v2/utils/helper_methods.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
@@ -30,6 +30,30 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              InkWell(
+                onTap: () => Navigator.pop(context),
+                child: Container(
+                  width: 44.w,
+                  height: 42.h,
+                  decoration: ShapeDecoration(
+                    color: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(11.76.r),
+                    ),
+                    shadows: const [
+                      BoxShadow(
+                        color: Color(0x23EA6A58),
+                        blurRadius: 20,
+                        offset: Offset(0, 4.41),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.arrow_back_ios_new_outlined,
+                    color: Colors.black,
+                  ),
+                ),
+              ),
               Align(
                 child: Image.asset("assets/images/splsh logo.png"),
               ),

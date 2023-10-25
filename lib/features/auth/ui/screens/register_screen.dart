@@ -9,7 +9,7 @@ import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_password_form_filed.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
-import 'package:medlife_v2/ui/widgets/defult_form_field.dart';
+import 'package:medlife_v2/ui/widgets/default_form_field.dart';
 import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
 import 'package:medlife_v2/utils/helper_methods.dart';
 

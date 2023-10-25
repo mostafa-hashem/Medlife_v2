@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
+import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -237,7 +238,7 @@ class _MedicalServiceDetailsScreenState
                           height: 12.5.h,
                         ),
                         Text(
-                          "\$ ${(_counter * medicalService.price).toStringAsFixed(2)}",
+                          "$currency ${(_counter * medicalService.price).toStringAsFixed(2)}",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                       ],

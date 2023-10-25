@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/blood_banks/data/models/blood_bank.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
+import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -10,19 +11,16 @@ class BloodBankDetailsScreen extends StatefulWidget {
   const BloodBankDetailsScreen();
 
   @override
-  State<BloodBankDetailsScreen> createState() =>
-      _BloodBankDetailsScreenState();
+  State<BloodBankDetailsScreen> createState() => _BloodBankDetailsScreenState();
 }
 
-class _BloodBankDetailsScreenState
-    extends State<BloodBankDetailsScreen> {
+class _BloodBankDetailsScreenState extends State<BloodBankDetailsScreen> {
   int _counter = 1;
   final controller = PageController(viewportFraction: 0.8);
 
   @override
   Widget build(BuildContext context) {
-    final bloodBank =
-        ModalRoute.of(context)!.settings.arguments! as BloodBank;
+    final bloodBank = ModalRoute.of(context)!.settings.arguments! as BloodBank;
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.only(top: 61.h, left: 16.w, right: 16.w),
@@ -70,8 +68,9 @@ class _BloodBankDetailsScreenState
                         height: 8.h,
                       ),
                       InkWell(
-                        onTap: ()=> shareBottomSheet(context),
-                        child: const Icon(Icons.share_outlined),),
+                        onTap: () => shareBottomSheet(context),
+                        child: const Icon(Icons.share_outlined),
+                      ),
                     ],
                   ),
                 ],
@@ -127,8 +126,8 @@ class _BloodBankDetailsScreenState
               CustomSealerContainer(
                 text: "Provided by",
                 sealerName: bloodBank.providerName,
-                starImage: "assets/images/star.png", rate: '',
-
+                starImage: "assets/images/star.png",
+                rate: '',
               ),
               SizedBox(
                 height: 16.h,
@@ -236,7 +235,7 @@ class _BloodBankDetailsScreenState
                           height: 12.5.h,
                         ),
                         Text(
-                          "\$ ${(_counter * bloodBank.price).toStringAsFixed(2)}",
+                          "$currency ${(_counter * bloodBank.price).toStringAsFixed(2)}",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                       ],
@@ -282,6 +281,7 @@ class _BloodBankDetailsScreenState
       ),
     );
   }
+
   void shareBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,

@@ -7,6 +7,7 @@ import 'package:medlife_v2/features/cart/data/models/cart_order.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
+import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -258,7 +259,7 @@ class _MedicalEquipmentDetailsScreenState
                           height: 12.5.h,
                         ),
                         Text(
-                          "\$ ${(_quantity * medicalEquipment.price).toStringAsFixed(2)}",
+                          "$currency ${(_quantity * medicalEquipment.price).toStringAsFixed(2)}",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                       ],
