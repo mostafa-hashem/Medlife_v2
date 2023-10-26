@@ -35,4 +35,16 @@ class MedicalService {
           providerRating: json['providerRating'] as double,
           numOfReviews: json['numOfReviews'] as int,
         );
+
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'title': title,
+        'description': description,
+        'price': price,
+        'rating': rating,
+        'imagesUrls': imagesUrls,
+        'providerName': providerName,
+        'providerRating': providerRating,
+        'numOfReviews': numOfReviews,
+      };
 }

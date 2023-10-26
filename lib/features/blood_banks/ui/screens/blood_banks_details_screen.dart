@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/blood_banks/data/models/blood_bank.dart';
-import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
@@ -120,15 +119,15 @@ class _BloodBankDetailsScreenState extends State<BloodBankDetailsScreen> {
                 color: const Color(0xff000000).withOpacity(0.5),
                 thickness: 1,
               ),
-              SizedBox(
-                height: 16.h,
-              ),
-              CustomSealerContainer(
-                text: "Provided by",
-                sealerName: bloodBank.providerName,
-                starImage: "assets/images/star.png",
-                rate: '',
-              ),
+              // SizedBox(
+              //   height: 16.h,
+              // ),
+              // CustomSealerContainer(
+              //   text: "Provided by",
+              //   sealerName: bloodBank.providerName,
+              //   starImage: "assets/images/star.png",
+              //   rate: '',
+              // ),
               SizedBox(
                 height: 16.h,
               ),

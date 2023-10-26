@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_state.dart';
-import 'package:medlife_v2/features/cart/ui/widgets/cart_item.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
+import 'package:medlife_v2/features/cart/ui/widgets/medical_equipment_cart_item.dart';
+import 'package:medlife_v2/features/cart/ui/widgets/medical_service_cart_item.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/commponents.dart';
@@ -33,7 +34,7 @@ class _CartScreenState extends State<CartScreen> {
   Widget build(BuildContext context) {
     return BlocConsumer<CartCubit, CartState>(
       listener: (_, state) {
-        if (state is DeleteCartLoading) {
+        if (state is DeleteMedicalEquipmentCartLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
               content: Text(
@@ -89,18 +90,28 @@ class _CartScreenState extends State<CartScreen> {
                           physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.zero,
                           itemBuilder: (context, index) {
-                            final cartMedicalEquipment = CartCubit.get(context)
-                                .cartMedicalEquipments[index];
-                            return CartItem(
-                              cartMedicalEquipment,
-                            );
+                            final cartMedicalEquipments =
+                                CartCubit.get(context).cartMedicalEquipments;
+                            if (index < cartMedicalEquipments.length) {
+                              return MedicalEquipmentCartItem(
+                                cartMedicalEquipments[index],
+                              );
+                            } else {
+                              final cartMedicalService =
+                                  CartCubit.get(context).cartMedicalServices[
+                                      index - cartMedicalEquipments.length];
+                              return MedicalServiceCartItem(
+                                cartMedicalService,
+                              );
+                            }
                           },
                           separatorBuilder: (context, index) => SizedBox(
                             height: 23.h,
                           ),
                           itemCount: CartCubit.get(context)
-                              .cartMedicalEquipments
-                              .length,
+                                  .cartMedicalEquipments
+                                  .length +
+                              CartCubit.get(context).cartMedicalServices.length,
                         ),
                       ),
                       SizedBox(
@@ -112,8 +123,9 @@ class _CartScreenState extends State<CartScreen> {
                       ),
                       SummeryRow(
                         text: 'Total',
-                        price: '${calculateProductsPrice(
+                        price: '${calculateCartTotalPrice(
                           CartCubit.get(context).cartMedicalEquipments,
+                          CartCubit.get(context).cartMedicalServices,
                         ).toStringAsFixed(2)} $currency',
                       ),
                       SizedBox(

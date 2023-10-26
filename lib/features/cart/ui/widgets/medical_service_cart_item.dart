@@ -1,24 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
-import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
-import 'package:medlife_v2/features/cart/data/models/cart_order.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_medical_service.dart';
+import 'package:medlife_v2/features/cart/data/models/medical_service_cart_order.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_button.dart';
 
-class CartItem extends StatefulWidget {
-  final CartMedicalEquipment cartMedicalEquipment;
+class MedicalServiceCartItem extends StatefulWidget {
+  final CartMedicalService cartMedicalService;
 
-  const CartItem(this.cartMedicalEquipment);
+  const MedicalServiceCartItem(this.cartMedicalService);
 
   @override
-  State<CartItem> createState() => _CartItemState();
+  State<MedicalServiceCartItem> createState() => _MedicalServiceCartItemState();
 }
 
-class _CartItemState extends State<CartItem> {
-  late int _quantity = widget.cartMedicalEquipment.quantity;
+class _MedicalServiceCartItemState extends State<MedicalServiceCartItem> {
+  late int _quantity = widget.cartMedicalService.quantity;
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class _CartItemState extends State<CartItem> {
                 maxHeight: 100.h,
                 maxWidth: 100.w,
               ),
-              child: Image.network(
-                widget.cartMedicalEquipment.medicalEquipment.imagesUrls.first,
+              child: Image.asset(
+                widget.cartMedicalService.medicalService.imagesUrls.first,
               ),
             ),
             SizedBox(
@@ -49,7 +49,7 @@ class _CartItemState extends State<CartItem> {
                   ),
                   child: Center(
                     child: Text(
-                      widget.cartMedicalEquipment.medicalEquipment.title,
+                      widget.cartMedicalService.medicalService.title,
                       style: openSans14W400(color: const Color(0xff576A69)),
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
@@ -64,8 +64,7 @@ class _CartItemState extends State<CartItem> {
                     children: [
                       TextSpan(
                         text: (_quantity *
-                                widget.cartMedicalEquipment.medicalEquipment
-                                    .price)
+                                widget.cartMedicalService.medicalService.price)
                             .toStringAsFixed(2),
                         style: openSans14W500(
                           color: const Color(0xff1E1E1E).withOpacity(0.8),
@@ -90,10 +89,10 @@ class _CartItemState extends State<CartItem> {
                     return;
                   }
                   _quantity--;
-                  CartCubit.get(context).editCart(
-                    CartOrder(
-                      medicalEquipmentId:
-                          widget.cartMedicalEquipment.medicalEquipment.id,
+                  CartCubit.get(context).editMedicalServicesCart(
+                    MedicalServiceCartOrder(
+                      medicalServiceId:
+                          widget.cartMedicalService.medicalService.id,
                       quantity: _quantity,
                     ),
                   );
@@ -121,10 +120,10 @@ class _CartItemState extends State<CartItem> {
               function: () {
                 setState(() {
                   _quantity++;
-                  CartCubit.get(context).editCart(
-                    CartOrder(
-                      medicalEquipmentId:
-                          widget.cartMedicalEquipment.medicalEquipment.id,
+                  CartCubit.get(context).editMedicalServicesCart(
+                    MedicalServiceCartOrder(
+                      medicalServiceId:
+                          widget.cartMedicalService.medicalService.id,
                       quantity: _quantity,
                     ),
                   );
@@ -166,8 +165,8 @@ class _CartItemState extends State<CartItem> {
               width: 5.w,
             ),
             InkWell(
-              onTap: () => CartCubit.get(context).deleteFromCart(
-                widget.cartMedicalEquipment.medicalEquipment.id,
+              onTap: () => CartCubit.get(context).deleteFromMedicalServicesCart(
+                widget.cartMedicalService.medicalService.id,
               ),
               child: Container(
                 padding: const EdgeInsets.all(6),

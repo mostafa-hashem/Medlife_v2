@@ -4,7 +4,8 @@ class FirebasePath {
   static const String medicalEquipments = 'medical-equipments';
   static const String medicalServices = 'medical-services';
   static const String bloodBanks = 'blood-banks';
-  static const String cart = 'cart';
+  static const String medicalEquipmentsCart = 'medical-equipments-cart';
+  static const String medicalServicesCart = 'medical-services-cart';
   static const String orders = 'orders';
   //Fields
   static const String id = 'id';

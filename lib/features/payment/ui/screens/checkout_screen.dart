@@ -179,8 +179,9 @@ class _CheckoutState extends State<Checkout> {
                 SummeryRow(
                   text: 'Total',
                   price: '${calculateTotalPrice(
-                    price: calculateProductsPrice(
+                    price: calculateCartTotalPrice(
                       CartCubit.get(context).cartMedicalEquipments,
+                      CartCubit.get(context).cartMedicalServices,
                     ),
                     summery: summery,
                   ).toStringAsFixed(2)} $currency',

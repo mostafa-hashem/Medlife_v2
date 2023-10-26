@@ -1,8 +1,8 @@
-class CartOrder {
+class MedicalEquipmentCartOrder {
   final String medicalEquipmentId;
   final int quantity;
 
-  const CartOrder({
+  const MedicalEquipmentCartOrder({
     required this.medicalEquipmentId,
     required this.quantity,
   });

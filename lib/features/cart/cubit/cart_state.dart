@@ -2,14 +2,24 @@ abstract class CartState {}
 
 class CartInitial extends CartState {}
 
-class AddToCartLoading extends CartState {}
+class AddMedicalEquipmentToCartLoading extends CartState {}
 
-class AddToCartSuccess extends CartState {}
+class AddMedicalEquipmentToCartSuccess extends CartState {}
 
-class AddToCartError extends CartState {
+class AddMedicalEquipmentToCartError extends CartState {
   final String message;
 
-  AddToCartError(this.message);
+  AddMedicalEquipmentToCartError(this.message);
+}
+
+class AddMedicalServiceToCartLoading extends CartState {}
+
+class AddMedicalServiceToCartSuccess extends CartState {}
+
+class AddMedicalServiceToCartError extends CartState {
+  final String message;
+
+  AddMedicalServiceToCartError(this.message);
 }
 
 class GetCartLoading extends CartState {}
@@ -22,22 +32,42 @@ class GetCartError extends CartState {
   GetCartError(this.message);
 }
 
-class EditCartLoading extends CartState {}
+class EditMedicalEquipmentCartLoading extends CartState {}
 
-class EditCartSuccess extends CartState {}
+class EditMedicalEquipmentCartSuccess extends CartState {}
 
-class EditCartError extends CartState {
+class EditMedicalEquipmentCartError extends CartState {
   final String message;
 
-  EditCartError(this.message);
+  EditMedicalEquipmentCartError(this.message);
 }
 
-class DeleteCartLoading extends CartState {}
+class EditMedicalServiceCartLoading extends CartState {}
 
-class DeleteCartSuccess extends CartState {}
+class EditMedicalServiceCartSuccess extends CartState {}
 
-class DeleteCartError extends CartState {
+class EditMedicalServiceCartError extends CartState {
   final String message;
 
-  DeleteCartError(this.message);
+  EditMedicalServiceCartError(this.message);
+}
+
+class DeleteMedicalEquipmentCartLoading extends CartState {}
+
+class DeleteMedicalEquipmentCartSuccess extends CartState {}
+
+class DeleteMedicalEquipmentCartError extends CartState {
+  final String message;
+
+  DeleteMedicalEquipmentCartError(this.message);
+}
+
+class DeleteMedicalServiceCartLoading extends CartState {}
+
+class DeleteMedicalServiceCartSuccess extends CartState {}
+
+class DeleteMedicalServiceCartError extends CartState {
+  final String message;
+
+  DeleteMedicalServiceCartError(this.message);
 }

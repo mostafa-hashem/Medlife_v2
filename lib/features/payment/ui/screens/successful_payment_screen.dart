@@ -98,7 +98,8 @@ enjoy our service! you will receive email have all details""",
                 Container(
                   constraints: BoxConstraints(
                     maxHeight:
-                        CartCubit.get(context).cartMedicalEquipments.length * 31.h,
+                        CartCubit.get(context).cartMedicalEquipments.length *
+                            31.h,
                   ),
                   child: Column(
                     children: [
@@ -116,8 +117,9 @@ enjoy our service! you will receive email have all details""",
                           separatorBuilder: (context, index) => SizedBox(
                             height: 11.h,
                           ),
-                          itemCount:
-                              CartCubit.get(context).cartMedicalEquipments.length,
+                          itemCount: CartCubit.get(context)
+                              .cartMedicalEquipments
+                              .length,
                         ),
                       ),
                     ],
@@ -149,8 +151,9 @@ enjoy our service! you will receive email have all details""",
                 SummeryRow(
                   text: 'Total',
                   price: '${calculateTotalPrice(
-                    price: calculateProductsPrice(
+                    price: calculateCartTotalPrice(
                       CartCubit.get(context).cartMedicalEquipments,
+                      CartCubit.get(context).cartMedicalServices,
                     ),
                     summery: summery,
                   ).toStringAsFixed(2)} $currency',

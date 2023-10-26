@@ -1,4 +1,5 @@
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_medical_service.dart';
 
 String? validateEmail(String? value) {
   final RegExp regex = RegExp(
@@ -32,10 +33,16 @@ String? validateGeneral(String? value, String label) {
   return null;
 }
 
-double calculateProductsPrice(List<CartMedicalEquipment> cartItems) {
+double calculateCartTotalPrice(
+  List<CartMedicalEquipment> cartEquipments,
+  List<CartMedicalService> cartServices,
+) {
   double totalPrice = 0.0;
-  cartItems.map((cartItem) {
-    totalPrice += cartItem.medicalEquipment.price * cartItem.quantity;
+  cartEquipments.map((cartEquipment) {
+    totalPrice += cartEquipment.medicalEquipment.price * cartEquipment.quantity;
+  }).toList();
+  cartServices.map((cartService) {
+    totalPrice += cartService.medicalService.price * cartService.quantity;
   }).toList();
   return totalPrice;
 }
@@ -45,8 +52,10 @@ double calculateItemPrice(int quantity, double price) {
   return totalPrice;
 }
 
-double calculateTotalPrice(
-    {required double price, required List<double> summery}) {
+double calculateTotalPrice({
+  required double price,
+  required List<double> summery,
+}) {
   for (int i = 0; i < summery.length; i++) {
     price += summery[i];
   }

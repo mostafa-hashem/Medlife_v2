@@ -8,8 +8,8 @@ import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/custom_cat_item.dart';
 import 'package:medlife_v2/ui/widgets/error_indicator.dart';
-import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
 import 'package:medlife_v2/ui/widgets/home_medical_equipment_item.dart';
+import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
 import 'package:medlife_v2/ui/widgets/search_widget.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -157,7 +157,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Routes.medicalEquipmentDetails,
                                   arguments: medicalEquipment,
                                 ),
-                                child: HomeMedicalEquipmentItem(medicalEquipment),
+                                child:
+                                    HomeMedicalEquipmentItem(medicalEquipment),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(
@@ -219,7 +220,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Routes.medicalEquipmentDetails,
                                   arguments: medicalEquipment,
                                 ),
-                                child: HomeMedicalEquipmentItem(medicalEquipment),
+                                child:
+                                    HomeMedicalEquipmentItem(medicalEquipment),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(
@@ -281,7 +283,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                   Routes.medicalEquipmentDetails,
                                   arguments: medicalEquipment,
                                 ),
-                                child: HomeMedicalEquipmentItem(medicalEquipment),
+                                child:
+                                    HomeMedicalEquipmentItem(medicalEquipment),
                               );
                             },
                             separatorBuilder: (context, index) => SizedBox(

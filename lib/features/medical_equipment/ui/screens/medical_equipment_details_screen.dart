@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_state.dart';
-import 'package:medlife_v2/features/cart/data/models/cart_order.dart';
+import 'package:medlife_v2/features/cart/data/models/medical_equipment_cart_order.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
@@ -269,7 +269,7 @@ class _MedicalEquipmentDetailsScreenState
                     ),
                     BlocListener<CartCubit, CartState>(
                       listener: (_, state) {
-                        if (state is AddToCartSuccess) {
+                        if (state is AddMedicalEquipmentToCartSuccess) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
@@ -283,8 +283,9 @@ class _MedicalEquipmentDetailsScreenState
                         }
                       },
                       child: InkWell(
-                        onTap: () => CartCubit.get(context).addToCart(
-                          CartOrder(
+                        onTap: () =>
+                            CartCubit.get(context).addMedicalEquipmentToCart(
+                          MedicalEquipmentCartOrder(
                             medicalEquipmentId: medicalEquipment.id,
                             quantity: _quantity,
                           ),
