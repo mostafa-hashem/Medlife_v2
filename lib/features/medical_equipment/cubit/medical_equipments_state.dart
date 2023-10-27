@@ -1,3 +1,5 @@
+import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
+
 abstract class MedicalEquipmentsState {}
 
 class MedicalEquipmentsInitial extends MedicalEquipmentsState {}
@@ -42,4 +44,16 @@ class GetRecentlyAddedMedicalEquipmentsError extends MedicalEquipmentsState {
   final String message;
 
   GetRecentlyAddedMedicalEquipmentsError(this.message);
+}
+
+class HighToLowPriceSortedMedicalEquipments extends MedicalEquipmentsState {
+  final List<MedicalEquipment> sortedEquipments;
+
+  HighToLowPriceSortedMedicalEquipments(this.sortedEquipments);
+}
+
+class LowToHighPriceSortedMedicalEquipments extends MedicalEquipmentsState {
+  final List<MedicalEquipment> sortedEquipments;
+
+  LowToHighPriceSortedMedicalEquipments(this.sortedEquipments);
 }

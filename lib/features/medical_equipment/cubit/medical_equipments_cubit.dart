@@ -67,4 +67,22 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
       );
     }
   }
+
+  Future<void> sortByHighToLowPrice() async {
+    final sortedEquipments = [...allMedicalEquipments];
+    sortedEquipments.sort(
+      (firstEquipment, secondEquipment) =>
+          secondEquipment.price.compareTo(firstEquipment.price),
+    );
+    emit(HighToLowPriceSortedMedicalEquipments(sortedEquipments));
+  }
+
+  Future<void> sortByLowToHighPrice() async {
+    final sortedEquipments = [...allMedicalEquipments];
+    sortedEquipments.sort(
+      (firstEquipment, secondEquipment) =>
+          firstEquipment.price.compareTo(secondEquipment.price),
+    );
+    emit(LowToHighPriceSortedMedicalEquipments(sortedEquipments));
+  }
 }

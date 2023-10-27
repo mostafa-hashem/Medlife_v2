@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipments_sorting_row.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 
@@ -7,10 +8,12 @@ class MedicalEquipmentsSortingBottomSheet extends StatefulWidget {
   const MedicalEquipmentsSortingBottomSheet();
 
   @override
-  State<MedicalEquipmentsSortingBottomSheet> createState() => _MedicalEquipmentsSortingBottomSheetState();
+  State<MedicalEquipmentsSortingBottomSheet> createState() =>
+      _MedicalEquipmentsSortingBottomSheetState();
 }
 
-class _MedicalEquipmentsSortingBottomSheetState extends State<MedicalEquipmentsSortingBottomSheet> {
+class _MedicalEquipmentsSortingBottomSheetState
+    extends State<MedicalEquipmentsSortingBottomSheet> {
   bool isHighToLow = false;
   bool isLowToHigh = false;
   bool isDiscountSale = false;
@@ -31,6 +34,7 @@ class _MedicalEquipmentsSortingBottomSheetState extends State<MedicalEquipmentsS
                   isLowToHigh = false;
                   isDiscountSale = false;
                   isRecentAdded = false;
+                  MedicalEquipmentsCubit.get(context).sortByHighToLowPrice();
                 });
               },
               child: MedicalEquipmentSortingRow(
@@ -49,6 +53,7 @@ class _MedicalEquipmentsSortingBottomSheetState extends State<MedicalEquipmentsS
                   isLowToHigh = !isLowToHigh;
                   isDiscountSale = false;
                   isRecentAdded = false;
+                  MedicalEquipmentsCubit.get(context).sortByLowToHighPrice();
                 });
               },
               child: MedicalEquipmentSortingRow(
