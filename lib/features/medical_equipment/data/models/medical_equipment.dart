@@ -9,6 +9,7 @@ class MedicalEquipment {
   final List<String> imagesUrls;
   final String sellerName;
   final String brandName;
+  final String productType;
   final double sellerRating;
   final int numOfReviews;
   final DateTime createdAt;
@@ -22,6 +23,7 @@ class MedicalEquipment {
     required this.imagesUrls,
     required this.sellerName,
     required this.brandName,
+    required this.productType,
     required this.sellerRating,
     required this.numOfReviews,
     required this.createdAt,
@@ -39,6 +41,7 @@ class MedicalEquipment {
               .toList(),
           sellerName: json['sellerName'] as String,
           brandName: json['brandName'] as String,
+          productType: json['productType'] as String,
           sellerRating: json['sellerRating'] as double,
           numOfReviews: json['numOfReviews'] as int,
           createdAt: (json['createdAt'] as Timestamp).toDate(),
@@ -54,6 +57,7 @@ class MedicalEquipment {
         'sellerName': sellerName,
         'sellerRating': sellerRating,
         'brandName': brandName,
+        'productType': productType,
         'numOfReviews': numOfReviews,
         'createdAt': createdAt,
       };
