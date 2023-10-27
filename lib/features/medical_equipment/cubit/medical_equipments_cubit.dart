@@ -16,10 +16,15 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
   List<MedicalEquipment> topRatedMedicalEquipments = [];
   List<MedicalEquipment> mostRecommendedMedicalEquipments = [];
   List<MedicalEquipment> recentlyAddedMedicalEquipments = [];
-  List<String> priceRanges = ['500', '1000', '1500', '2000'];
+  List<MedicalEquipment> filteredByProductTypesEquipments = [];
+  List<MedicalEquipment> filteredByBrandEquipments = [];
+  List<MedicalEquipment> filteredByVendorsEquipments = [];
+  List<MedicalEquipment> filteredByPriceEquipments = [];
+
+  List<String> productTypes = [];
   List<String> brands = [];
   List<String> vendors = [];
-  List<String> productTypes = [];
+  List<String> priceRanges = ['500', '1000', '1500', '2000'];
 
   Future<void> getAllMedicalEquipments() async {
     emit(GetAllMedicalEquipmentsLoading());
@@ -93,8 +98,28 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
     emit(LowToHighPriceSortedMedicalEquipments(sortedEquipments));
   }
 
+  Future<void> filterByProductType(String productType) async {
+    filteredByProductTypesEquipments = allMedicalEquipments
+        .where((equipment) => equipment.productType == productType)
+        .toList();
+  }
+
+  Future<void> filterByBrand(String brandName) async {
+    filteredByBrandEquipments = allMedicalEquipments
+        .where((equipment) => equipment.brandName == brandName)
+        .toList();
+  }
+
+  Future<void> filterByVendor(String vendorName) async {
+    filteredByVendorsEquipments = allMedicalEquipments
+        .where((equipment) => equipment.vendorName == vendorName)
+        .toList();
+  }
+
   Future<void> filterByPrice(double price) async {
-    allMedicalEquipments.where((equipment) => equipment.price < price).toList();
+    filteredByPriceEquipments = allMedicalEquipments
+        .where((equipment) => equipment.price < price)
+        .toList();
   }
 
   void _getBrands() => brands =
