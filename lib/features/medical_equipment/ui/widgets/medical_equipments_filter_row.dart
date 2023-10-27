@@ -4,24 +4,18 @@ import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class MedicalEquipmentsFilterRow extends StatefulWidget {
   final String text;
+  final List<String> options;
 
-  const MedicalEquipmentsFilterRow({required this.text});
+  const MedicalEquipmentsFilterRow({required this.text, required this.options});
 
   @override
-  State<MedicalEquipmentsFilterRow> createState() => _MedicalEquipmentsFilterRowState();
+  State<MedicalEquipmentsFilterRow> createState() =>
+      _MedicalEquipmentsFilterRowState();
 }
 
-class _MedicalEquipmentsFilterRowState extends State<MedicalEquipmentsFilterRow> {
+class _MedicalEquipmentsFilterRowState
+    extends State<MedicalEquipmentsFilterRow> {
   bool isClicked = false;
-
-
-  List<String> medicalEquipmentsItems = [
-    'Medical Equipment 1',
-    'Medical Equipment 2',
-    'Medical Equipment 3',
-    'Medical Equipment 4',
-    'Medical Equipment 5',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -40,8 +34,10 @@ class _MedicalEquipmentsFilterRowState extends State<MedicalEquipmentsFilterRow>
                 style: openSans16W400(color: Colors.white),
               ),
               const Spacer(),
-               Icon(
-              isClicked ? Icons.keyboard_arrow_down : Icons.keyboard_arrow_right,
+              Icon(
+                isClicked
+                    ? Icons.keyboard_arrow_down
+                    : Icons.keyboard_arrow_right,
                 color: Colors.white,
               ),
             ],
@@ -63,14 +59,14 @@ class _MedicalEquipmentsFilterRowState extends State<MedicalEquipmentsFilterRow>
                   child: ListView.separated(
                     itemBuilder: (context, index) {
                       return Text(
-                        medicalEquipmentsItems[index],
+                        widget.options[index],
                         style: openSans18W500(color: Colors.white),
                       );
                     },
                     separatorBuilder: (context, index) {
                       return SizedBox(height: 20.h);
                     },
-                    itemCount: medicalEquipmentsItems.length,
+                    itemCount: widget.options.length,
                     padding: EdgeInsets.zero,
                   ),
                 ),

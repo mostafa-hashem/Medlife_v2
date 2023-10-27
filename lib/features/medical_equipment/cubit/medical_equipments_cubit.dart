@@ -16,6 +16,10 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
   List<MedicalEquipment> topRatedMedicalEquipments = [];
   List<MedicalEquipment> mostRecommendedMedicalEquipments = [];
   List<MedicalEquipment> recentlyAddedMedicalEquipments = [];
+  List<String> priceRanges = ['500', '1000', '1500', '2000'];
+  List<String> brands = [];
+  List<String> vendors = [];
+  List<String> productTypes = [];
 
   Future<void> getAllMedicalEquipments() async {
     emit(GetAllMedicalEquipmentsLoading());
@@ -23,6 +27,9 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
       allMedicalEquipments =
           await _medicalEquipmentFirebaseService.getMedicalEquipments();
       emit(GetAllMedicalEquipmentsSuccess());
+      _getBrands();
+      _getVendors();
+      _getProductTypes();
     } catch (e) {
       emit(GetAllMedicalEquipmentsError(Failure.fromException(e).message));
     }
@@ -85,4 +92,17 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
     );
     emit(LowToHighPriceSortedMedicalEquipments(sortedEquipments));
   }
+
+  Future<void> filterByPrice(double price) async {
+    allMedicalEquipments.where((equipment) => equipment.price < price).toList();
+  }
+
+  void _getBrands() => brands =
+      allMedicalEquipments.map((equipment) => equipment.brandName).toList();
+
+  void _getVendors() => vendors =
+      allMedicalEquipments.map((equipment) => equipment.vendorName).toList();
+
+  void _getProductTypes() => productTypes =
+      allMedicalEquipments.map((equipment) => equipment.productType).toList();
 }

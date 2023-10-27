@@ -7,7 +7,7 @@ class MedicalEquipment {
   final double price;
   final double rating;
   final List<String> imagesUrls;
-  final String sellerName;
+  final String vendorName;
   final String brandName;
   final String productType;
   final double sellerRating;
@@ -21,7 +21,7 @@ class MedicalEquipment {
     required this.price,
     required this.rating,
     required this.imagesUrls,
-    required this.sellerName,
+    required this.vendorName,
     required this.brandName,
     required this.productType,
     required this.sellerRating,
@@ -39,7 +39,7 @@ class MedicalEquipment {
           imagesUrls: (json['imagesUrls'] as List)
               .map((imageUrl) => imageUrl as String)
               .toList(),
-          sellerName: json['sellerName'] as String,
+          vendorName: json['sellerName'] as String,
           brandName: json['brandName'] as String,
           productType: json['productType'] as String,
           sellerRating: json['sellerRating'] as double,
@@ -54,7 +54,7 @@ class MedicalEquipment {
         'price': price,
         'rating': rating,
         'imagesUrls': imagesUrls,
-        'sellerName': sellerName,
+        'sellerName': vendorName,
         'sellerRating': sellerRating,
         'brandName': brandName,
         'productType': productType,

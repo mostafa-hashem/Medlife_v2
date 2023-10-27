@@ -149,7 +149,7 @@ class _MedicalEquipmentDetailsScreenState
               ),
               CustomSealerContainer(
                 text: "Sold by",
-                sealerName: medicalEquipment.sellerName,
+                sealerName: medicalEquipment.vendorName,
                 starImage: "assets/images/star.png",
                 rate: medicalEquipment.rating.toString(),
               ),

@@ -32,13 +32,14 @@ class HomeMedicalEquipmentItem extends StatelessWidget {
               ),
             ),
             Container(
-                constraints: BoxConstraints(
-                  minHeight: 85.h,
-                  maxWidth: 85.w,
-                  maxHeight: 85.h,
-                  minWidth: 85.w,
-                ),
-                child: Image.network(medicalEquipment.imagesUrls.first),),
+              constraints: BoxConstraints(
+                minHeight: 85.h,
+                maxWidth: 85.w,
+                maxHeight: 85.h,
+                minWidth: 85.w,
+              ),
+              child: Image.network(medicalEquipment.imagesUrls.first),
+            ),
             SizedBox(
               height: 7.h,
             ),
@@ -50,7 +51,7 @@ class HomeMedicalEquipmentItem extends StatelessWidget {
               height: 4.h,
             ),
             Text(
-              medicalEquipment.sellerName,
+              medicalEquipment.vendorName,
               style: openSans10W400(color: Colors.blue),
             ),
             SizedBox(

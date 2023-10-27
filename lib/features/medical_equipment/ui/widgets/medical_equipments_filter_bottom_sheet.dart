@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/medical_equipments_filter_row.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
@@ -7,13 +8,15 @@ class MedicalEquipmentsFilterBottomSheet extends StatefulWidget {
   const MedicalEquipmentsFilterBottomSheet();
 
   @override
-  State<MedicalEquipmentsFilterBottomSheet> createState() => _MedicalEquipmentsFilterBottomSheetState();
+  State<MedicalEquipmentsFilterBottomSheet> createState() =>
+      _MedicalEquipmentsFilterBottomSheetState();
 }
 
-class _MedicalEquipmentsFilterBottomSheetState extends State<MedicalEquipmentsFilterBottomSheet> {
-
+class _MedicalEquipmentsFilterBottomSheetState
+    extends State<MedicalEquipmentsFilterBottomSheet> {
   @override
   Widget build(BuildContext context) {
+    final medicalEquipmentsCubit = MedicalEquipmentsCubit.get(context);
     return SingleChildScrollView(
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 29.h, horizontal: 22.w),
@@ -35,7 +38,10 @@ class _MedicalEquipmentsFilterBottomSheetState extends State<MedicalEquipmentsFi
               SizedBox(
                 height: 18.h,
               ),
-              const MedicalEquipmentsFilterRow(text: 'Product type',),
+              MedicalEquipmentsFilterRow(
+                text: 'Product type',
+                options: medicalEquipmentsCubit.productTypes,
+              ),
               SizedBox(
                 height: 8.h,
               ),
@@ -45,7 +51,10 @@ class _MedicalEquipmentsFilterBottomSheetState extends State<MedicalEquipmentsFi
               SizedBox(
                 height: 18.h,
               ),
-              const MedicalEquipmentsFilterRow(text: 'Price'),
+              MedicalEquipmentsFilterRow(
+                text: 'Price',
+                options: medicalEquipmentsCubit.priceRanges,
+              ),
               SizedBox(
                 height: 16.h,
               ),
@@ -55,7 +64,10 @@ class _MedicalEquipmentsFilterBottomSheetState extends State<MedicalEquipmentsFi
               SizedBox(
                 height: 18.h,
               ),
-              const MedicalEquipmentsFilterRow(text: 'Brand'),
+              MedicalEquipmentsFilterRow(
+                text: 'Brand',
+                options: medicalEquipmentsCubit.brands,
+              ),
               SizedBox(
                 height: 16.h,
               ),
@@ -65,7 +77,10 @@ class _MedicalEquipmentsFilterBottomSheetState extends State<MedicalEquipmentsFi
               SizedBox(
                 height: 18.h,
               ),
-              const MedicalEquipmentsFilterRow(text: 'Vendor'),
+              MedicalEquipmentsFilterRow(
+                text: 'Vendor',
+                options: medicalEquipmentsCubit.vendors,
+              ),
               SizedBox(
                 height: 16.h,
               ),
