@@ -80,7 +80,7 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
     }
   }
 
-  Future<void> sortByHighToLowPrice() async {
+  void sortByHighToLowPrice() {
     final sortedEquipments = [...allMedicalEquipments];
     sortedEquipments.sort(
       (firstEquipment, secondEquipment) =>
@@ -89,7 +89,7 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
     emit(HighToLowPriceSortedMedicalEquipments(sortedEquipments));
   }
 
-  Future<void> sortByLowToHighPrice() async {
+  void sortByLowToHighPrice() {
     final sortedEquipments = [...allMedicalEquipments];
     sortedEquipments.sort(
       (firstEquipment, secondEquipment) =>
@@ -98,28 +98,32 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
     emit(LowToHighPriceSortedMedicalEquipments(sortedEquipments));
   }
 
-  Future<void> filterByProductType(String productType) async {
-    filteredByProductTypesEquipments = allMedicalEquipments
+  void filterByProductType(String productType) {
+    final filteredEquipments = allMedicalEquipments
         .where((equipment) => equipment.productType == productType)
         .toList();
+    emit(FilteredByProductTypeMedicalEquipments(filteredEquipments));
   }
 
-  Future<void> filterByBrand(String brandName) async {
-    filteredByBrandEquipments = allMedicalEquipments
+  void filterByBrand(String brandName) {
+    final filteredEquipments = allMedicalEquipments
         .where((equipment) => equipment.brandName == brandName)
         .toList();
+    emit(FilteredByBrandMedicalEquipments(filteredEquipments));
   }
 
-  Future<void> filterByVendor(String vendorName) async {
-    filteredByVendorsEquipments = allMedicalEquipments
+  void filterByVendor(String vendorName) {
+    final filteredEquipments = allMedicalEquipments
         .where((equipment) => equipment.vendorName == vendorName)
         .toList();
+    emit(FilteredByVendorMedicalEquipments(filteredEquipments));
   }
 
-  Future<void> filterByPrice(double price) async {
-    filteredByPriceEquipments = allMedicalEquipments
+  void filterByPrice(double price) {
+    final filteredEquipments = allMedicalEquipments
         .where((equipment) => equipment.price < price)
         .toList();
+    emit(FilteredByPriceMedicalEquipments(filteredEquipments));
   }
 
   void _getBrands() => brands =

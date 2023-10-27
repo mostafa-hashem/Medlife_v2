@@ -57,3 +57,27 @@ class LowToHighPriceSortedMedicalEquipments extends MedicalEquipmentsState {
 
   LowToHighPriceSortedMedicalEquipments(this.sortedEquipments);
 }
+
+class FilteredByProductTypeMedicalEquipments extends MedicalEquipmentsState {
+  final List<MedicalEquipment> filteredEquipments;
+
+  FilteredByProductTypeMedicalEquipments(this.filteredEquipments);
+}
+
+class FilteredByBrandMedicalEquipments extends MedicalEquipmentsState {
+  final List<MedicalEquipment> filteredEquipments;
+
+  FilteredByBrandMedicalEquipments(this.filteredEquipments);
+}
+
+class FilteredByVendorMedicalEquipments extends MedicalEquipmentsState {
+  final List<MedicalEquipment> filteredEquipments;
+
+  FilteredByVendorMedicalEquipments(this.filteredEquipments);
+}
+
+class FilteredByPriceMedicalEquipments extends MedicalEquipmentsState {
+  final List<MedicalEquipment> filteredEquipments;
+
+  FilteredByPriceMedicalEquipments(this.filteredEquipments);
+}
