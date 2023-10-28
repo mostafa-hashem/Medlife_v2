@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
+import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
+import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
+import 'package:medlife_v2/features/orders/cubit/orders_cubit.dart';
+import 'package:medlife_v2/features/orders/data/models/order.dart';
+import 'package:medlife_v2/features/orders/data/models/order_cost.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_address_container.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/payment_method_card.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/shipping_method_row.dart';
-import 'package:medlife_v2/route_manager.dart';
+import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
@@ -22,6 +27,10 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
+  late final List<MedicalEquipment> _medicalEquipments;
+  late final List<MedicalService> _medicalServices;
+  late final double _subtotal;
+  final String _paymentMethod = 'Credit Card';
   List<double> summery = [
     2,
     -90,
@@ -30,7 +39,25 @@ class _CheckoutState extends State<Checkout> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    final cartMedicalEquipments = CartCubit.get(context).cartMedicalEquipments;
+    final cartMedicalServices = CartCubit.get(context).cartMedicalServices;
+    _subtotal =
+        calculateCartTotalPrice(cartMedicalEquipments, cartMedicalServices);
+    _medicalEquipments = cartMedicalEquipments
+        .map((cartEquipment) => cartEquipment.medicalEquipment)
+        .toList();
+    _medicalServices = cartMedicalServices
+        .map((cartService) => cartService.medicalService)
+        .toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final address = ProfileCubit.get(context).user.address!;
+    final phone = ProfileCubit.get(context).user.phoneNumber!;
+
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -190,8 +217,22 @@ class _CheckoutState extends State<Checkout> {
                   height: 48.h,
                 ),
                 DefaultTextButton(
-                  function: () =>
-                      Navigator.pushNamed(context, Routes.successfulPayment),
+                  function: () => OrdersCubit.get(context).createOrder(
+                    Order(
+                      orderCost: OrderCost(
+                        subtotal: _subtotal,
+                        deliveryFee: 10,
+                        discount: 8,
+                        taxes: 5,
+                      ),
+                      medicalEquipments: _medicalEquipments,
+                      medicalServices: _medicalServices,
+                      address: address,
+                      phone: phone,
+                      paymentMethod: _paymentMethod,
+                      vendorId: '',
+                    ),
+                  ),
                   text: "Check out",
                   textStyle: openSans16W500(color: Colors.white),
                   height: 65.h,

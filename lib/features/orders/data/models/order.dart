@@ -6,8 +6,8 @@ import 'package:medlife_v2/utils/data/models/address.dart';
 
 class Order {
   late final String id;
-  final String status;
-  final DateTime dateTime;
+  final String status = 'Pending';
+  final DateTime dateTime = DateTime.now();
   final OrderCost orderCost;
   final List<MedicalEquipment> medicalEquipments;
   final List<MedicalService> medicalServices;
@@ -17,8 +17,6 @@ class Order {
   final String vendorId;
 
   Order({
-    required this.status,
-    required this.dateTime,
     required this.orderCost,
     required this.medicalEquipments,
     required this.medicalServices,

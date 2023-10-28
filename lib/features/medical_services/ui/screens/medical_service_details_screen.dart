@@ -253,7 +253,7 @@ class _MedicalServiceDetailsScreenState
                     ),
                     BlocListener<CartCubit, CartState>(
                       listener: (_, state) {
-                        if (state is AddMedicalEquipmentToCartSuccess) {
+                        if (state is AddMedicalServiceToCartSuccess) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
