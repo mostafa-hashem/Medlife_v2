@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
 import 'package:medlife_v2/features/orders/cubit/orders_cubit.dart';
+import 'package:medlife_v2/features/orders/cubit/orders_state.dart';
 import 'package:medlife_v2/features/orders/data/models/order.dart';
 import 'package:medlife_v2/features/orders/data/models/order_cost.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_address_container.dart';
@@ -12,10 +14,13 @@ import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/payment_method_card.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/shipping_method_row.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
+import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
+import 'package:medlife_v2/ui/widgets/error_indicator.dart';
+import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
 import 'package:medlife_v2/ui/widgets/summery_row.dart';
 import 'package:medlife_v2/utils/helper_methods.dart';
 
@@ -216,27 +221,46 @@ class _CheckoutState extends State<Checkout> {
                 SizedBox(
                   height: 48.h,
                 ),
-                DefaultTextButton(
-                  function: () => OrdersCubit.get(context).createOrder(
-                    Order(
-                      orderCost: OrderCost(
-                        subtotal: _subtotal,
-                        deliveryFee: 10,
-                        discount: 8,
-                        taxes: 5,
-                      ),
-                      medicalEquipments: _medicalEquipments,
-                      medicalServices: _medicalServices,
-                      address: address,
-                      phone: phone,
-                      paymentMethod: _paymentMethod,
-                      vendorId: '',
-                    ),
+                BlocListener<OrdersCubit, OrdersState>(
+                  listener: (context, state) {
+                    if (state is CreateOrderLoading) {
+                      const LoadingIndicator();
+                      if (state is CreateOrderSuccess) {
+                        Navigator.pop(context);
+                      } else if (state is CreateOrderError) {
+                        const ErrorIndicator();
+                      }
+                    }
+                  },
+                  child: DefaultTextButton(
+                    function: () => OrdersCubit.get(context)
+                        .createOrder(
+                          Order(
+                            orderCost: OrderCost(
+                              subtotal: _subtotal,
+                              deliveryFee: 10,
+                              discount: 8,
+                              taxes: 5,
+                            ),
+                            medicalEquipments: _medicalEquipments,
+                            medicalServices: _medicalServices,
+                            address: address,
+                            phone: phone,
+                            paymentMethod: _paymentMethod,
+                            vendorId: _medicalEquipments.first.vendorId,
+                          ),
+                        )
+                        .whenComplete(
+                          () => Navigator.pushReplacementNamed(
+                            context,
+                            Routes.successfulPayment,
+                          ),
+                        ),
+                    text: "Check out",
+                    textStyle: openSans16W500(color: Colors.white),
+                    height: 65.h,
+                    width: double.infinity,
                   ),
-                  text: "Check out",
-                  textStyle: openSans16W500(color: Colors.white),
-                  height: 65.h,
-                  width: double.infinity,
                 ),
                 SizedBox(
                   height: 48.h,
