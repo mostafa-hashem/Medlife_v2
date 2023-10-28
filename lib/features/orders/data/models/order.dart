@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
-import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_medical_service.dart';
 import 'package:medlife_v2/features/orders/data/models/order_cost.dart';
 import 'package:medlife_v2/utils/data/models/address.dart';
 
@@ -9,8 +9,8 @@ class Order {
   final String status = 'Pending';
   final DateTime dateTime = DateTime.now();
   final OrderCost orderCost;
-  final List<MedicalEquipment> medicalEquipments;
-  final List<MedicalService> medicalServices;
+  final List<CartMedicalEquipment> cartMedicalEquipments;
+  final List<CartMedicalService> cartMedicalServices;
   final Address address;
   final String phone;
   final String paymentMethod;
@@ -18,8 +18,8 @@ class Order {
 
   Order({
     required this.orderCost,
-    required this.medicalEquipments,
-    required this.medicalServices,
+    required this.cartMedicalEquipments,
+    required this.cartMedicalServices,
     required this.address,
     required this.phone,
     required this.paymentMethod,
@@ -31,10 +31,8 @@ class Order {
         'status': status,
         'dateTime': Timestamp.fromDate(dateTime),
         'orderCost': orderCost.toJson(),
-        'medicalEquipments':
-            medicalEquipments.map((equipment) => equipment.toJson()).toList(),
-        'medicalServices':
-            medicalServices.map((service) => service.toJson()).toList(),
+        'medicalEquipments': cartMedicalEquipments,
+        'medicalServices': cartMedicalServices,
         'address': address.toJson(),
         'phone': phone,
         'paymentMethod': paymentMethod,

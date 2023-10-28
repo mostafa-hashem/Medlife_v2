@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_medical_service.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
-import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
-import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
 import 'package:medlife_v2/features/orders/cubit/orders_cubit.dart';
 import 'package:medlife_v2/features/orders/cubit/orders_state.dart';
 import 'package:medlife_v2/features/orders/data/models/order.dart';
@@ -32,8 +32,8 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
-  late final List<MedicalEquipment> _medicalEquipments;
-  late final List<MedicalService> _medicalServices;
+  late final List<CartMedicalEquipment> _medicalEquipments;
+  late final List<CartMedicalService> _medicalServices;
   late final double _subtotal;
   final String _paymentMethod = 'Credit Card';
   List<double> summery = [
@@ -50,12 +50,8 @@ class _CheckoutState extends State<Checkout> {
     final cartMedicalServices = CartCubit.get(context).cartMedicalServices;
     _subtotal =
         calculateCartTotalPrice(cartMedicalEquipments, cartMedicalServices);
-    _medicalEquipments = cartMedicalEquipments
-        .map((cartEquipment) => cartEquipment.medicalEquipment)
-        .toList();
-    _medicalServices = cartMedicalServices
-        .map((cartService) => cartService.medicalService)
-        .toList();
+    _medicalEquipments = cartMedicalEquipments;
+    _medicalServices = cartMedicalServices;
   }
 
   @override
@@ -242,12 +238,12 @@ class _CheckoutState extends State<Checkout> {
                               discount: 8,
                               taxes: 5,
                             ),
-                            medicalEquipments: _medicalEquipments,
-                            medicalServices: _medicalServices,
+                            cartMedicalEquipments: _medicalEquipments,
+                            cartMedicalServices: _medicalServices,
                             address: address,
                             phone: phone,
                             paymentMethod: _paymentMethod,
-                            vendorId: _medicalEquipments.first.vendorId,
+                            vendorId: _medicalEquipments.first.medicalEquipment.vendorId,
                           ),
                         )
                         .whenComplete(
