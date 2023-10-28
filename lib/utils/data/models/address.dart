@@ -4,11 +4,12 @@ class Address {
   String? addressDetails;
   String? place;
 
-  Address(
-      {required this.city,
-      required this.region,
-      required this.addressDetails,
-      required this.place,});
+  Address({
+    required this.city,
+    required this.region,
+    required this.addressDetails,
+    required this.place,
+  });
 
   Address.fromJson(Map<String, dynamic> json) {
     city = json['city'] as String?;

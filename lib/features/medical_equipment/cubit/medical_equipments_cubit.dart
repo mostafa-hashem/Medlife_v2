@@ -107,7 +107,7 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
 
   void filterByBrand(String brandName) {
     final filteredEquipments = allMedicalEquipments
-        .where((equipment) => equipment.brandName == brandName)
+        .where((equipment) => equipment.brand == brandName)
         .toList();
     emit(FilteredByBrandMedicalEquipments(filteredEquipments));
   }
@@ -127,7 +127,7 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
   }
 
   void _getBrands() => brands =
-      allMedicalEquipments.map((equipment) => equipment.brandName).toList();
+      allMedicalEquipments.map((equipment) => equipment.brand).toList();
 
   void _getVendors() => vendors =
       allMedicalEquipments.map((equipment) => equipment.vendorName).toList();

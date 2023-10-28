@@ -120,7 +120,7 @@ class _MedicalEquipmentDetailsScreenState
                 height: 6.h,
               ),
               Text(
-                medicalEquipment.brandName,
+                medicalEquipment.brand,
                 style: openSans12W400(color: Colors.blue),
               ),
               SizedBox(
