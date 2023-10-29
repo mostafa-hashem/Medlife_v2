@@ -14,6 +14,14 @@ class MedicalEquipmentsFilterBottomSheet extends StatefulWidget {
 
 class _MedicalEquipmentsFilterBottomSheetState
     extends State<MedicalEquipmentsFilterBottomSheet> {
+  String? filterType;
+
+  void changeFilterType(String newFilterType) {
+    setState(() {
+      filterType = newFilterType;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final medicalEquipmentsCubit = MedicalEquipmentsCubit.get(context);
@@ -32,6 +40,12 @@ class _MedicalEquipmentsFilterBottomSheetState
               SizedBox(
                 height: 21.h,
               ),
+              Center(
+                child: Text(
+                  filterType ?? "",
+                  style: openSans20W600(color: Colors.white),
+                ),
+              ),
               const Divider(
                 color: Colors.white,
               ),
@@ -39,6 +53,7 @@ class _MedicalEquipmentsFilterBottomSheetState
                 height: 18.h,
               ),
               MedicalEquipmentsFilterRow(
+                onFilterTypeChanged: changeFilterType,
                 text: 'Product type',
                 options: medicalEquipmentsCubit.productTypes,
               ),
@@ -52,6 +67,7 @@ class _MedicalEquipmentsFilterBottomSheetState
                 height: 18.h,
               ),
               MedicalEquipmentsFilterRow(
+                onFilterTypeChanged: changeFilterType,
                 text: 'Price',
                 options: medicalEquipmentsCubit.priceRanges,
               ),
@@ -65,6 +81,7 @@ class _MedicalEquipmentsFilterBottomSheetState
                 height: 18.h,
               ),
               MedicalEquipmentsFilterRow(
+                onFilterTypeChanged: changeFilterType,
                 text: 'Brand',
                 options: medicalEquipmentsCubit.brands,
               ),
@@ -78,6 +95,7 @@ class _MedicalEquipmentsFilterBottomSheetState
                 height: 18.h,
               ),
               MedicalEquipmentsFilterRow(
+                onFilterTypeChanged: changeFilterType,
                 text: 'Vendor',
                 options: medicalEquipmentsCubit.vendors,
               ),
@@ -118,22 +136,27 @@ class _MedicalEquipmentsFilterBottomSheetState
                   SizedBox(
                     width: 12.w,
                   ),
-                  Container(
-                    width: 205.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.r),
-                      border: Border.all(color: Colors.white),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 15.0.h,
-                        horizontal: 32.w,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: 205.w,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5.r),
+                        border: Border.all(color: Colors.white),
                       ),
-                      child: Center(
-                        child: Text(
-                          "Apply",
-                          style: openSans20W600(color: Colors.black),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 15.0.h,
+                          horizontal: 32.w,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Apply",
+                            style: openSans20W600(color: Colors.black),
+                          ),
                         ),
                       ),
                     ),

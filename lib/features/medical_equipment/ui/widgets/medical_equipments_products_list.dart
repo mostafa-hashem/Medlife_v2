@@ -15,6 +15,22 @@ class MedicalEquipmentsProductsList extends StatelessWidget {
           return MedicalEquipmentsGridView(state.sortedEquipments);
         } else if (state is LowToHighPriceSortedMedicalEquipments) {
           return MedicalEquipmentsGridView(state.sortedEquipments);
+        } else if (state is FilteredByProductTypeMedicalEquipments) {
+          return MedicalEquipmentsGridView(
+            state.filteredEquipments,
+          );
+        } else if (state is FilteredByBrandMedicalEquipments) {
+          return MedicalEquipmentsGridView(
+            state.filteredEquipments,
+          );
+        } else if (state is FilteredByPriceMedicalEquipments) {
+          return MedicalEquipmentsGridView(
+            state.filteredEquipments,
+          );
+        } else if (state is FilteredByVendorMedicalEquipments) {
+          return MedicalEquipmentsGridView(
+            state.filteredEquipments,
+          );
         } else {
           return MedicalEquipmentsGridView(
             MedicalEquipmentsCubit.get(context).allMedicalEquipments,

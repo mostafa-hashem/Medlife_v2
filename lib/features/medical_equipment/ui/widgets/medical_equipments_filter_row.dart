@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:medlife_v2/features/medical_equipment/cubit/medical_equipments_cubit.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
 class MedicalEquipmentsFilterRow extends StatefulWidget {
   final String text;
+  final Function(String) onFilterTypeChanged;
   final List<String> options;
 
-  const MedicalEquipmentsFilterRow({required this.text, required this.options});
+  const MedicalEquipmentsFilterRow(
+      {required this.text,
+      required this.options,
+      required this.onFilterTypeChanged,});
 
   @override
   State<MedicalEquipmentsFilterRow> createState() =>
@@ -58,9 +63,28 @@ class _MedicalEquipmentsFilterRowState
                 Expanded(
                   child: ListView.separated(
                     itemBuilder: (context, index) {
-                      return Text(
-                        widget.options[index],
-                        style: openSans18W500(color: Colors.white),
+                      return InkWell(
+                        onTap: () {
+                          widget.onFilterTypeChanged(widget.options[index]);
+                          final medicalCubit = MedicalEquipmentsCubit.get(context);
+                          switch (widget.text) {
+                            case 'Product type':
+                              medicalCubit.filterByProductType(widget.options[index]);
+                            case 'Price':
+                              medicalCubit.filterByPrice(double.parse(widget.options[index]));
+                            case 'Brand':
+                              medicalCubit.filterByBrand(widget.options[index]);
+                            case 'Vendor':
+                              medicalCubit.filterByVendor(widget.options[index]);
+                            default:
+                              break;
+                          }
+
+                        },
+                        child: Text(
+                          widget.options[index],
+                          style: openSans18W500(color: Colors.white),
+                        ),
                       );
                     },
                     separatorBuilder: (context, index) {
