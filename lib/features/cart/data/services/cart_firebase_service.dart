@@ -66,6 +66,14 @@ class CartFirebaseService {
         .set(cartMedicalEquipment.toJson());
   }
 
+  Future<void> emptyMedicalEquipmentsCart() async {
+    final equipmentsCartQuerySnapshot = await _medicalEquipmentsCart.get();
+    await Future.forEach(
+      equipmentsCartQuerySnapshot.docs,
+      (queryDocSnapshot) async => queryDocSnapshot.reference.delete(),
+    );
+  }
+
   Future<void> addMedicalServiceToCart(
     MedicalServiceCartOrder cartOrder,
   ) async {

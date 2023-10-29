@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_service.dart';
 import 'package:medlife_v2/features/orders/data/models/order_cost.dart';
-import 'package:medlife_v2/utils/data/models/address.dart';
+import 'package:medlife_v2/utils/data/models/user.dart';
 
 class Order {
   late final String id;
@@ -11,8 +11,7 @@ class Order {
   final OrderCost orderCost;
   final List<CartMedicalEquipment> cartMedicalEquipments;
   final List<CartMedicalService> cartMedicalServices;
-  final Address address;
-  final String phone;
+  final User buyer;
   final String paymentMethod;
   final String vendorId;
 
@@ -20,8 +19,7 @@ class Order {
     required this.orderCost,
     required this.cartMedicalEquipments,
     required this.cartMedicalServices,
-    required this.address,
-    required this.phone,
+    required this.buyer,
     required this.paymentMethod,
     required this.vendorId,
   });
@@ -31,10 +29,9 @@ class Order {
         'status': status,
         'dateTime': Timestamp.fromDate(dateTime),
         'orderCost': orderCost.toJson(),
-        'medicalEquipments': cartMedicalEquipments,
-        'medicalServices': cartMedicalServices,
-        'address': address.toJson(),
-        'phone': phone,
+        'cartMedicalEquipments': cartMedicalEquipments,
+        'cartMedicalServices': cartMedicalServices,
+        'buyer': buyer.toJson(),
         'paymentMethod': paymentMethod,
         'vendorId': vendorId,
       };

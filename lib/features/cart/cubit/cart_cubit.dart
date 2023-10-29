@@ -22,8 +22,21 @@ class CartCubit extends Cubit<CartState> {
   ) async {
     emit(AddMedicalEquipmentToCartLoading());
     try {
-      await _cartFirebaseService.addMedicalEquipmentToCart(cartOrder);
-      emit(AddMedicalEquipmentToCartSuccess());
+      if (cartMedicalEquipments.isNotEmpty &&
+          cartMedicalEquipments
+              .where(
+                (cartEquipment) =>
+                    cartEquipment.medicalEquipment.vendorId !=
+                    cartOrder.medicalEquipmentId,
+              )
+              .isNotEmpty) {
+        await _cartFirebaseService.emptyMedicalEquipmentsCart();
+        await _cartFirebaseService.addMedicalEquipmentToCart(cartOrder);
+        emit(EmptyCardAndAddMedicalEquipmentToCartSuccess());
+      } else {
+        await _cartFirebaseService.addMedicalEquipmentToCart(cartOrder);
+        emit(AddMedicalEquipmentToCartSuccess());
+      }
     } catch (e) {
       emit(AddMedicalEquipmentToCartError(Failure.fromException(e).message));
     }

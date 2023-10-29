@@ -4,6 +4,8 @@ class CartInitial extends CartState {}
 
 class AddMedicalEquipmentToCartLoading extends CartState {}
 
+class EmptyCardAndAddMedicalEquipmentToCartSuccess extends CartState {}
+
 class AddMedicalEquipmentToCartSuccess extends CartState {}
 
 class AddMedicalEquipmentToCartError extends CartState {

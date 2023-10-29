@@ -56,9 +56,6 @@ class _CheckoutState extends State<Checkout> {
 
   @override
   Widget build(BuildContext context) {
-    final address = ProfileCubit.get(context).user.address!;
-    final phone = ProfileCubit.get(context).user.phoneNumber!;
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -240,10 +237,10 @@ class _CheckoutState extends State<Checkout> {
                             ),
                             cartMedicalEquipments: _medicalEquipments,
                             cartMedicalServices: _medicalServices,
-                            address: address,
-                            phone: phone,
+                            buyer: ProfileCubit.get(context).user,
                             paymentMethod: _paymentMethod,
-                            vendorId: _medicalEquipments.first.medicalEquipment.vendorId,
+                            vendorId: _medicalEquipments
+                                .first.medicalEquipment.vendorId,
                           ),
                         )
                         .whenComplete(

@@ -95,6 +95,8 @@ class _MedicalEquipmentCartItemState extends State<MedicalEquipmentCartItem> {
                     MedicalEquipmentCartOrder(
                       medicalEquipmentId:
                           widget.cartMedicalEquipment.medicalEquipment.id,
+                      vendorId:
+                          widget.cartMedicalEquipment.medicalEquipment.vendorId,
                       quantity: _quantity,
                     ),
                   );
@@ -126,6 +128,8 @@ class _MedicalEquipmentCartItemState extends State<MedicalEquipmentCartItem> {
                     MedicalEquipmentCartOrder(
                       medicalEquipmentId:
                           widget.cartMedicalEquipment.medicalEquipment.id,
+                      vendorId:
+                          widget.cartMedicalEquipment.medicalEquipment.vendorId,
                       quantity: _quantity,
                     ),
                   );

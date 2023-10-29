@@ -280,6 +280,18 @@ class _MedicalEquipmentDetailsScreenState
                               duration: Duration(seconds: 3),
                             ),
                           );
+                        } else if (state
+                            is EmptyCardAndAddMedicalEquipmentToCartSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "You have an equipment from another vendor in your cart. So we removed it and added this one",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
                         }
                       },
                       child: InkWell(
@@ -287,6 +299,7 @@ class _MedicalEquipmentDetailsScreenState
                             CartCubit.get(context).addMedicalEquipmentToCart(
                           MedicalEquipmentCartOrder(
                             medicalEquipmentId: medicalEquipment.id,
+                            vendorId: medicalEquipment.vendorId,
                             quantity: _quantity,
                           ),
                         ),
