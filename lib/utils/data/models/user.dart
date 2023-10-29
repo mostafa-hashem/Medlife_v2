@@ -30,7 +30,7 @@ class User {
     idNumber = json['idNumber'] as String?;
     dateOfBirth = json['dateOfBirth'] as String?;
     companyInsuranceName = json['companyInsuranceName'] as String?;
-    lastName = json['secondName'] as String?;
+    lastName = json['lastName'] as String?;
     phoneNumber = json['phoneNumber'] as String?;
     if (json['address'] != null) {
       address = Address.fromJson(json['address'] as Map<String, dynamic>);
@@ -45,7 +45,7 @@ class User {
       'idNumber': idNumber,
       'dateOfBirth': dateOfBirth,
       'companyInsuranceName': companyInsuranceName,
-      'secondName': lastName,
+      'lastName': lastName,
       'phoneNumber': phoneNumber,
       if(address != null)
        'address': address?.toJson(),

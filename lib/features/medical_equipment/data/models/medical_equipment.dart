@@ -64,5 +64,6 @@ class MedicalEquipment {
         'productType': productType,
         'numOfReviews': numOfReviews,
         'createdAt': Timestamp.fromDate(createdAt),
+
       };
 }

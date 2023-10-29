@@ -35,7 +35,7 @@ class _CheckoutState extends State<Checkout> {
   late final List<CartMedicalEquipment> _medicalEquipments;
   late final List<CartMedicalService> _medicalServices;
   late final double _subtotal;
-  final String _paymentMethod = 'Credit Card';
+  final String _paymentMethod = 'Cash';
   List<double> summery = [
     2,
     -90,

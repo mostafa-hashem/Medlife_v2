@@ -29,8 +29,11 @@ class Order {
         'status': status,
         'dateTime': Timestamp.fromDate(dateTime),
         'orderCost': orderCost.toJson(),
-        'cartMedicalEquipments': cartMedicalEquipments,
-        'cartMedicalServices': cartMedicalServices,
+        'cartMedicalEquipments': cartMedicalEquipments
+            .map((equipment) => equipment.toJson())
+            .toList(),
+        'cartMedicalServices':
+            cartMedicalServices.map((service) => service.toJson()).toList(),
         'buyer': buyer.toJson(),
         'paymentMethod': paymentMethod,
         'vendorId': vendorId,
