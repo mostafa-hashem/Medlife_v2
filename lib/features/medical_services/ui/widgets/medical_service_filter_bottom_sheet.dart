@@ -76,13 +76,39 @@ class _MedicalServiceFilterBottomSheetState extends State<MedicalServiceFilterBo
                 height: 72.h,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: Colors.white),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 15.0.h,
+                            horizontal: 32.w,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Cancel",
+                              style: openSans20W600(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 12.w,
+                  ),
+                  Expanded(
                     child: Container(
-                      width: 145,
+                 
                       decoration: BoxDecoration(
+                        color: Colors.white,
                         borderRadius: BorderRadius.circular(5.r),
                         border: Border.all(color: Colors.white),
                       ),
@@ -93,32 +119,9 @@ class _MedicalServiceFilterBottomSheetState extends State<MedicalServiceFilterBo
                         ),
                         child: Center(
                           child: Text(
-                            "Cancel",
-                            style: openSans20W600(color: Colors.white),
+                            "Apply",
+                            style: openSans20W600(color: Colors.black),
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 12.w,
-                  ),
-                  Container(
-                    width: 205.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.r),
-                      border: Border.all(color: Colors.white),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 15.0.h,
-                        horizontal: 32.w,
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Apply",
-                          style: openSans20W600(color: Colors.black),
                         ),
                       ),
                     ),

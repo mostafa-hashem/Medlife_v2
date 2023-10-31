@@ -13,7 +13,7 @@ class MedicalServiceSortingBottomSheet extends StatefulWidget {
 class _MedicalServiceSortingBottomSheetState extends State<MedicalServiceSortingBottomSheet> {
   bool isHighToLow = false;
   bool isLowToHigh = false;
-  bool isDiscountSale = false;
+  bool isOffer = false;
   bool isRecentAdded = false;
 
   @override
@@ -29,7 +29,7 @@ class _MedicalServiceSortingBottomSheetState extends State<MedicalServiceSorting
                 setState(() {
                   isHighToLow = !isHighToLow;
                   isLowToHigh = false;
-                  isDiscountSale = false;
+                  isOffer = false;
                   isRecentAdded = false;
                 });
               },
@@ -47,7 +47,7 @@ class _MedicalServiceSortingBottomSheetState extends State<MedicalServiceSorting
                 setState(() {
                   isHighToLow = false;
                   isLowToHigh = !isLowToHigh;
-                  isDiscountSale = false;
+                  isOffer = false;
                   isRecentAdded = false;
                 });
               },
@@ -65,14 +65,14 @@ class _MedicalServiceSortingBottomSheetState extends State<MedicalServiceSorting
                 setState(() {
                   isHighToLow = false;
                   isLowToHigh = false;
-                  isDiscountSale = !isDiscountSale;
+                  isOffer = !isOffer;
                   isRecentAdded = false;
                 });
               },
               child: MedicalEquipmentSortingRow(
-                text: "Discount sale",
-                icon: isDiscountSale ? Icons.circle : Icons.circle_outlined,
-                iconColor: isDiscountSale ? AppColors.primary : Colors.white,
+                text: "Offers",
+                icon: isOffer ? Icons.circle : Icons.circle_outlined,
+                iconColor: isOffer ? AppColors.primary : Colors.white,
               ),
             ),
             SizedBox(
@@ -83,7 +83,7 @@ class _MedicalServiceSortingBottomSheetState extends State<MedicalServiceSorting
                 setState(() {
                   isHighToLow = false;
                   isLowToHigh = false;
-                  isDiscountSale = false;
+                  isOffer = false;
                   isRecentAdded = !isRecentAdded;
                 });
               },

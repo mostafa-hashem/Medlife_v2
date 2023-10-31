@@ -21,8 +21,6 @@ class SuccessfulPaymentScreen extends StatefulWidget {
 class _SuccessfulPaymentScreenState extends State<SuccessfulPaymentScreen> {
   List<double> summery = [
     2,
-    -90,
-    5,
     1.5,
   ];
 
@@ -70,7 +68,7 @@ enjoy our service! you will receive email have all details""",
                     ),
                     const Spacer(),
                     Text(
-                      "#512 - 77445 5",
+                      "#512 - 774455",
                       style: openSans16W500(color: const Color(0xff1E1E1E)),
                     ),
                   ],
@@ -132,15 +130,7 @@ enjoy our service! you will receive email have all details""",
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Discount', price: '-90 SAR'),
-                SizedBox(
-                  height: 11.h,
-                ),
-                const SummeryRow(text: 'Shipping', price: '+5 SAR'),
-                SizedBox(
-                  height: 11.h,
-                ),
-                const SummeryRow(text: 'Taxes', price: '+1.5 SAR'),
+                const SummeryRow(text: 'Bat', price: '+1.5 SAR'),
                 SizedBox(
                   height: 16.h,
                 ),

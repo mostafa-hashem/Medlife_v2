@@ -109,25 +109,26 @@ class _MedicalEquipmentsFilterBottomSheetState
                 height: 72.h,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Container(
-                      width: 145,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.r),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 15.0.h,
-                          horizontal: 32.w,
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: Colors.white),
                         ),
-                        child: Center(
-                          child: Text(
-                            "Cancel",
-                            style: openSans20W600(color: Colors.white),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 15.0.h,
+                            horizontal: 32.w,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Cancel",
+                              style: openSans20W600(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
@@ -136,26 +137,27 @@ class _MedicalEquipmentsFilterBottomSheetState
                   SizedBox(
                     width: 12.w,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: 205.w,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(5.r),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 15.0.h,
-                          horizontal: 32.w,
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: Colors.white),
                         ),
-                        child: Center(
-                          child: Text(
-                            "Apply",
-                            style: openSans20W600(color: Colors.black),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 15.0.h,
+                            horizontal: 32.w,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Apply",
+                              style: openSans20W600(color: Colors.black),
+                            ),
                           ),
                         ),
                       ),

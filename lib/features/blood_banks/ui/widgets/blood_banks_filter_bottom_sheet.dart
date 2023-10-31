@@ -7,11 +7,12 @@ class BloodBanksFilterBottomSheet extends StatefulWidget {
   const BloodBanksFilterBottomSheet();
 
   @override
-  State<BloodBanksFilterBottomSheet> createState() => _BloodBanksFilterBottomSheetState();
+  State<BloodBanksFilterBottomSheet> createState() =>
+      _BloodBanksFilterBottomSheetState();
 }
 
-class _BloodBanksFilterBottomSheetState extends State<BloodBanksFilterBottomSheet> {
-
+class _BloodBanksFilterBottomSheetState
+    extends State<BloodBanksFilterBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -35,7 +36,9 @@ class _BloodBanksFilterBottomSheetState extends State<BloodBanksFilterBottomShee
               SizedBox(
                 height: 18.h,
               ),
-              const BloodBanksFilterRow(text: 'Product type',),
+              const BloodBanksFilterRow(
+                text: 'Product type',
+              ),
               SizedBox(
                 height: 8.h,
               ),
@@ -76,25 +79,26 @@ class _BloodBanksFilterBottomSheetState extends State<BloodBanksFilterBottomShee
                 height: 72.h,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
-                    child: Container(
-                      width: 145,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.r),
-                        border: Border.all(color: Colors.white),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 15.0.h,
-                          horizontal: 32.w,
+                    child: Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.r),
+                          border: Border.all(color: Colors.white),
                         ),
-                        child: Center(
-                          child: Text(
-                            "Cancel",
-                            style: openSans20W600(color: Colors.white),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 15.h,
+                            horizontal: 32.w,
+                          ),
+                          child: Center(
+                            child: Text(
+                              "Cancel",
+                              style: openSans20W600(color: Colors.white),
+                            ),
                           ),
                         ),
                       ),
@@ -103,22 +107,23 @@ class _BloodBanksFilterBottomSheetState extends State<BloodBanksFilterBottomShee
                   SizedBox(
                     width: 12.w,
                   ),
-                  Container(
-                    width: 205.w,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(5.r),
-                      border: Border.all(color: Colors.white),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 15.0.h,
-                        horizontal: 32.w,
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5.r),
+                        border: Border.all(color: Colors.white),
                       ),
-                      child: Center(
-                        child: Text(
-                          "Apply",
-                          style: openSans20W600(color: Colors.black),
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 15.h,
+                          horizontal: 32.w,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Apply",
+                            style: openSans20W600(color: Colors.black),
+                          ),
                         ),
                       ),
                     ),

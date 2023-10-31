@@ -26,7 +26,7 @@ class OrdersFirebaseService {
         .collection(FirebasePath.vendors)
         .doc(order.vendorId)
         .collection(FirebasePath.orders)
-        .doc()
+        .doc(order.id)
         .set(order.toJson());
 
     final equipmentsCartQuerySnapshot =

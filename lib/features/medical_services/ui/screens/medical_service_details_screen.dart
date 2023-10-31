@@ -266,37 +266,37 @@ class _MedicalServiceDetailsScreenState
                           );
                         }
                       },
-                      child: InkWell(
-                        onTap: () =>
-                            CartCubit.get(context).addMedicalServiceToCart(
-                          MedicalServiceCartOrder(
-                            medicalServiceId: medicalService.id,
-                            quantity: _quantity,
-                          ),
-                        ),
-                        child: Container(
-                          width: 230.w,
-                          height: 50.h,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF22C7B6),
-                            borderRadius: BorderRadius.circular(5.r),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 9.h,
-                              horizontal: 38.w,
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: () =>
+                              CartCubit.get(context).addMedicalServiceToCart(
+                            MedicalServiceCartOrder(
+                              medicalServiceId: medicalService.id,
+                              quantity: _quantity,
                             ),
-                            child: Row(
-                              children: [
-                                Image.asset("assets/images/Shop bag image.png"),
-                                SizedBox(
-                                  width: 12.w,
-                                ),
-                                Text(
-                                  "Add to cart",
-                                  style: openSans18W500(color: Colors.white),
-                                ),
-                              ],
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF22C7B6),
+                              borderRadius: BorderRadius.circular(5.r),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 9.h,
+                                horizontal: 38.w,
+                              ),
+                              child: Row(
+                                children: [
+                                  Image.asset("assets/images/Shop bag image.png"),
+                                  SizedBox(
+                                    width: 12.w,
+                                  ),
+                                  Text(
+                                    "Add to cart",
+                                    style: openSans18W500(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

@@ -195,7 +195,6 @@ class _AddressScreenState extends State<AddressScreen> {
               BlocListener<ProfileCubit, ProfileState>(
                 listener: (_, state) {
                   if (state is UpdateUserSuccess) {
-                    ProfileCubit.get(context).getUser();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(

@@ -38,8 +38,6 @@ class _CheckoutState extends State<Checkout> {
   final String _paymentMethod = 'Cash';
   List<double> summery = [
     2,
-    -90,
-    5,
     1.5,
   ];
 
@@ -185,15 +183,7 @@ class _CheckoutState extends State<Checkout> {
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Discount', price: '-90 SAR'),
-                SizedBox(
-                  height: 11.h,
-                ),
-                const SummeryRow(text: 'Shipping', price: '+5 SAR'),
-                SizedBox(
-                  height: 11.h,
-                ),
-                const SummeryRow(text: 'Taxes', price: '+1.5 SAR'),
+                const SummeryRow(text: 'Bat', price: '+1.5 SAR'),
                 SizedBox(
                   height: 16.h,
                 ),
