@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/blood_banks/data/models/blood_bank.dart';
-import 'package:medlife_v2/ui/resources/commponents.dart';
+import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
+import 'package:medlife_v2/features/cart/cubit/cart_state.dart';
+import 'package:medlife_v2/features/cart/data/models/blood_bank_cart_order.dart';
+import 'package:medlife_v2/ui/resources/app_colors.dart';
+
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
+import 'package:medlife_v2/utils/constants.dart';
+import 'package:medlife_v2/utils/helper_methods.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class BloodBankDetailsScreen extends StatefulWidget {
@@ -14,7 +21,8 @@ class BloodBankDetailsScreen extends StatefulWidget {
 }
 
 class _BloodBankDetailsScreenState extends State<BloodBankDetailsScreen> {
-  int _counter = 1;
+  // ignore: prefer_final_fields
+  int _quantity = 1;
   final controller = PageController(viewportFraction: 0.8);
 
   @override
@@ -119,15 +127,9 @@ class _BloodBankDetailsScreenState extends State<BloodBankDetailsScreen> {
                 color: const Color(0xff000000).withOpacity(0.5),
                 thickness: 1,
               ),
-              // SizedBox(
-              //   height: 16.h,
-              // ),
-              // CustomSealerContainer(
-              //   text: "Provided by",
-              //   sealerName: bloodBank.providerName,
-              //   starImage: "assets/images/star.png",
-              //   rate: '',
-              // ),
+              SizedBox(
+                height: 16.h,
+              ),
               SizedBox(
                 height: 16.h,
               ),
@@ -154,66 +156,66 @@ class _BloodBankDetailsScreenState extends State<BloodBankDetailsScreen> {
               SizedBox(
                 height: 8.h,
               ),
-              Row(
-                children: [
-                  Text(
-                    "Quantity",
-                    style: openSans20W600(color: Colors.black),
-                  ),
-                  SizedBox(
-                    width: 13.w,
-                  ),
-                  Container(
-                    width: 150.w,
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFF3F3F3),
-                      borderRadius: BorderRadius.circular(15.r),
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 10.h, horizontal: 9.w),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                if (_counter < 2) {
-                                  return;
-                                }
-                                _counter--;
-                              });
-                            },
-                            child: const Icon(Icons.remove),
-                          ),
-                          Text(
-                            _counter.toString(),
-                            style: openSans20W600(color: Colors.black)
-                                .copyWith(letterSpacing: -0.41),
-                          ),
-                          InkWell(
-                            onTap: () {
-                              setState(() {
-                                _counter++;
-                              });
-                            },
-                            child: const Icon(Icons.add_outlined),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 19.h,
-                  ),
-                  Divider(
-                    indent: 10.w,
-                    endIndent: 10.w,
-                    color: const Color(0xff000000).withOpacity(0.5),
-                    thickness: 1,
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     Text(
+              //       "Quantity",
+              //       style: openSans20W600(color: Colors.black),
+              //     ),
+              //     SizedBox(
+              //       width: 13.w,
+              //     ),
+              //     Container(
+              //       width: 150.w,
+              //       decoration: BoxDecoration(
+              //         color: const Color(0xFFF3F3F3),
+              //         borderRadius: BorderRadius.circular(15.r),
+              //       ),
+              //       child: Padding(
+              //         padding:
+              //             EdgeInsets.symmetric(vertical: 10.h, horizontal: 9.w),
+              //         child: Row(
+              //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //           children: [
+              //             InkWell(
+              //               onTap: () {
+              //                 setState(() {
+              //                   if (_quantity < 2) {
+              //                     return;
+              //                   }
+              //                   _quantity--;
+              //                 });
+              //               },
+              //               child: const Icon(Icons.remove),
+              //             ),
+              //             Text(
+              //               _quantity.toString(),
+              //               style: openSans20W600(color: Colors.black)
+              //                   .copyWith(letterSpacing: -0.41),
+              //             ),
+              //             InkWell(
+              //               onTap: () {
+              //                 setState(() {
+              //                   _quantity++;
+              //                 });
+              //               },
+              //               child: const Icon(Icons.add_outlined),
+              //             ),
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //     SizedBox(
+              //       height: 19.h,
+              //     ),
+              //     Divider(
+              //       indent: 10.w,
+              //       endIndent: 10.w,
+              //       color: const Color(0xff000000).withOpacity(0.5),
+              //       thickness: 1,
+              //     ),
+              //   ],
+              // ),
               Divider(
                 indent: 10.w,
                 endIndent: 10.w,
@@ -227,14 +229,14 @@ class _BloodBankDetailsScreenState extends State<BloodBankDetailsScreen> {
                     Column(
                       children: [
                         Text(
-                          "Total price",
+                          "Price",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                         SizedBox(
                           height: 12.5.h,
                         ),
                         Text(
-                          "$currency ${(_counter * bloodBank.price).toStringAsFixed(2)}",
+                          "${calculateItemPrice(_quantity, bloodBank.price).toStringAsFixed(2)} $currency",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                       ],
@@ -242,30 +244,79 @@ class _BloodBankDetailsScreenState extends State<BloodBankDetailsScreen> {
                     SizedBox(
                       width: 23.w,
                     ),
-                    Expanded(
-                      child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF22C7B6),
-                            borderRadius: BorderRadius.circular(5.r),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                              vertical: 9.h,
-                              horizontal: 38.w,
+                    BlocListener<CartCubit, CartState>(
+                      listener: (_, state) {
+                        if (state is AddBloodBankToCartSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "Successfully Added",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: Duration(seconds: 3),
                             ),
-                            child: Row(
-                              children: [
-                                Image.asset("assets/images/Shop bag image.png"),
-                                SizedBox(
-                                  width: 12.w,
-                                ),
-                                Text(
-                                  "Add to cart",
-                                  style: openSans18W500(color: Colors.white),
-                                ),
-                              ],
+                          );
+                        } else if (state
+                            is AnotherProviderAndAddBloodBankToCartSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "You have a blood bank from another provider in your cart. So we removed it and added this one",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        } else if (state
+                            is AnotherTypeAndAddBloodBankToCartSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "You have a medical equipment or service in your cart. So we removed it and added this blood bank",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        }
+                      },
+                      child: Expanded(
+                        child: InkWell(
+                          onTap: () =>
+                              CartCubit.get(context).addBloodBankToCart(
+                            BloodBankCartOrder(
+                              bloodBankId: bloodBank.id,
+                              providerId: bloodBank.providerId,
+                              quantity: _quantity,
+                            ),
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: const Color(0xFF22C7B6),
+                              borderRadius: BorderRadius.circular(5.r),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                vertical: 9.h,
+                                horizontal: 38.w,
+                              ),
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    "assets/images/Shop bag image.png",
+                                  ),
+                                  SizedBox(
+                                    width: 12.w,
+                                  ),
+                                  Text(
+                                    "Add to cart",
+                                    style: openSans18W500(color: Colors.white),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),

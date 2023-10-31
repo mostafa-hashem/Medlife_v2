@@ -1,23 +1,21 @@
+import 'package:medlife_v2/utils/helper_methods.dart';
+
 class OrderCost {
   final double subtotal;
-  final double deliveryFee;
-  final double discount;
-  final double taxes;
-  late final double total = subtotal + deliveryFee - discount + taxes;
+  final double shipping;
+  late final double vat = calculateVAT(subtotal, shipping);
+  late final double total = calculateTotal(subtotal, shipping, vat);
 
   OrderCost({
     required this.subtotal,
-    required this.deliveryFee,
-    required this.discount,
-    required this.taxes,
+    required this.shipping,
   });
 
   Map<String, dynamic> toJson() {
     return {
       'subtotal': subtotal,
-      'deliveryFee': deliveryFee,
-      'discount': discount,
-      'taxes': taxes,
+      'shipping': shipping,
+      'vat': vat,
       'total': total,
     };
   }

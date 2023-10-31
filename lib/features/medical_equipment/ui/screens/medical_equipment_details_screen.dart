@@ -7,9 +7,11 @@ import 'package:medlife_v2/features/cart/data/models/medical_equipment_cart_orde
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/commponents.dart';
+
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
+import 'package:medlife_v2/utils/constants.dart';
+import 'package:medlife_v2/utils/helper_methods.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class MedicalEquipmentDetailsScreen extends StatefulWidget {
@@ -259,7 +261,7 @@ class _MedicalEquipmentDetailsScreenState
                           height: 12.5.h,
                         ),
                         Text(
-                          "$currency ${(_quantity * medicalEquipment.price).toStringAsFixed(2)}",
+                          "${calculateItemPrice(_quantity, medicalEquipment.price).toStringAsFixed(2)} $currency",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                       ],
@@ -281,11 +283,23 @@ class _MedicalEquipmentDetailsScreenState
                             ),
                           );
                         } else if (state
-                            is EmptyCardAndAddMedicalEquipmentToCartSuccess) {
+                            is AnotherVendorAndAddMedicalEquipmentToCartSuccess) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text(
                                 "You have an equipment from another vendor in your cart. So we removed it and added this one",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        } else if (state
+                            is AnotherTypeAndAddMedicalEquipmentToCartSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "You have a medical service in your cart. So we removed it and added this equipment",
                                 style: TextStyle(fontSize: 15),
                               ),
                               backgroundColor: AppColors.primary,
@@ -316,7 +330,9 @@ class _MedicalEquipmentDetailsScreenState
                               ),
                               child: Row(
                                 children: [
-                                  Image.asset("assets/images/Shop bag image.png"),
+                                  Image.asset(
+                                    "assets/images/Shop bag image.png",
+                                  ),
                                   SizedBox(
                                     width: 12.w,
                                   ),

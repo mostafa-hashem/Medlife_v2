@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/medical_equipment/data/models/medical_equipment.dart';
-import 'package:medlife_v2/ui/resources/commponents.dart';
+
 import 'package:medlife_v2/ui/resources/text_styles.dart';
+import 'package:medlife_v2/utils/constants.dart';
 
 class HomeMedicalEquipmentItem extends StatelessWidget {
   const HomeMedicalEquipmentItem(this.medicalEquipment);

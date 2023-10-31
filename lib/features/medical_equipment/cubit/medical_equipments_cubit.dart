@@ -127,11 +127,15 @@ class MedicalEquipmentsCubit extends Cubit<MedicalEquipmentsState> {
   }
 
   void _getBrands() => brands =
-      allMedicalEquipments.map((equipment) => equipment.brand).toList();
+      allMedicalEquipments.map((equipment) => equipment.brand).toSet().toList();
 
-  void _getVendors() => vendors =
-      allMedicalEquipments.map((equipment) => equipment.vendorName).toList();
+  void _getVendors() => vendors = allMedicalEquipments
+      .map((equipment) => equipment.vendorName)
+      .toSet()
+      .toList();
 
-  void _getProductTypes() => productTypes =
-      allMedicalEquipments.map((equipment) => equipment.productType).toList();
+  void _getProductTypes() => productTypes = allMedicalEquipments
+      .map((equipment) => equipment.productType)
+      .toSet()
+      .toList();
 }

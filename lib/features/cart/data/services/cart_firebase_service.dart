@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:medlife_v2/features/blood_banks/data/models/blood_bank.dart';
+import 'package:medlife_v2/features/cart/data/models/blood_bank_cart_order.dart';
 import 'package:medlife_v2/features/cart/data/models/cart.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_blood_bank.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_service.dart';
 import 'package:medlife_v2/features/cart/data/models/medical_equipment_cart_order.dart';
@@ -18,10 +21,16 @@ class CartFirebaseService {
       .collection(FirebasePath.users)
       .doc(FirebaseAuth.instance.currentUser?.uid)
       .collection(FirebasePath.medicalServicesCart);
+  final _bloodBanksCart = FirebaseFirestore.instance
+      .collection(FirebasePath.users)
+      .doc(FirebaseAuth.instance.currentUser?.uid)
+      .collection(FirebasePath.bloodBanksCart);
   final _medicalEquipmentsCollection =
       FirebaseFirestore.instance.collection(FirebasePath.medicalEquipments);
   final _medicalServicesCollection =
       FirebaseFirestore.instance.collection(FirebasePath.medicalServices);
+  final _bloodBanksCollection =
+      FirebaseFirestore.instance.collection(FirebasePath.bloodBanks);
 
   Future<void> addMedicalEquipmentToCart(
     MedicalEquipmentCartOrder cartOrder,
@@ -74,6 +83,22 @@ class CartFirebaseService {
     );
   }
 
+  Future<void> emptyMedicalServicesCart() async {
+    final servicesCartQuerySnapshot = await _medicalServicesCart.get();
+    await Future.forEach(
+      servicesCartQuerySnapshot.docs,
+      (queryDocSnapshot) async => queryDocSnapshot.reference.delete(),
+    );
+  }
+
+  Future<void> emptyBloodBanksCart() async {
+    final bloodBanksCartQuerySnapshot = await _bloodBanksCart.get();
+    await Future.forEach(
+      bloodBanksCartQuerySnapshot.docs,
+      (queryDocSnapshot) async => queryDocSnapshot.reference.delete(),
+    );
+  }
+
   Future<void> addMedicalServiceToCart(
     MedicalServiceCartOrder cartOrder,
   ) async {
@@ -115,6 +140,45 @@ class CartFirebaseService {
         .set(cartMedicalService.toJson());
   }
 
+  Future<void> addBloodBankToCart(
+    BloodBankCartOrder cartOrder,
+  ) async {
+    final cartQuerySnapshot = await _bloodBanksCart.get();
+    final cartBloodBanks = cartQuerySnapshot.docs
+        .map(
+          (queryDocSnapshot) => CartBloodBank.fromJson(queryDocSnapshot.data()),
+        )
+        .toList();
+    if (cartBloodBanks.isNotEmpty) {
+      bool bloodBankExistInCart = false;
+
+      await Future.forEach(cartBloodBanks, (cartBloodBank) async {
+        if (cartBloodBank.bloodBank.id == cartOrder.bloodBankId) {
+          bloodBankExistInCart = true;
+        }
+      });
+
+      if (bloodBankExistInCart) {
+        final docSnapshot =
+            await _bloodBanksCart.doc(cartOrder.bloodBankId).get();
+        final quantity = docSnapshot.data()![FirebasePath.quantity] as num;
+        return _bloodBanksCart.doc(cartOrder.bloodBankId).update({
+          FirebasePath.quantity: quantity + cartOrder.quantity,
+        });
+      }
+    }
+    final docSnapshot =
+        await _bloodBanksCollection.doc(cartOrder.bloodBankId).get();
+    final bloodBank = BloodBank.fromJson(docSnapshot.data()!);
+    final cartBloodBank = CartBloodBank(
+      bloodBank: bloodBank,
+      quantity: cartOrder.quantity,
+    );
+    await _bloodBanksCart
+        .doc(cartOrder.bloodBankId)
+        .set(cartBloodBank.toJson());
+  }
+
   Future<Cart> getCart() async {
     final equipmentsQuerySnapshot = await _medicalEquipmentsCart.get();
     final cartMedicalEquipments = equipmentsQuerySnapshot.docs
@@ -132,9 +196,17 @@ class CartFirebaseService {
         )
         .toList();
 
+    final bloodBanksQuerySnapshot = await _bloodBanksCart.get();
+    final cartBloodBanks = bloodBanksQuerySnapshot.docs
+        .map(
+          (queryDocSnapshot) => CartBloodBank.fromJson(queryDocSnapshot.data()),
+        )
+        .toList();
+
     return Cart(
       cartMedicalEquipments: cartMedicalEquipments,
       cartMedicalServices: cartMedicalServices,
+      cartBloodBanks: cartBloodBanks,
     );
   }
 
@@ -154,6 +226,12 @@ class CartFirebaseService {
         .update(cartOrder.toJson());
   }
 
+  Future<void> editBloodBanksCart(
+    BloodBankCartOrder cartOrder,
+  ) async {
+    await _bloodBanksCart.doc(cartOrder.bloodBankId).update(cartOrder.toJson());
+  }
+
   Future<void> deleteFromMedicalEquipmentsCart(
     String medicalEquipmentId,
   ) async {
@@ -162,5 +240,9 @@ class CartFirebaseService {
 
   Future<void> deleteFromMedicalServicesCart(String medicalServiceId) async {
     await _medicalServicesCart.doc(medicalServiceId).delete();
+  }
+
+  Future<void> deleteFromBloodBanksCart(String bloodBankId) async {
+    await _bloodBanksCart.doc(bloodBankId).delete();
   }
 }

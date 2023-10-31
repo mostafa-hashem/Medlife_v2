@@ -16,12 +16,12 @@ import 'package:medlife_v2/features/payment/ui/widgets/shipping_method_row.dart'
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_text_button.dart';
 import 'package:medlife_v2/ui/widgets/error_indicator.dart';
 import 'package:medlife_v2/ui/widgets/loading_indicator.dart';
 import 'package:medlife_v2/ui/widgets/summery_row.dart';
+import 'package:medlife_v2/utils/constants.dart';
 import 'package:medlife_v2/utils/helper_methods.dart';
 
 class Checkout extends StatefulWidget {
@@ -35,21 +35,26 @@ class _CheckoutState extends State<Checkout> {
   late final List<CartMedicalEquipment> _medicalEquipments;
   late final List<CartMedicalService> _medicalServices;
   late final double _subtotal;
+  final double _shipping = 20;
+  late final double _vat;
+  late final double _total;
   final String _paymentMethod = 'Cash';
-  List<double> summery = [
-    2,
-    1.5,
-  ];
 
   @override
   void initState() {
     super.initState();
     final cartMedicalEquipments = CartCubit.get(context).cartMedicalEquipments;
     final cartMedicalServices = CartCubit.get(context).cartMedicalServices;
-    _subtotal =
-        calculateCartTotalPrice(cartMedicalEquipments, cartMedicalServices);
+    final cartBloodBanks = CartCubit.get(context).cartBloodBanks;
+    _subtotal = calculateCartSubtotal(
+      cartMedicalEquipments,
+      cartMedicalServices,
+      cartBloodBanks,
+    );
     _medicalEquipments = cartMedicalEquipments;
     _medicalServices = cartMedicalServices;
+    _vat = calculateVAT(_subtotal, _shipping);
+    _total = calculateTotal(_subtotal, _shipping, _vat);
   }
 
   @override
@@ -163,7 +168,7 @@ class _CheckoutState extends State<Checkout> {
                                 .medicalEquipment
                                 .title,
                             price:
-                                '${calculateItemPrice(CartCubit.get(context).cartMedicalEquipments[index].quantity, CartCubit.get(context).cartMedicalEquipments[index].medicalEquipment.price)} SAR',
+                                '${calculateItemPrice(CartCubit.get(context).cartMedicalEquipments[index].quantity, CartCubit.get(context).cartMedicalEquipments[index].medicalEquipment.price)} $currency',
                           ),
                           separatorBuilder: (context, index) => SizedBox(
                             height: 11.h,
@@ -179,11 +184,14 @@ class _CheckoutState extends State<Checkout> {
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Delivery Fee', price: '+2 SAR'),
+                SummeryRow(text: 'Shipping', price: '+$_shipping $currency'),
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Bat', price: '+1.5 SAR'),
+                SummeryRow(
+                  text: 'VAT',
+                  price: '+$_vat $currency',
+                ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -193,13 +201,7 @@ class _CheckoutState extends State<Checkout> {
                 ),
                 SummeryRow(
                   text: 'Total',
-                  price: '${calculateTotalPrice(
-                    price: calculateCartTotalPrice(
-                      CartCubit.get(context).cartMedicalEquipments,
-                      CartCubit.get(context).cartMedicalServices,
-                    ),
-                    summery: summery,
-                  ).toStringAsFixed(2)} $currency',
+                  price: '$_total',
                 ),
                 SizedBox(
                   height: 48.h,
@@ -216,29 +218,27 @@ class _CheckoutState extends State<Checkout> {
                     }
                   },
                   child: DefaultTextButton(
-                    function: () => OrdersCubit.get(context)
-                        .createOrder(
-                          Order(
-                            orderCost: OrderCost(
-                              subtotal: _subtotal,
-                              deliveryFee: 10,
-                              discount: 8,
-                              taxes: 5,
-                            ),
-                            cartMedicalEquipments: _medicalEquipments,
-                            cartMedicalServices: _medicalServices,
-                            buyer: ProfileCubit.get(context).user,
-                            paymentMethod: _paymentMethod,
-                            vendorId: _medicalEquipments
-                                .first.medicalEquipment.vendorId,
-                          ),
-                        )
-                        .whenComplete(
-                          () => Navigator.pushReplacementNamed(
-                            context,
-                            Routes.successfulPayment,
-                          ),
+                    function: () {
+                      final order = Order(
+                        orderCost: OrderCost(
+                          subtotal: _subtotal,
+                          shipping: _shipping,
                         ),
+                        cartMedicalEquipments: _medicalEquipments,
+                        cartMedicalServices: _medicalServices,
+                        buyer: ProfileCubit.get(context).user,
+                        paymentMethod: _paymentMethod,
+                        vendorId:
+                            _medicalEquipments.first.medicalEquipment.vendorId,
+                      );
+                      OrdersCubit.get(context).createOrder(order).whenComplete(
+                            () => Navigator.pushReplacementNamed(
+                              context,
+                              Routes.successfulPayment,
+                              arguments: order,
+                            ),
+                          );
+                    },
                     text: "Check out",
                     textStyle: openSans16W500(color: Colors.white),
                     height: 65.h,

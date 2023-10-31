@@ -6,6 +6,7 @@ class BloodBank {
   final double rating;
   final List<String> imagesUrls;
   final int numOfReviews;
+  final String providerId;
 
   BloodBank({
     required this.id,
@@ -15,6 +16,7 @@ class BloodBank {
     required this.rating,
     required this.imagesUrls,
     required this.numOfReviews,
+    required this.providerId,
   });
 
   BloodBank.fromJson(Map<String, dynamic> json)
@@ -28,6 +30,7 @@ class BloodBank {
               .map((imageUrl) => imageUrl as String)
               .toList(),
           numOfReviews: json['numOfReviews'] as int,
+          providerId: json['providerId'] as String,
         );
 
   Map<String, dynamic> toJson() => {
@@ -38,5 +41,6 @@ class BloodBank {
         'rating': rating,
         'imagesUrls': imagesUrls,
         'numOfReviews': numOfReviews,
+        'providerId': providerId,
       };
 }

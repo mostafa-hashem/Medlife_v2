@@ -1,3 +1,4 @@
+import 'package:medlife_v2/features/cart/data/models/cart_blood_bank.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_service.dart';
 
@@ -33,9 +34,10 @@ String? validateGeneral(String? value, String label) {
   return null;
 }
 
-double calculateCartTotalPrice(
+double calculateCartSubtotal(
   List<CartMedicalEquipment> cartEquipments,
   List<CartMedicalService> cartServices,
+  List<CartBloodBank> cartBloodBanks,
 ) {
   double totalPrice = 0.0;
   cartEquipments.map((cartEquipment) {
@@ -43,6 +45,9 @@ double calculateCartTotalPrice(
   }).toList();
   cartServices.map((cartService) {
     totalPrice += cartService.medicalService.price * cartService.quantity;
+  }).toList();
+  cartBloodBanks.map((cartBloodBank) {
+    totalPrice += cartBloodBank.bloodBank.price * cartBloodBank.quantity;
   }).toList();
   return totalPrice;
 }
@@ -52,12 +57,8 @@ double calculateItemPrice(int quantity, double price) {
   return totalPrice;
 }
 
-double calculateTotalPrice({
-  required double price,
-  required List<double> summery,
-}) {
-  for (int i = 0; i < summery.length; i++) {
-    price += summery[i];
-  }
-  return price;
-}
+double calculateVAT(double subtotal, double shipping) =>
+    (subtotal + shipping) * 0.15;
+
+double calculateTotal(double subtotal, double shipping, double vat) =>
+    subtotal + shipping - vat;

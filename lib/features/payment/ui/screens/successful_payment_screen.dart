@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
+import 'package:medlife_v2/features/orders/data/models/order.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
 import 'package:medlife_v2/features/profile/cubit/profile_cubit.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/summery_row.dart';
+import 'package:medlife_v2/utils/constants.dart';
 import 'package:medlife_v2/utils/helper_methods.dart';
 
 class SuccessfulPaymentScreen extends StatefulWidget {
@@ -19,13 +20,9 @@ class SuccessfulPaymentScreen extends StatefulWidget {
 }
 
 class _SuccessfulPaymentScreenState extends State<SuccessfulPaymentScreen> {
-  List<double> summery = [
-    2,
-    1.5,
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final order = ModalRoute.of(context)!.settings.arguments! as Order;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -110,7 +107,7 @@ enjoy our service! you will receive email have all details""",
                                 .medicalEquipment
                                 .title,
                             price:
-                                '${calculateItemPrice(CartCubit.get(context).cartMedicalEquipments[index].quantity, CartCubit.get(context).cartMedicalEquipments[index].medicalEquipment.price)} SAR',
+                                '${calculateItemPrice(CartCubit.get(context).cartMedicalEquipments[index].quantity, CartCubit.get(context).cartMedicalEquipments[index].medicalEquipment.price)} $currency',
                           ),
                           separatorBuilder: (context, index) => SizedBox(
                             height: 11.h,
@@ -126,11 +123,17 @@ enjoy our service! you will receive email have all details""",
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Delivery Fee', price: '+2 SAR'),
+                SummeryRow(
+                  text: 'Shipping',
+                  price: '+${order.orderCost.shipping} $currency',
+                ),
                 SizedBox(
                   height: 11.h,
                 ),
-                const SummeryRow(text: 'Bat', price: '+1.5 SAR'),
+                SummeryRow(
+                  text: 'VAT',
+                  price: '+${order.orderCost.vat} $currency',
+                ),
                 SizedBox(
                   height: 16.h,
                 ),
@@ -140,13 +143,7 @@ enjoy our service! you will receive email have all details""",
                 ),
                 SummeryRow(
                   text: 'Total',
-                  price: '${calculateTotalPrice(
-                    price: calculateCartTotalPrice(
-                      CartCubit.get(context).cartMedicalEquipments,
-                      CartCubit.get(context).cartMedicalServices,
-                    ),
-                    summery: summery,
-                  ).toStringAsFixed(2)} $currency',
+                  price: '${order.orderCost.total} $currency',
                 ),
                 SizedBox(
                   height: 48.h,
@@ -159,7 +156,7 @@ enjoy our service! you will receive email have all details""",
                 Row(
                   children: [
                     Text(
-                      "Cach",
+                      order.paymentMethod,
                       style: openSans12W600(color: const Color(0xff212A2A)),
                     ),
                     const Spacer(),

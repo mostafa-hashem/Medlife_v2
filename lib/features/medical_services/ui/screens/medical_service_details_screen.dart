@@ -7,9 +7,10 @@ import 'package:medlife_v2/features/cart/data/models/medical_service_cart_order.
 import 'package:medlife_v2/features/medical_equipment/ui/widgets/custom_sealer_container.dart';
 import 'package:medlife_v2/features/medical_services/data/models/medical_service.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/commponents.dart';
+
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/share_bottom_sheet.dart';
+import 'package:medlife_v2/utils/constants.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class MedicalServiceDetailsScreen extends StatefulWidget {
@@ -166,7 +167,7 @@ class _MedicalServiceDetailsScreenState
               Row(
                 children: [
                   Text(
-                    "Quantity",
+                    "Hours",
                     style: openSans20W600(color: Colors.black),
                   ),
                   SizedBox(
@@ -243,7 +244,7 @@ class _MedicalServiceDetailsScreenState
                           height: 12.5.h,
                         ),
                         Text(
-                          "$currency ${(_quantity * medicalService.price).toStringAsFixed(2)}",
+                          "${(_quantity * medicalService.price).toStringAsFixed(2)} $currency",
                           style: openSans16W400(color: const Color(0x7F1A1A1A)),
                         ),
                       ],
@@ -264,6 +265,30 @@ class _MedicalServiceDetailsScreenState
                               duration: Duration(seconds: 3),
                             ),
                           );
+                        } else if (state
+                            is AnotherProviderAndAddMedicalServiceToCartSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "You have a service from another provider in your cart. So we removed it and added this one",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
+                        } else if (state
+                            is AnotherTypeAndAddMedicalServiceToCartSuccess) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "You have a medical equipment or blood bank in your cart. So we removed it and added this service",
+                                style: TextStyle(fontSize: 15),
+                              ),
+                              backgroundColor: AppColors.primary,
+                              duration: Duration(seconds: 3),
+                            ),
+                          );
                         }
                       },
                       child: Expanded(
@@ -273,6 +298,7 @@ class _MedicalServiceDetailsScreenState
                             MedicalServiceCartOrder(
                               medicalServiceId: medicalService.id,
                               quantity: _quantity,
+                              providerId: medicalService.providerId,
                             ),
                           ),
                           child: Container(
@@ -287,7 +313,9 @@ class _MedicalServiceDetailsScreenState
                               ),
                               child: Row(
                                 children: [
-                                  Image.asset("assets/images/Shop bag image.png"),
+                                  Image.asset(
+                                    "assets/images/Shop bag image.png",
+                                  ),
                                   SizedBox(
                                     width: 12.w,
                                   ),

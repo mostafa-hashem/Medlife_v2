@@ -4,9 +4,9 @@ import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
 import 'package:medlife_v2/features/cart/data/models/medical_equipment_cart_order.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/resources/commponents.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/default_button.dart';
+import 'package:medlife_v2/utils/constants.dart';
 
 class MedicalEquipmentCartItem extends StatefulWidget {
   final CartMedicalEquipment cartMedicalEquipment;

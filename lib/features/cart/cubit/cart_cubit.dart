@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_state.dart';
+import 'package:medlife_v2/features/cart/data/models/blood_bank_cart_order.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_blood_bank.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_service.dart';
 import 'package:medlife_v2/features/cart/data/models/medical_equipment_cart_order.dart';
@@ -16,6 +18,7 @@ class CartCubit extends Cubit<CartState> {
   final _cartFirebaseService = CartFirebaseService();
   List<CartMedicalEquipment> cartMedicalEquipments = [];
   List<CartMedicalService> cartMedicalServices = [];
+  List<CartBloodBank> cartBloodBanks = [];
 
   Future<void> addMedicalEquipmentToCart(
     MedicalEquipmentCartOrder cartOrder,
@@ -27,12 +30,17 @@ class CartCubit extends Cubit<CartState> {
               .where(
                 (cartEquipment) =>
                     cartEquipment.medicalEquipment.vendorId !=
-                    cartOrder.medicalEquipmentId,
+                    cartOrder.vendorId,
               )
               .isNotEmpty) {
         await _cartFirebaseService.emptyMedicalEquipmentsCart();
         await _cartFirebaseService.addMedicalEquipmentToCart(cartOrder);
-        emit(EmptyCardAndAddMedicalEquipmentToCartSuccess());
+        emit(AnotherVendorAndAddMedicalEquipmentToCartSuccess());
+      } else if (cartMedicalServices.isNotEmpty || cartBloodBanks.isNotEmpty) {
+        await _cartFirebaseService.emptyMedicalServicesCart();
+        await _cartFirebaseService.emptyBloodBanksCart();
+        await _cartFirebaseService.addMedicalEquipmentToCart(cartOrder);
+        emit(AnotherTypeAndAddMedicalEquipmentToCartSuccess());
       } else {
         await _cartFirebaseService.addMedicalEquipmentToCart(cartOrder);
         emit(AddMedicalEquipmentToCartSuccess());
@@ -47,10 +55,59 @@ class CartCubit extends Cubit<CartState> {
   ) async {
     emit(AddMedicalServiceToCartLoading());
     try {
-      await _cartFirebaseService.addMedicalServiceToCart(cartOrder);
-      emit(AddMedicalServiceToCartSuccess());
+      if (cartMedicalServices.isNotEmpty &&
+          cartMedicalServices
+              .where(
+                (cartService) =>
+                    cartService.medicalService.providerId !=
+                    cartOrder.providerId,
+              )
+              .isNotEmpty) {
+        await _cartFirebaseService.emptyMedicalServicesCart();
+        await _cartFirebaseService.addMedicalServiceToCart(cartOrder);
+        emit(AnotherProviderAndAddMedicalServiceToCartSuccess());
+      } else if (cartMedicalEquipments.isNotEmpty ||
+          cartBloodBanks.isNotEmpty) {
+        await _cartFirebaseService.emptyMedicalEquipmentsCart();
+        await _cartFirebaseService.emptyBloodBanksCart();
+        await _cartFirebaseService.addMedicalServiceToCart(cartOrder);
+        emit(AnotherTypeAndAddMedicalServiceToCartSuccess());
+      } else {
+        await _cartFirebaseService.addMedicalServiceToCart(cartOrder);
+        emit(AddMedicalServiceToCartSuccess());
+      }
     } catch (e) {
       emit(AddMedicalServiceToCartError(Failure.fromException(e).message));
+    }
+  }
+
+  Future<void> addBloodBankToCart(
+    BloodBankCartOrder cartOrder,
+  ) async {
+    emit(AddBloodBankToCartLoading());
+    try {
+      if (cartBloodBanks.isNotEmpty &&
+          cartBloodBanks
+              .where(
+                (cartBloodBank) =>
+                    cartBloodBank.bloodBank.providerId != cartOrder.providerId,
+              )
+              .isNotEmpty) {
+        await _cartFirebaseService.emptyBloodBanksCart();
+        await _cartFirebaseService.addBloodBankToCart(cartOrder);
+        emit(AnotherProviderAndAddBloodBankToCartSuccess());
+      } else if (cartMedicalEquipments.isNotEmpty ||
+          cartMedicalServices.isNotEmpty) {
+        await _cartFirebaseService.emptyMedicalEquipmentsCart();
+        await _cartFirebaseService.emptyMedicalServicesCart();
+        await _cartFirebaseService.addBloodBankToCart(cartOrder);
+        emit(AnotherTypeAndAddBloodBankToCartSuccess());
+      } else {
+        await _cartFirebaseService.addBloodBankToCart(cartOrder);
+        emit(AddBloodBankToCartSuccess());
+      }
+    } catch (e) {
+      emit(AddBloodBankToCartError(Failure.fromException(e).message));
     }
   }
 
@@ -62,6 +119,8 @@ class CartCubit extends Cubit<CartState> {
       cartMedicalEquipments.addAll(cart.cartMedicalEquipments);
       cartMedicalServices = [];
       cartMedicalServices.addAll(cart.cartMedicalServices);
+      cartBloodBanks = [];
+      cartBloodBanks.addAll(cart.cartBloodBanks);
       emit(GetCartSuccess());
     } catch (e) {
       emit(GetCartError(Failure.fromException(e).message));
@@ -123,6 +182,31 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
+  Future<void> editBloodBanksCart(
+    BloodBankCartOrder cartOrder,
+  ) async {
+    final index = cartBloodBanks.indexWhere(
+      (cartBloodBank) => cartBloodBank.bloodBank.id == cartOrder.bloodBankId,
+    );
+    final editedCartBloodBank = CartBloodBank(
+      bloodBank: cartBloodBanks
+          .singleWhere(
+            (cartBloodBank) =>
+                cartBloodBank.bloodBank.id == cartOrder.bloodBankId,
+          )
+          .bloodBank,
+      quantity: cartOrder.quantity,
+    );
+    cartBloodBanks[index] = editedCartBloodBank;
+    emit(EditBloodBankCartLoading());
+    try {
+      await _cartFirebaseService.editBloodBanksCart(cartOrder);
+      emit(EditBloodBankCartSuccess());
+    } catch (e) {
+      emit(EditBloodBankCartError(Failure.fromException(e).message));
+    }
+  }
+
   Future<void> deleteFromMedicalEquipmentsCart(
     String medicalEquipmentId,
   ) async {
@@ -154,6 +238,21 @@ class CartCubit extends Cubit<CartState> {
       emit(DeleteMedicalServiceCartSuccess());
     } catch (e) {
       emit(DeleteMedicalServiceCartError(Failure.fromException(e).message));
+    }
+  }
+
+  Future<void> deleteFromBloodBanksCart(
+    String bloodBankId,
+  ) async {
+    cartBloodBanks.removeWhere(
+      (cartBloodBank) => cartBloodBank.bloodBank.id == bloodBankId,
+    );
+    emit(DeleteBloodBankCartLoading());
+    try {
+      await _cartFirebaseService.deleteFromBloodBanksCart(bloodBankId);
+      emit(DeleteBloodBankCartSuccess());
+    } catch (e) {
+      emit(DeleteBloodBankCartError(Failure.fromException(e).message));
     }
   }
 }

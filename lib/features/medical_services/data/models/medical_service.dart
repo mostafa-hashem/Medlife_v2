@@ -7,6 +7,7 @@ class MedicalService {
   final List<String> imagesUrls;
   final String providerName;
   final double providerRating;
+  final String providerId;
   final int numOfReviews;
 
   MedicalService({
@@ -18,6 +19,7 @@ class MedicalService {
     required this.imagesUrls,
     required this.providerName,
     required this.providerRating,
+    required this.providerId,
     required this.numOfReviews,
   });
 
@@ -33,6 +35,7 @@ class MedicalService {
               .toList(),
           providerName: json['providerName'] as String,
           providerRating: json['providerRating'] as double,
+          providerId: json['providerId'] as String,
           numOfReviews: json['numOfReviews'] as int,
         );
 
@@ -45,6 +48,7 @@ class MedicalService {
         'imagesUrls': imagesUrls,
         'providerName': providerName,
         'providerRating': providerRating,
+        'providerId': providerId,
         'numOfReviews': numOfReviews,
       };
 }

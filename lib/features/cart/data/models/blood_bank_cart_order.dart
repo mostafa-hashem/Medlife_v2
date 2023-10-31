@@ -1,16 +1,16 @@
-class MedicalServiceCartOrder {
-  final String medicalServiceId;
+class BloodBankCartOrder {
+  final String bloodBankId;
   final int quantity;
   final String providerId;
 
-  const MedicalServiceCartOrder({
-    required this.medicalServiceId,
+  const BloodBankCartOrder({
+    required this.bloodBankId,
     required this.quantity,
     required this.providerId,
   });
 
   Map<String, dynamic> toJson() => {
-        'medicalServiceId': medicalServiceId,
+        'bloodBankId': bloodBankId,
         'quantity': quantity,
         'providerId': providerId,
       };
