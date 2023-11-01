@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
+import 'package:medlife_v2/features/cart/data/models/cart_blood_bank.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_equipment.dart';
 import 'package:medlife_v2/features/cart/data/models/cart_medical_service.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
@@ -32,8 +33,9 @@ class Checkout extends StatefulWidget {
 }
 
 class _CheckoutState extends State<Checkout> {
-  late final List<CartMedicalEquipment> _medicalEquipments;
-  late final List<CartMedicalService> _medicalServices;
+  late final List<CartMedicalEquipment> _cartMedicalEquipments;
+  late final List<CartMedicalService> _cartMedicalServices;
+  late final List<CartBloodBank> _cartBloodBanks;
   late final double _subtotal;
   final double _shipping = 20;
   late final double _vat;
@@ -43,16 +45,14 @@ class _CheckoutState extends State<Checkout> {
   @override
   void initState() {
     super.initState();
-    final cartMedicalEquipments = CartCubit.get(context).cartMedicalEquipments;
-    final cartMedicalServices = CartCubit.get(context).cartMedicalServices;
-    final cartBloodBanks = CartCubit.get(context).cartBloodBanks;
+    _cartMedicalEquipments = CartCubit.get(context).cartMedicalEquipments;
+    _cartMedicalServices = CartCubit.get(context).cartMedicalServices;
+    _cartBloodBanks = CartCubit.get(context).cartBloodBanks;
     _subtotal = calculateCartSubtotal(
-      cartMedicalEquipments,
-      cartMedicalServices,
-      cartBloodBanks,
+      _cartMedicalEquipments,
+      _cartMedicalServices,
+      _cartBloodBanks,
     );
-    _medicalEquipments = cartMedicalEquipments;
-    _medicalServices = cartMedicalServices;
     _vat = calculateVAT(_subtotal, _shipping);
     _total = calculateTotal(_subtotal, _shipping, _vat);
   }
@@ -114,15 +114,25 @@ class _CheckoutState extends State<Checkout> {
                 SizedBox(
                   height: 8.h,
                 ),
-                const PaymentMethodCard(image: "assets/images/Cash.png", text: "Cash", color: AppColors.primary,),
+                const PaymentMethodCard(
+                  image: "assets/images/Cash.png",
+                  text: "Cash",
+                  color: AppColors.primary,
+                ),
                 SizedBox(
                   height: 12.h,
                 ),
-                const PaymentMethodCard(image: "assets/images/mastercard.png",text: "Mastercard",),
+                const PaymentMethodCard(
+                  image: "assets/images/mastercard.png",
+                  text: "Mastercard",
+                ),
                 SizedBox(
                   height: 12.h,
                 ),
-                const PaymentMethodCard(image: "assets/images/visa.png",text: "Visa",),
+                const PaymentMethodCard(
+                  image: "assets/images/visa.png",
+                  text: "Visa",
+                ),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -157,59 +167,71 @@ class _CheckoutState extends State<Checkout> {
                 ),
                 Container(
                   constraints: BoxConstraints(
-                    maxHeight:
-                        CartCubit.get(context).cartMedicalEquipments.length *
-                            31.h,
+                    maxHeight: _cartMedicalEquipments.isNotEmpty
+                        ? _cartMedicalEquipments.length * 31.h
+                        : _cartMedicalServices.isNotEmpty
+                            ? _cartMedicalServices.length * 31.h
+                            : _cartBloodBanks.length * 31.h,
                   ),
                   child: Column(
                     children: [
                       Expanded(
                         child: ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) => SummeryRow(
-                            text: CartCubit.get(context)
-                                .cartMedicalEquipments[index]
-                                .medicalEquipment
-                                .title,
-                            price:
-                                '${calculateItemPrice(CartCubit.get(context).cartMedicalEquipments[index].quantity, CartCubit.get(context).cartMedicalEquipments[index].medicalEquipment.price)} $currency',
-                          ),
-                          separatorBuilder: (context, index) => SizedBox(
-                            height: 11.h,
-                          ),
-                          itemCount: CartCubit.get(context)
-                              .cartMedicalEquipments
-                              .length,
+                          itemBuilder: (_, index) {
+                            if (_cartMedicalEquipments.isNotEmpty) {
+                              return SummeryRow(
+                                text: _cartMedicalEquipments[index]
+                                    .medicalEquipment
+                                    .title,
+                                price:
+                                    '${calculateItemPrice(_cartMedicalEquipments[index].quantity, _cartMedicalEquipments[index].medicalEquipment.price)} $currency',
+                              );
+                            } else if (_cartMedicalServices.isNotEmpty) {
+                              return SummeryRow(
+                                text: _cartMedicalServices[index]
+                                    .medicalService
+                                    .title,
+                                price:
+                                    '${calculateItemPrice(_cartMedicalServices[index].quantity, _cartMedicalServices[index].medicalService.price)} $currency',
+                              );
+                            } else {
+                              return SummeryRow(
+                                text: _cartBloodBanks[index].bloodBank.title,
+                                price:
+                                    '${calculateItemPrice(_cartBloodBanks[index].quantity, _cartBloodBanks[index].bloodBank.price)} $currency',
+                              );
+                            }
+                          },
+                          separatorBuilder: (_, __) => SizedBox(height: 11.h),
+                          itemCount: _cartMedicalEquipments.isNotEmpty
+                              ? _cartMedicalEquipments.length
+                              : _cartMedicalServices.isNotEmpty
+                                  ? _cartMedicalServices.length
+                                  : _cartBloodBanks.length,
                         ),
                       ),
                     ],
                   ),
                 ),
-                SizedBox(
-                  height: 11.h,
+                SizedBox(height: 11.h),
+                SummeryRow(
+                  text: 'Shipping',
+                  price: '+$_shipping $currency',
                 ),
-                SummeryRow(text: 'Shipping', price: '+$_shipping $currency'),
-                SizedBox(
-                  height: 11.h,
-                ),
+                SizedBox(height: 11.h),
                 SummeryRow(
                   text: 'VAT',
-                  price: '-${_vat.toStringAsFixed(2)} $currency',
+                  price: '+${_vat.toStringAsFixed(2)} $currency',
                 ),
-                SizedBox(
-                  height: 16.h,
-                ),
+                SizedBox(height: 16.h),
                 const CustomDivider(),
-                SizedBox(
-                  height: 16.h,
-                ),
+                SizedBox(height: 16.h),
                 SummeryRow(
                   text: 'Total',
                   price: '$_total',
                 ),
-                SizedBox(
-                  height: 48.h,
-                ),
+                SizedBox(height: 48.h),
                 BlocListener<OrdersCubit, OrdersState>(
                   listener: (context, state) {
                     if (state is CreateOrderLoading) {
@@ -224,16 +246,17 @@ class _CheckoutState extends State<Checkout> {
                   child: DefaultTextButton(
                     function: () {
                       final order = Order(
-                        orderCost: OrderCost(
+                        cost: OrderCost(
                           subtotal: _subtotal,
                           shipping: _shipping,
                         ),
-                        cartMedicalEquipments: _medicalEquipments,
-                        cartMedicalServices: _medicalServices,
+                        cartMedicalEquipments: _cartMedicalEquipments,
+                        cartMedicalServices: _cartMedicalServices,
+                        cartBloodBanks: _cartBloodBanks,
                         buyer: ProfileCubit.get(context).user,
                         paymentMethod: _paymentMethod,
-                        vendorId:
-                            _medicalEquipments.first.medicalEquipment.vendorId,
+                        vendorId: _cartMedicalEquipments
+                            .first.medicalEquipment.vendorId,
                       );
                       OrdersCubit.get(context).createOrder(order).whenComplete(
                             () => Navigator.pushReplacementNamed(

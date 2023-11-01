@@ -68,7 +68,7 @@ class DeliveredOrderDetails extends StatelessWidget {
                     borderRadius: BorderRadius.circular(5.r),
                     color: const Color(0xff2CB742),
                   ),
-                  child:  Padding(
+                  child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text("Status : ${deliveredOrder.status}"),
                   ),
@@ -103,7 +103,7 @@ class DeliveredOrderDetails extends StatelessWidget {
                   ),
                   child: Padding(
                     padding:
-                    EdgeInsets.symmetric(vertical: 18.h, horizontal: 7.w),
+                        EdgeInsets.symmetric(vertical: 18.h, horizontal: 7.w),
                     child: Row(
                       children: [
                         const Icon(
@@ -136,7 +136,7 @@ class DeliveredOrderDetails extends StatelessWidget {
                   ),
                   child: Padding(
                     padding:
-                    EdgeInsets.symmetric(vertical: 18.h, horizontal: 7.w),
+                        EdgeInsets.symmetric(vertical: 18.h, horizontal: 7.w),
                     child: Row(
                       children: [
                         const Icon(
@@ -162,7 +162,9 @@ class DeliveredOrderDetails extends StatelessWidget {
                 SizedBox(
                   height: 15.h,
                 ),
-                RequestOrder(medicalEquipmentsDetails: deliveredOrder,),
+                RequestOrder(
+                  medicalEquipmentsDetails: deliveredOrder,
+                ),
                 SizedBox(
                   height: 23.h,
                 ),
@@ -175,21 +177,21 @@ class DeliveredOrderDetails extends StatelessWidget {
                 ),
                 SummeryRow(
                   text: 'Shipping',
-                  price: '+${deliveredOrder.orderCost.shipping} SAR',
+                  price: '+${deliveredOrder.cost.shipping} SAR',
                 ),
                 SizedBox(
                   height: 11.h,
                 ),
                 SummeryRow(
                   text: 'Vat',
-                  price: '+${deliveredOrder.orderCost.vat} SAR',
+                  price: '+${deliveredOrder.cost.vat} SAR',
                 ),
                 SizedBox(
                   height: 11.h,
                 ),
                 SummeryRow(
                   text: 'SubTotal',
-                  price: '+${deliveredOrder.orderCost.subtotal} SAR',
+                  price: '+${deliveredOrder.cost.subtotal} SAR',
                 ),
                 SizedBox(
                   height: 16.h,
@@ -200,7 +202,7 @@ class DeliveredOrderDetails extends StatelessWidget {
                 ),
                 SummeryRow(
                   text: 'Total',
-                  price: "${deliveredOrder.orderCost.total}",
+                  price: "${deliveredOrder.cost.total}",
                 ),
                 SizedBox(
                   height: 18.h,

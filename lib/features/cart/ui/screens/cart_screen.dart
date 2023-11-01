@@ -98,7 +98,7 @@ class _CartScreenState extends State<CartScreen> {
                         child: ListView.separated(
                           physics: const BouncingScrollPhysics(),
                           padding: EdgeInsets.zero,
-                          itemBuilder: (context, index) {
+                          itemBuilder: (_, index) {
                             if (index < cartMedicalEquipments.length) {
                               return MedicalEquipmentCartItem(
                                 cartMedicalEquipments[index],
@@ -113,9 +113,7 @@ class _CartScreenState extends State<CartScreen> {
                               );
                             }
                           },
-                          separatorBuilder: (context, index) => SizedBox(
-                            height: 23.h,
-                          ),
+                          separatorBuilder: (_, __) => SizedBox(height: 23.h),
                           itemCount: cartMedicalEquipments.length +
                               cartMedicalServices.length +
                               cartBloodBanks.length,

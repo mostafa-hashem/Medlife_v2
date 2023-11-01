@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:medlife_v2/features/cart/cubit/cart_cubit.dart';
 import 'package:medlife_v2/features/cart/ui/widgets/custom_divider.dart';
 import 'package:medlife_v2/features/orders/data/models/order.dart';
 import 'package:medlife_v2/features/payment/ui/widgets/custom_app_bar.dart';
@@ -23,6 +22,9 @@ class _SuccessfulPaymentScreenState extends State<SuccessfulPaymentScreen> {
   @override
   Widget build(BuildContext context) {
     final order = ModalRoute.of(context)!.settings.arguments! as Order;
+    final cartMedicalEquipments = order.cartMedicalEquipments;
+    final cartMedicalServices = order.cartMedicalServices;
+    final cartBloodBanks = order.cartBloodBanks;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -60,12 +62,12 @@ enjoy our service! you will receive email have all details""",
                 Row(
                   children: [
                     Text(
-                      "Order Number",
+                      "Order ID",
                       style: openSans14W500(color: AppColors.primary),
                     ),
                     const Spacer(),
                     Text(
-                      "#512 - 774455",
+                      order.id,
                       style: openSans16W500(color: const Color(0xff1E1E1E)),
                     ),
                   ],
@@ -92,29 +94,48 @@ enjoy our service! you will receive email have all details""",
                 ),
                 Container(
                   constraints: BoxConstraints(
-                    maxHeight:
-                        CartCubit.get(context).cartMedicalEquipments.length *
-                            31.h,
+                    maxHeight: cartMedicalEquipments.isNotEmpty
+                        ? cartMedicalEquipments.length * 31.h
+                        : cartMedicalServices.isNotEmpty
+                            ? cartMedicalServices.length * 31.h
+                            : cartBloodBanks.length * 31.h,
                   ),
                   child: Column(
                     children: [
                       Expanded(
                         child: ListView.separated(
                           physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) => SummeryRow(
-                            text: CartCubit.get(context)
-                                .cartMedicalEquipments[index]
-                                .medicalEquipment
-                                .title,
-                            price:
-                                '${calculateItemPrice(CartCubit.get(context).cartMedicalEquipments[index].quantity, CartCubit.get(context).cartMedicalEquipments[index].medicalEquipment.price)} $currency',
-                          ),
-                          separatorBuilder: (context, index) => SizedBox(
-                            height: 11.h,
-                          ),
-                          itemCount: CartCubit.get(context)
-                              .cartMedicalEquipments
-                              .length,
+                          itemBuilder: (_, index) {
+                            if (cartMedicalEquipments.isNotEmpty) {
+                              return SummeryRow(
+                                text: cartMedicalEquipments[index]
+                                    .medicalEquipment
+                                    .title,
+                                price:
+                                    '${calculateItemPrice(cartMedicalEquipments[index].quantity, cartMedicalEquipments[index].medicalEquipment.price)} $currency',
+                              );
+                            } else if (cartMedicalServices.isNotEmpty) {
+                              return SummeryRow(
+                                text: cartMedicalEquipments[index]
+                                    .medicalEquipment
+                                    .title,
+                                price:
+                                    '${calculateItemPrice(cartMedicalServices[index].quantity, cartMedicalServices[index].medicalService.price)} $currency',
+                              );
+                            } else {
+                              return SummeryRow(
+                                text: cartBloodBanks[index].bloodBank.title,
+                                price:
+                                    '${calculateItemPrice(cartBloodBanks[index].quantity, cartBloodBanks[index].bloodBank.price)} $currency',
+                              );
+                            }
+                          },
+                          separatorBuilder: (_, __) => SizedBox(height: 11.h),
+                          itemCount: cartMedicalEquipments.isNotEmpty
+                              ? cartMedicalEquipments.length
+                              : cartMedicalServices.isNotEmpty
+                                  ? cartMedicalServices.length
+                                  : cartBloodBanks.length,
                         ),
                       ),
                     ],
@@ -125,14 +146,14 @@ enjoy our service! you will receive email have all details""",
                 ),
                 SummeryRow(
                   text: 'Shipping',
-                  price: '+${order.orderCost.shipping} $currency',
+                  price: '+${order.cost.shipping} $currency',
                 ),
                 SizedBox(
                   height: 11.h,
                 ),
                 SummeryRow(
                   text: 'VAT',
-                  price: '+${order.orderCost.vat} $currency',
+                  price: '+${order.cost.vat} $currency',
                 ),
                 SizedBox(
                   height: 16.h,
@@ -143,7 +164,7 @@ enjoy our service! you will receive email have all details""",
                 ),
                 SummeryRow(
                   text: 'Total',
-                  price: '${order.orderCost.total} $currency',
+                  price: '${order.cost.total} $currency',
                 ),
                 SizedBox(
                   height: 48.h,
