@@ -11,7 +11,7 @@ class ShippingMethodRow extends StatefulWidget {
 }
 
 class _ShippingMethodRowState extends State<ShippingMethodRow> {
-  bool isHomeClicked = false;
+  bool isHomeClicked = true;
   bool isStoreClicked = false;
 
   @override

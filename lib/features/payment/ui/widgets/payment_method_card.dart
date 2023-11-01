@@ -5,8 +5,9 @@ import 'package:medlife_v2/ui/resources/text_styles.dart';
 class PaymentMethodCard extends StatelessWidget {
   final String image;
   final String? text;
+  final Color? color;
 
-  const PaymentMethodCard({super.key, required this.image, this.text});
+  const PaymentMethodCard({super.key, required this.image, this.text, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,12 @@ class PaymentMethodCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 25.h, horizontal: 8.w),
         child: Row(
           children: [
-            Image.asset(image),
+            Container(
+                constraints: BoxConstraints(
+                  // minHeight: 50.h,
+              maxWidth: 50.w,
+                ),
+                child: Image.asset(image),),
             if (text != null)
               SizedBox(
                 width: 14.w,
@@ -31,7 +37,7 @@ class PaymentMethodCard extends StatelessWidget {
                 style: openSans18W500(color: Colors.black),
               ),
             const Spacer(),
-            const Icon(Icons.circle_outlined),
+             Icon(color != null ? Icons.circle : Icons.circle_outlined, color: color,),
           ],
         ),
       ),

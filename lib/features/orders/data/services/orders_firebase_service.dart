@@ -16,6 +16,10 @@ class OrdersFirebaseService {
       .collection(FirebasePath.users)
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection(FirebasePath.medicalServicesCart);
+  final _ordersCollection = FirebaseFirestore.instance
+      .collection(FirebasePath.users)
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .collection(FirebasePath.orders);
 
   Future<void> createOrder(Order order) async {
     final docRef = _userOrdersCollection.doc();
@@ -42,4 +46,20 @@ class OrdersFirebaseService {
       (queryDocSnapshot) async => queryDocSnapshot.reference.delete(),
     );
   }
+
+  Future<List<Order>> getOrders() async {
+    final querySnapshot = await _ordersCollection.get();
+    final orders = querySnapshot.docs
+        .map((queryDocSnapshot) => Order.fromJson(queryDocSnapshot.data()))
+        .toList();
+    orders.sort(
+          (order, nextOrder) => nextOrder.dateTime!.compareTo(order.dateTime!),
+    );
+    return orders;
+  }
+
+  Future<void> cancelOrder(String orderId) async =>
+      _ordersCollection.doc(orderId).update({
+        FirebasePath.status: 'Canceled',
+      });
 }

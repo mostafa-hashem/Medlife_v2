@@ -11,6 +11,12 @@ class OrderCost {
     required this.shipping,
   });
 
+  OrderCost.fromJson(Map<String, dynamic> json)
+      : this(
+    subtotal: (json['subtotal'] as num).toDouble(),
+    shipping: (json['shipping'] as num).toDouble(),
+  );
+
   Map<String, dynamic> toJson() {
     return {
       'subtotal': subtotal,

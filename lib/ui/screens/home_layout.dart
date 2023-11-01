@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:medlife_v2/features/cart/ui/screens/cart_screen.dart';
+import 'package:medlife_v2/features/orders/ui/screens/orders_screen.dart';
 import 'package:medlife_v2/features/profile/ui/screens/profile_screen.dart';
 import 'package:medlife_v2/ui/resources/app_colors.dart';
-import 'package:medlife_v2/ui/screens/favorite_screen.dart';
 import 'package:medlife_v2/ui/screens/home_screen.dart';
 
 class HomeLayout extends StatefulWidget {
@@ -16,7 +16,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   int currentIndex = 0;
   final List<Widget> screens = [
     const HomeScreen(),
-    const FavoriteScreen(),
+    const OrdersScreen(),
     const CartScreen(),
     const ProfileScreen(),
   ];
@@ -54,11 +54,12 @@ class _HomeLayoutState extends State<HomeLayout> {
               ),
               BottomNavigationBarItem(
                 icon: currentIndex == 1
-                    ? Image.asset("assets/images/unSelected_favorite.png")
-                    : Image.asset(
-                        "assets/images/unSelected_favorite.png",
+                    ? const Icon(Icons.history_outlined)
+                    : const Icon(
+                        Icons.history,
+                        color: Colors.white,
                       ),
-                label: 'Favorite',
+                label: 'Orders',
               ),
               BottomNavigationBarItem(
                 icon: currentIndex == 2

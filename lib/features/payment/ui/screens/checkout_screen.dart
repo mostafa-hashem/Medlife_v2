@@ -114,11 +114,15 @@ class _CheckoutState extends State<Checkout> {
                 SizedBox(
                   height: 8.h,
                 ),
-                const PaymentMethodCard(image: "assets/images/Mastercard.png"),
+                const PaymentMethodCard(image: "assets/images/Cash.png", text: "Cash", color: AppColors.primary,),
                 SizedBox(
                   height: 12.h,
                 ),
-                const PaymentMethodCard(image: "assets/images/Visa Card.png"),
+                const PaymentMethodCard(image: "assets/images/mastercard.png",text: "Mastercard",),
+                SizedBox(
+                  height: 12.h,
+                ),
+                const PaymentMethodCard(image: "assets/images/visa.png",text: "Visa",),
                 SizedBox(
                   height: 12.h,
                 ),
@@ -190,7 +194,7 @@ class _CheckoutState extends State<Checkout> {
                 ),
                 SummeryRow(
                   text: 'VAT',
-                  price: '+$_vat $currency',
+                  price: '-${_vat.toStringAsFixed(2)} $currency',
                 ),
                 SizedBox(
                   height: 16.h,

@@ -9,6 +9,9 @@ import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipme
 import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipments_screen.dart';
 import 'package:medlife_v2/features/medical_services/ui/screens/medical_service_details_screen.dart';
 import 'package:medlife_v2/features/medical_services/ui/screens/medical_services_screen.dart';
+import 'package:medlife_v2/features/orders/ui/screens/current_order_details.dart';
+import 'package:medlife_v2/features/orders/ui/screens/delivered_order_details.dart';
+import 'package:medlife_v2/features/orders/ui/screens/new_order_details.dart';
 import 'package:medlife_v2/features/payment/cubit/payment_cubit.dart';
 import 'package:medlife_v2/features/payment/ui/screens/address_screen.dart';
 import 'package:medlife_v2/features/payment/ui/screens/checkout_screen.dart';
@@ -34,6 +37,9 @@ class Routes {
   static const String medicalEquipmentDetails = "/medicalEquipmentDetails";
   static const String medicalServiceDetails = "/medicalServiceDetails";
   static const String bloodBankDetails = "/bloodBankDetails";
+  static const String currentRequestDetails = "/currentRequestDetails";
+  static const String newRequestDetails = "/newRequestDetails";
+  static const String completedRequestDetails = "/completedRequestDetails";
   static const String paymentMethod = "/paymentMethod";
   static const String insurancePayment = "/insurancePayment";
   static const String checkout = "/checkout";
@@ -96,6 +102,21 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
       return MaterialPageRoute(
         builder: (_) => const BloodBankDetailsScreen(),
         settings: routeSettings,
+      );
+    case Routes.currentRequestDetails:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const CurrentOrderDetails(),
+      );
+    case Routes.newRequestDetails:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const NewOrderDetails(),
+      );
+    case Routes.completedRequestDetails:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const DeliveredOrderDetails(),
       );
     case Routes.profile:
       return MaterialPageRoute(

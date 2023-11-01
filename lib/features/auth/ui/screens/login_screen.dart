@@ -220,7 +220,23 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(
-                  height: 16.h,
+                  height: 10.h,
+                ),
+                Center(
+                    child: Text(
+                  "Contact us",
+                  style: openSans16W500(color: Colors.black),
+                ),),
+                SizedBox(
+                  height: 6.h,
+                ),
+                Center(
+                    child: Text(
+                  "medlife319@gmail.com",
+                  style: openSans14W500(color: Colors.black),
+                ),),
+                SizedBox(
+                  height: 10.h,
                 ),
               ],
             ),
