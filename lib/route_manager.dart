@@ -9,6 +9,7 @@ import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipme
 import 'package:medlife_v2/features/medical_equipment/ui/screens/medical_equipments_screen.dart';
 import 'package:medlife_v2/features/medical_services/ui/screens/medical_service_details_screen.dart';
 import 'package:medlife_v2/features/medical_services/ui/screens/medical_services_screen.dart';
+import 'package:medlife_v2/features/orders/ui/screens/canceled_order_details.dart';
 import 'package:medlife_v2/features/orders/ui/screens/current_order_details.dart';
 import 'package:medlife_v2/features/orders/ui/screens/delivered_order_details.dart';
 import 'package:medlife_v2/features/orders/ui/screens/new_order_details.dart';
@@ -40,6 +41,7 @@ class Routes {
   static const String currentRequestDetails = "/currentRequestDetails";
   static const String newRequestDetails = "/newRequestDetails";
   static const String completedRequestDetails = "/completedRequestDetails";
+  static const String canceledRequestDetails = "/canceledRequestDetails";
   static const String paymentMethod = "/paymentMethod";
   static const String insurancePayment = "/insurancePayment";
   static const String checkout = "/checkout";
@@ -118,6 +120,11 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => const DeliveredOrderDetails(),
       );
+    case Routes.canceledRequestDetails:
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => const CanceledOrderDetails(),
+      );
     case Routes.profile:
       return MaterialPageRoute(
         builder: (_) => const ProfileScreen(),
@@ -152,6 +159,7 @@ Route? onGenerateRoute(RouteSettings routeSettings) {
       );
     case Routes.successfulPayment:
       return MaterialPageRoute(
+        settings: routeSettings,
         builder: (_) => BlocProvider(
           create: (_) => PaymentCubit(),
           child: const SuccessfulPaymentScreen(),

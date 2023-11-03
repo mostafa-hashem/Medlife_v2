@@ -61,4 +61,4 @@ double calculateVAT(double subtotal, double shipping) =>
     (subtotal + shipping) * 0.15;
 
 double calculateTotal(double subtotal, double shipping, double vat) =>
-    subtotal + shipping - vat;
+    subtotal + shipping + vat;

@@ -16,6 +16,7 @@ class OrdersCubit extends Cubit<OrdersState> {
   List<Order> pendingOrders = [];
   List<Order> acceptedOrders = [];
   List<Order> deliveredOrders = [];
+  List<Order> canceledOrders = [];
 
   Future<void> createOrder(Order order) async {
     emit(CreateOrderLoading());
@@ -31,7 +32,7 @@ class OrdersCubit extends Cubit<OrdersState> {
     emit(GetOrdersLoading());
     try {
 
-      orders = await ordersFirebaseService.getOrders();
+      orders = await ordersFirebaseService.getUserOrders();
       emit(GetOrdersSuccess());
     } catch (e) {
       emit(GetOrdersError(Failure.fromException(e).message));
@@ -79,10 +80,24 @@ class OrdersCubit extends Cubit<OrdersState> {
     }
   }
 
-  Future<void> cancelOrder (String orderId) async {
+  Future<void> getCanceledOrders() async {
+    emit(CancelOrderLoading());
+    try {
+      await Future.delayed(const Duration(seconds: 1));
+      canceledOrders = orders
+          .where((order) => order.status == 'Canceled')
+          .toList();
+
+      emit(CancelOrderSuccess());
+    } catch (e) {
+      emit(CancelOrderError(Failure.fromException(e).message));
+    }
+  }
+
+  Future<void> cancelOrder (String orderId,String vendorId) async {
     emit(OrderCanceledLoading());
     try {
-      await ordersFirebaseService.cancelOrder(orderId);
+      await ordersFirebaseService.cancelOrder(orderId,vendorId);
       emit(OrderCanceledSuccess());
     } catch (e) {
       emit(OrderCanceledError(Failure.fromException(e).message));

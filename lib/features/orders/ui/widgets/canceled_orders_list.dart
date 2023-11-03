@@ -4,24 +4,24 @@ import 'package:medlife_v2/features/orders/cubit/orders_cubit.dart';
 import 'package:medlife_v2/route_manager.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 
-class DeliveredOrdersList extends StatelessWidget {
-  const DeliveredOrdersList({super.key});
+class CanceledOrdersList extends StatelessWidget {
+  const CanceledOrdersList({super.key});
 
   @override
   Widget build(BuildContext context) {
     final ordersCubit = OrdersCubit.get(context);
-    final deliveredOrders = ordersCubit.deliveredOrders;
+    final canceledOrders = ordersCubit.canceledOrders;
     return Expanded(
       child: ListView.builder(
         padding: EdgeInsets.zero,
         physics: const BouncingScrollPhysics(),
-        itemCount: deliveredOrders.length,
+        itemCount: canceledOrders.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => Navigator.pushNamed(
               context,
-              Routes.completedRequestDetails,
-              arguments: deliveredOrders[index],
+              Routes.canceledRequestDetails,
+              arguments: canceledOrders[index],
             ),
             child: SizedBox(
               height: 85.h,
@@ -38,20 +38,20 @@ class DeliveredOrdersList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${deliveredOrders[index].buyer.firstName} ${deliveredOrders[index].buyer.lastName}",
+                            "${canceledOrders[index].buyer.firstName} ${canceledOrders[index].buyer.lastName}",
                             style:
                                 openSans16W500(color: const Color(0xff27292D)),
                           ),
                           SizedBox(height: 8.h),
                           Text(
-                            "ID : ${deliveredOrders[index].id}",
+                            "ID. : ${canceledOrders[index].id}",
                             style: openSans12W400(
                               color: Colors.black.withOpacity(0.5),
                             ),
                           ),
                           SizedBox(height: 5.h),
                           Text(
-                              "Date : ${deliveredOrders[index].dateTime}".substring(0,22),
+                            "Date : ${canceledOrders[index].dateTime}".substring(0,22),
                             style: openSans12W400(
                               color: Colors.black.withOpacity(0.5),
                             ),

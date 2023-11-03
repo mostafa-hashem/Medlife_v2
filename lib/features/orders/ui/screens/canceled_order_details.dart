@@ -8,12 +8,12 @@ import 'package:medlife_v2/ui/resources/app_colors.dart';
 import 'package:medlife_v2/ui/resources/text_styles.dart';
 import 'package:medlife_v2/ui/widgets/summery_row.dart';
 
-class DeliveredOrderDetails extends StatelessWidget {
-  const DeliveredOrderDetails({super.key});
+class CanceledOrderDetails extends StatelessWidget {
+  const CanceledOrderDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final deliveredOrder = ModalRoute.of(context)!.settings.arguments! as Order;
+    final canceledOrder = ModalRoute.of(context)!.settings.arguments! as Order;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
@@ -66,11 +66,11 @@ class DeliveredOrderDetails extends StatelessWidget {
                   width: MediaQuery.sizeOf(context).width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(5.r),
-                    color: const Color(0xff2CB742),
+                    color:  Colors.redAccent,
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("Status : ${deliveredOrder.status}"),
+                    child: Text("Status : ${canceledOrder.status}"),
                   ),
                 ),
                 SizedBox(
@@ -84,7 +84,7 @@ class DeliveredOrderDetails extends StatelessWidget {
                   height: 8.h,
                 ),
                 CustomAddressContainer(
-                  orderDetails: deliveredOrder,
+                  orderDetails: canceledOrder,
                 ),
                 SizedBox(
                   height: 15.h,
@@ -112,7 +112,7 @@ class DeliveredOrderDetails extends StatelessWidget {
                         ),
                         SizedBox(width: 6.w),
                         Text(
-                          deliveredOrder.buyer.address?.place ?? "",
+                          canceledOrder.buyer.address?.place ?? "",
                           style: openSans12W600(color: const Color(0xff1A1A1A)),
                         ),
                       ],
@@ -145,7 +145,7 @@ class DeliveredOrderDetails extends StatelessWidget {
                         ),
                         SizedBox(width: 6.w),
                         Text(
-                          deliveredOrder.paymentMethod,
+                          canceledOrder.paymentMethod,
                           style: openSans12W600(color: const Color(0xff1A1A1A)),
                         ),
                       ],
@@ -163,7 +163,7 @@ class DeliveredOrderDetails extends StatelessWidget {
                   height: 15.h,
                 ),
                 RequestOrder(
-                  medicalEquipmentsDetails: deliveredOrder,
+                  medicalEquipmentsDetails: canceledOrder,
                 ),
                 SizedBox(
                   height: 23.h,
@@ -177,21 +177,21 @@ class DeliveredOrderDetails extends StatelessWidget {
                 ),
                 SummeryRow(
                   text: 'Shipping',
-                  price: '+${deliveredOrder.cost.shipping} SAR',
+                  price: '+${canceledOrder.cost.shipping} SAR',
                 ),
                 SizedBox(
                   height: 11.h,
                 ),
                 SummeryRow(
                   text: 'Vat',
-                  price: '+${deliveredOrder.cost.vat.toStringAsFixed(3)} SAR',
+                  price: '+${canceledOrder.cost.vat.toStringAsFixed(3)} SAR',
                 ),
                 SizedBox(
                   height: 11.h,
                 ),
                 SummeryRow(
                   text: 'SubTotal',
-                  price: '+${deliveredOrder.cost.subtotal} SAR',
+                  price: '+${canceledOrder.cost.subtotal} SAR',
                 ),
                 SizedBox(
                   height: 16.h,
@@ -202,7 +202,7 @@ class DeliveredOrderDetails extends StatelessWidget {
                 ),
                 SummeryRow(
                   text: 'Total',
-                  price: "${deliveredOrder.cost.total}",
+                  price: "${canceledOrder.cost.total}",
                 ),
                 SizedBox(
                   height: 18.h,

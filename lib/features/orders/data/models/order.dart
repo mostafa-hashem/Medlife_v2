@@ -6,7 +6,7 @@ import 'package:medlife_v2/features/orders/data/models/order_cost.dart';
 import 'package:medlife_v2/utils/data/models/user.dart';
 
 class Order {
-  late final String id;
+  late String id;
   final String? status;
   final DateTime? dateTime;
   final OrderCost cost;
@@ -27,33 +27,40 @@ class Order {
     required this.vendorId,
     this.status,
     this.dateTime,
+    this.id = '',
   });
 
   Order.fromJson(Map<String, dynamic> json)
       : this(
+          id: json['id'] as String,
           cost: OrderCost.fromJson(json['orderCost'] as Map<String, dynamic>),
-          cartMedicalEquipments:
-              (json['cartMedicalEquipments'] as List<dynamic>)
+          cartMedicalEquipments: json['cartMedicalEquipments'] != null
+              ? (json['cartMedicalEquipments'] as List<dynamic>)
                   .map(
                     (equipmentJson) => CartMedicalEquipment.fromJson(
                       equipmentJson as Map<String, dynamic>,
                     ),
                   )
-                  .toList(),
-          cartMedicalServices: (json['cartMedicalServices'] as List<dynamic>)
-              .map(
-                (serviceJson) => CartMedicalService.fromJson(
-                  serviceJson as Map<String, dynamic>,
-                ),
-              )
-              .toList(),
-          cartBloodBanks: (json['cartBloodBanks'] as List<dynamic>)
-              .map(
-                (bloodBankJson) => CartBloodBank.fromJson(
-                  bloodBankJson as Map<String, dynamic>,
-                ),
-              )
-              .toList(),
+                  .toList()
+              : [],
+          cartMedicalServices: json['cartMedicalServices'] != null
+              ? (json['cartMedicalServices'] as List<dynamic>)
+                  .map(
+                    (serviceJson) => CartMedicalService.fromJson(
+                      serviceJson as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
+              : [],
+          cartBloodBanks: json['cartBloodBanks'] != null
+              ? (json['cartBloodBanks'] as List<dynamic>)
+                  .map(
+                    (bloodBankJson) => CartBloodBank.fromJson(
+                      bloodBankJson as Map<String, dynamic>,
+                    ),
+                  )
+                  .toList()
+              : [],
           buyer: User.fromJson(json['buyer'] as Map<String, dynamic>),
           paymentMethod: json['paymentMethod'] as String,
           vendorId: json['vendorId'] as String,

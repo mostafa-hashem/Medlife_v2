@@ -16,10 +16,12 @@ class OrdersFirebaseService {
       .collection(FirebasePath.users)
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection(FirebasePath.medicalServicesCart);
-  final _ordersCollection = FirebaseFirestore.instance
+  final _usesOrdersCollection = FirebaseFirestore.instance
       .collection(FirebasePath.users)
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .collection(FirebasePath.orders);
+  final _vendorsOrdersCollection =
+      FirebaseFirestore.instance.collection(FirebasePath.vendors);
 
   Future<void> createOrder(Order order) async {
     final docRef = _userOrdersCollection.doc();
@@ -47,19 +49,38 @@ class OrdersFirebaseService {
     );
   }
 
-  Future<List<Order>> getOrders() async {
-    final querySnapshot = await _ordersCollection.get();
+  Future<List<Order>> getUserOrders() async {
+    final querySnapshot = await _usesOrdersCollection.get();
     final orders = querySnapshot.docs
         .map((queryDocSnapshot) => Order.fromJson(queryDocSnapshot.data()))
         .toList();
     orders.sort(
-          (order, nextOrder) => nextOrder.dateTime!.compareTo(order.dateTime!),
+      (order, nextOrder) => nextOrder.dateTime!.compareTo(order.dateTime!),
     );
     return orders;
   }
 
-  Future<void> cancelOrder(String orderId) async =>
-      _ordersCollection.doc(orderId).update({
-        FirebasePath.status: 'Canceled',
-      });
+  Future<List<Order>> getVendorOrders() async {
+    final querySnapshot = await _vendorsOrdersCollection.get();
+    final orders = querySnapshot.docs
+        .map((queryDocSnapshot) => Order.fromJson(queryDocSnapshot.data()))
+        .toList();
+    orders.sort(
+      (order, nextOrder) => nextOrder.dateTime!.compareTo(order.dateTime!),
+    );
+    return orders;
+  }
+
+  Future<void> cancelOrder(String orderId, String vendorId) async {
+    _usesOrdersCollection.doc(orderId).update({
+      FirebasePath.status: 'Canceled',
+    }).whenComplete(() =>
+    _vendorsOrdersCollection
+        .doc(vendorId)
+        .collection(FirebasePath.orders)
+        .doc(orderId)
+        .update({
+      FirebasePath.status: 'Canceled',
+    }),);
+  }
 }

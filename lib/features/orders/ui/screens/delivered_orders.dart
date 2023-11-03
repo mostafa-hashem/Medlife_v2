@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:medlife_v2/features/orders/ui/widgets/delivered_orders_list.dart';
 
-class CompletedRequests extends StatelessWidget {
-  const CompletedRequests({super.key});
+class CompletedOrders extends StatelessWidget {
+  const CompletedOrders({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
+    return  Expanded(
       child: Column(
         children: [
           DeliveredOrdersList(),

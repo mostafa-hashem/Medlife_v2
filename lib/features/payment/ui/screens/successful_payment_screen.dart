@@ -145,15 +145,15 @@ enjoy our service! you will receive email have all details""",
                   height: 11.h,
                 ),
                 SummeryRow(
-                  text: 'Shipping',
-                  price: '+${order.cost.shipping} $currency',
+                  text: 'VAT',
+                  price: '+${order.cost.vat.toStringAsFixed(3)} $currency',
                 ),
                 SizedBox(
                   height: 11.h,
                 ),
                 SummeryRow(
-                  text: 'VAT',
-                  price: '+${order.cost.vat} $currency',
+                  text: 'Shipping',
+                  price: '+${order.cost.shipping} $currency',
                 ),
                 SizedBox(
                   height: 16.h,

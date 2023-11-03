@@ -61,3 +61,13 @@ class OrderCanceledError extends OrdersState {
 
   OrderCanceledError(this.message);
 }
+
+class CancelOrderLoading extends OrdersState {}
+
+class CancelOrderSuccess extends OrdersState {}
+
+class CancelOrderError extends OrdersState {
+  final String message;
+
+  CancelOrderError(this.message);
+}

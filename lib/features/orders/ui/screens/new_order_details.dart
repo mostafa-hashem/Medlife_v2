@@ -184,7 +184,7 @@ class NewOrderDetails extends StatelessWidget {
                 ),
                 SummeryRow(
                   text: 'Bat',
-                  price: '+${newOrder.cost.vat} SAR',
+                  price: '+${newOrder.cost.vat.toStringAsFixed(3)} SAR',
                 ),
                 SizedBox(
                   height: 11.h,
@@ -209,7 +209,9 @@ class NewOrderDetails extends StatelessWidget {
                 ),
                 DefaultTextButton(
                   function: () {
-                    OrdersCubit.get(context).cancelOrder(newOrder.id);
+                    OrdersCubit.get(context)
+                        .cancelOrder(newOrder.id,newOrder.vendorId)
+                        .then((value) => Navigator.pop(context));
                   },
                   text: "Cancel",
                   backgroundColor: Colors.transparent,

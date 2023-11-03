@@ -191,7 +191,7 @@ class CurrentOrderDetails extends StatelessWidget {
                 ),
                 SummeryRow(
                   text: 'Vat',
-                  price: '+${acceptedOrder.cost.vat} SAR',
+                  price: '+${acceptedOrder.cost.vat.toStringAsFixed(3)} SAR',
                 ),
                 SizedBox(
                   height: 16.h,
